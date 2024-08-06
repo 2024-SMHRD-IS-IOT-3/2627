@@ -12,9 +12,9 @@ class Board extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(Icons.add_alert),
+            icon: Icon(Icons.notifications),
             style: ButtonStyle(
-              iconColor: MaterialStateProperty.all<Color>(Colors.grey),
+              iconColor: MaterialStateProperty.all<Color>(Colors.black54),
             ),
             onPressed: (){
               print('icon alert');
@@ -23,7 +23,7 @@ class Board extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.logout_outlined),
             style: ButtonStyle(
-              iconColor: MaterialStateProperty.all<Color>(Colors.grey),
+              iconColor: MaterialStateProperty.all<Color>(Colors.black54),
             ),
             onPressed: (){
               print('icon logout');

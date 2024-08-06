@@ -26,7 +26,7 @@ class _NavigationbarState extends State<Navigationbar> {
       //   backgroundColor: Colors.white,
       //   actions: [
       //     IconButton(
-      //       icon: Icon(Icons.add_alert),
+      //       icon: Icon(Icons.notifications),
       //       style: ButtonStyle(
       //         iconColor: MaterialStateProperty.all<Color>(Colors.grey),
       //       ),
@@ -58,10 +58,10 @@ class _NavigationbarState extends State<Navigationbar> {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.info_outline), label : '공지사항',),
-            BottomNavigationBarItem(icon: Icon(Icons.auto_graph), label : '발전량예측',),
-            BottomNavigationBarItem(icon: Icon(Icons.light_mode_outlined), label : '태양광',),
-            BottomNavigationBarItem(icon: Icon(Icons.ballot_outlined), label : '모집게시판',),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label : '마이페이지',),
+            BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label : '발전량예측',),
+            BottomNavigationBarItem(icon: Icon(Icons.wb_sunny_rounded), label : '태양광',),
+            BottomNavigationBarItem(icon: Icon(Icons.assignment), label : '모집게시판',),
+            BottomNavigationBarItem(icon: Icon(Icons.account_circle), label : '마이페이지',),
           ],
           // 라벨 스타일
           showSelectedLabels: true,

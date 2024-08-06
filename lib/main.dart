@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:solquiz_2/board.dart';
+import 'package:solquiz_2/money.dart';
 import 'package:solquiz_2/navigationBar.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
+import 'package:solquiz_2/recruit_more.dart';
 import 'package:solquiz_2/test.dart';
 
 Future main() async {
@@ -20,6 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      // 라우트 연결
+      routes: {
+        '/recruitmore' : (context) => RecruitMore(),
+        '/money' : (context) => Money(),
+      },
+
       home:Navigationbar(),
     );
   }

@@ -67,20 +67,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icons"
   ios: true
-  image_path: "image/solQuiz_logo2_bg2.png"
-  min_sdk_android: 21   # android min sdk min:16, default 21
+  image_path: "image/solQuiz_logo2_circle.png"
+  min_sdk_android: 16   # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "image/solQuiz_logo2_bg2.png"
+    image_path: "image/solQuiz_logo2_circle.png"
     background_color: "#ffffff"
     theme_color: "#ffffff"
   windows:
     generate: true
-    image_path: "image/solQuiz_logo2_bg2.png"
+    image_path: "image/solQuiz_logo2_circle.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "image/solQuiz_logo2_bg2.png"
+    image_path: "image/solQuiz_logo2_circle.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
