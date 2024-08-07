@@ -8,9 +8,11 @@ class Money extends StatefulWidget {
 }
 
 class _MoneyState extends State<Money> {
+  int index = 0;
+
   bool juneSelected = false;
   bool julySelected = false;
-  bool augustSelected = false;
+  bool augustSelected = true;
 
   void juneSelectedPress() {
     setState(() {
@@ -138,34 +140,34 @@ class _MoneyState extends State<Money> {
             ],
           ),
           SizedBox(height: 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Text(
-                      '수익 전체보기',
-                      style: TextStyle(
-                        color: Color(0xFF757575),
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_forward, color: Colors.black),
-                      style: IconButton.styleFrom(
-                          foregroundColor: Color(0xFFFF9201)),
-                    ),
-                  ],
-                ),
-                style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
-              )
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: Row(
+          //         children: [
+          //           Text(
+          //             '수익 전체보기',
+          //             style: TextStyle(
+          //               color: Color(0xFF757575),
+          //               fontSize: 14,
+          //               fontFamily: 'Inter',
+          //               fontWeight: FontWeight.w600,
+          //             ),
+          //           ),
+          //           IconButton(
+          //             onPressed: () {},
+          //             icon: Icon(Icons.arrow_forward, color: Colors.black),
+          //             style: IconButton.styleFrom(
+          //                 foregroundColor: Color(0xFFFF9201)),
+          //           ),
+          //         ],
+          //       ),
+          //       style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );
@@ -261,34 +263,34 @@ class _MoneyState extends State<Money> {
             ],
           ),
           SizedBox(height: 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Text(
-                      '수익 전체보기',
-                      style: TextStyle(
-                        color: Color(0xFF757575),
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_forward, color: Colors.black),
-                      style: IconButton.styleFrom(
-                          foregroundColor: Color(0xFFFF9201)),
-                    ),
-                  ],
-                ),
-                style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
-              )
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: Row(
+          //         children: [
+          //           Text(
+          //             '수익 전체보기',
+          //             style: TextStyle(
+          //               color: Color(0xFF757575),
+          //               fontSize: 14,
+          //               fontFamily: 'Inter',
+          //               fontWeight: FontWeight.w600,
+          //             ),
+          //           ),
+          //           IconButton(
+          //             onPressed: () {},
+          //             icon: Icon(Icons.arrow_forward, color: Colors.black),
+          //             style: IconButton.styleFrom(
+          //                 foregroundColor: Color(0xFFFF9201)),
+          //           ),
+          //         ],
+          //       ),
+          //       style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );
@@ -297,7 +299,6 @@ class _MoneyState extends State<Money> {
   Widget AugustContainer() {
     return Container(
       width: 350,
-      height: 300,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -317,26 +318,19 @@ class _MoneyState extends State<Money> {
           SizedBox(height: 8),
           Text(
             '8월 누적 발전 수익',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             textAlign: TextAlign.left,
           ),
           SizedBox(height: 10),
           Text('2024.08.01 ~ 2024.08.31',
               style: TextStyle(
                 color: Color(0xFF757575),
-                fontSize: 14,
+                fontSize: 17,
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w400,
               )),
-          SizedBox(height: 10),
-          Container(
-              width: double.infinity,
-              decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          width: 1,
-                          strokeAlign: BorderSide.strokeAlignCenter,
-                          color: Color(0xFFCAC4D0))))),
+          SizedBox(height: 20),
+          Container(width: double.infinity, height: 1, color: Colors.grey[400],),
           SizedBox(height: 45),
           Row(
             children: [
@@ -344,16 +338,16 @@ class _MoneyState extends State<Money> {
               Text('SMP 수익',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 18,
+                    fontSize: 17,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   )),
-              SizedBox(width: 25),
+              SizedBox(width: 18),
               Text(
                 '6,789,478 원 (18.4MWh)',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: 20,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
@@ -367,7 +361,7 @@ class _MoneyState extends State<Money> {
               Text('REC 발행 개수',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 18,
+                    fontSize: 16,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w400,
                   )),
@@ -376,42 +370,42 @@ class _MoneyState extends State<Money> {
                 '18.4 개',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: 19,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
-          SizedBox(height: 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Text(
-                      '수익 전체보기',
-                      style: TextStyle(
-                        color: Color(0xFF757575),
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_forward, color: Colors.black),
-                      style: IconButton.styleFrom(
-                          foregroundColor: Color(0xFFFF9201)),
-                    ),
-                  ],
-                ),
-                style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
-              )
-            ],
-          )
+          SizedBox(height: 20),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: Row(
+          //         children: [
+          //           Text(
+          //             '수익 전체보기',
+          //             style: TextStyle(
+          //               color: Color(0xFF757575),
+          //               fontSize: 14,
+          //               fontFamily: 'Inter',
+          //               fontWeight: FontWeight.w600,
+          //             ),
+          //           ),
+          //           IconButton(
+          //             onPressed: () {},
+          //             icon: Icon(Icons.arrow_forward, color: Colors.black),
+          //             style: IconButton.styleFrom(
+          //                 foregroundColor: Color(0xFFFF9201)),
+          //           ),
+          //         ],
+          //       ),
+          //       style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
+          //     )
+          //   ],
+          // )
         ],
       ),
     );
@@ -422,10 +416,7 @@ class _MoneyState extends State<Money> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset(
-          'image/solQuiz_logo1.png',
-          width: 130,
-        ),
+        // title: Image.asset('image/solQuiz_logo3.png', width: 120,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -451,11 +442,11 @@ class _MoneyState extends State<Money> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
             Container(
+              padding: EdgeInsets.all(7),
               child: Text(
                 '수익',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 15),
@@ -523,12 +514,14 @@ class _MoneyState extends State<Money> {
                     augustSelected ? Colors.black : Colors.white,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       if (augustSelected)
                         Padding(
                           padding: const EdgeInsets.only(left: 3.0),
-                          child: Icon(Icons.check, color: Colors.white),
+                          child: Icon(Icons.check, color: Colors.white, size: 20,),
                         ),
+                      SizedBox(width: 10,),
                       Text(
                         '8월 수익',
                         style: TextStyle(
@@ -547,6 +540,63 @@ class _MoneyState extends State<Money> {
           ],
         ),
       ),
+    bottomNavigationBar: SizedBox(
+      height: 80,
+          child: BottomNavigationBar(
+            currentIndex: index,
+
+            onTap: onItemTap,
+
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.info_outline),
+                label: '공지사항',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.leaderboard),
+                label: '발전량예측',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.wb_sunny_rounded),
+                label: '태양광',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.assignment),
+                label: '모집게시판',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                label: '마이페이지',
+              ),
+            ],
+            // 라벨 스타일
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+
+            // bottom 영역 스타일 지정
+            backgroundColor: const Color(0xffff9201),
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Colors.white,
+
+            // 디자인
+            selectedIconTheme: IconThemeData(
+              size: 27,
+            ),
+            unselectedIconTheme: IconThemeData(
+              size: 27,
+            ),
+
+            selectedLabelStyle: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+        )
     );
+  }
+  void onItemTap(int i){
+    setState(() {
+      index = i;
+    });
   }
 }

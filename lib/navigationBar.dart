@@ -68,7 +68,7 @@ class _NavigationbarState extends State<Navigationbar> {
           showUnselectedLabels: true,
 
           // bottom 영역 스타일 지정
-          backgroundColor: const Color(0xfffd9a06),
+          backgroundColor: const Color(0xffff9201),
           unselectedItemColor: Colors.white,
           selectedItemColor: Colors.white,
 

@@ -9,14 +9,14 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
 
-  var recruitList = ['전남 / 해안 / 5MWh', '전남 / 해안 / 5MWh', '전남 / 해안 / 5MWh',];
+  var recruitList = ['전남 / 해안 / 5MWh', '충청 / 내륙 / 10MWh', '대전 / 내륙 / 15MWh',];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Image.asset('image/solQuiz_logo1.png',width: 130,),
+          title: Image.asset('image/solQuiz_logo3.png',width: 120,),
           backgroundColor: Colors.white,
           actions: [
             IconButton(
@@ -47,9 +47,10 @@ class _MyPageState extends State<MyPage> {
                 height: 50,
                 padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('마이페이지', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
+                    SizedBox(width: 8,),
+                    Text('마이페이지', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
                   ],
                 ),
               ),
@@ -113,11 +114,12 @@ class _MyPageState extends State<MyPage> {
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
                             // alignment: Alignment(x, y),
-                            backgroundColor: Colors.grey,
+                            backgroundColor: Colors.grey[400],
                             minimumSize: Size(17, 10),
                             // fixedSize: Size(30, 7),
                             padding: EdgeInsets.symmetric(
@@ -251,7 +253,7 @@ class _MyPageState extends State<MyPage> {
                         SizedBox(width: 50,),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey,
+                              backgroundColor: Color(0xffff9201),
                               minimumSize: Size(12, 10),
                               padding: EdgeInsets.symmetric(horizontal: 13,vertical: 7),
                               shape: RoundedRectangleBorder(
@@ -262,6 +264,7 @@ class _MyPageState extends State<MyPage> {
                               style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             onPressed: () => {}
@@ -272,7 +275,7 @@ class _MyPageState extends State<MyPage> {
                             iconColor: MaterialStateProperty.all<Color>(Colors.black),
                           ),
                           onPressed: (){
-                            print('발전소 모집 현황 자세히 보기');
+                            Navigator.pushNamed(context, '/recruitmore');
                           },
                         ),
                       ],
@@ -292,7 +295,7 @@ class _MyPageState extends State<MyPage> {
                       ],
                     ),
                     SizedBox(height: 10,),
-                    Container(width: double.infinity, height: 1, color: Colors.grey[200],),
+                    Container(width: double.infinity, height: 1, color: Colors.grey[300],),
                     SizedBox(height: 10,),
                     Scrollbar(
                       thickness: 1.0,
@@ -312,7 +315,7 @@ class _MyPageState extends State<MyPage> {
                                       Text('${index +1}. ${recruitList[index]}', style: TextStyle(fontSize: 16),),
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.grey,
+                                            backgroundColor: Colors.grey[400],
                                             minimumSize: Size(12, 10),
                                             padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                             shape: RoundedRectangleBorder(
@@ -323,6 +326,7 @@ class _MyPageState extends State<MyPage> {
                                             style: TextStyle(
                                               fontSize: 13,
                                               color: Colors.white,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           onPressed: () => {}

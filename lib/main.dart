@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/recruitmore' : (context) => RecruitMore(),
         '/money' : (context) => Money(),
       },
-
+      debugShowCheckedModeBanner: false,
       home:Navigationbar(),
     );
   }

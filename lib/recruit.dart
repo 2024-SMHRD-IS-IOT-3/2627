@@ -13,16 +13,12 @@ class _RecruitState extends State<Recruit> {
   var txtList = ['[해안] 발전소 모집', '[내륙] 발전소 모집','[내륙] 발전소 모집','[해안] 발전소 모집'];
   var txtList2 = ['전남 / 해안', '광주 / 내륙','전남 / 해안', '광주 / 내륙'];
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo1.png',width: 130,),
+        title: Image.asset('image/solQuiz_logo3.png',width: 120,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -53,11 +49,11 @@ class _RecruitState extends State<Recruit> {
             Container(
               width: double.infinity,
               height: 50,
-              padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('모집 게시판', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
+                  Text('모집 게시판', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
                   IconButton(
                       icon: Icon(Icons.add),
                       style: ButtonStyle(
@@ -78,7 +74,7 @@ class _RecruitState extends State<Recruit> {
                       child: Container(
                         width: double.infinity,
                         margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.fromLTRB(3, 3, 0, 3),
+                        padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -95,19 +91,19 @@ class _RecruitState extends State<Recruit> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child: Image.asset('image/solQuiz_logo2.png', width: 40, height: 40,)),
+                                child: Image.asset('image/solQuiz_logo2.png', width: 70, )),
                             Expanded(
                               flex: 2,
                               child: Column(
                                 children: [
                                   SizedBox(height: 10,),
-                                  Text('${txtList[index]}',style: TextStyle(fontSize: 18),),
+                                  Text('${txtList[index]}',style: TextStyle(fontSize: 20),),
                                   SizedBox(height: 10,),
-                                  Text('${txtList2[index]}',style: TextStyle(fontSize: 13,),),
+                                  Text('${txtList2[index]}',style: TextStyle(fontSize: 17,),),
                                   SizedBox(height: 10,),
                                   Row(
                                     children: [
-                                      SizedBox(width: 40,),
+                                      SizedBox(width: 35,),
                                       LinearPercentIndicator(
                                         width: 120.0,
                                         animation: true,
@@ -116,8 +112,8 @@ class _RecruitState extends State<Recruit> {
                                         // leading: const Text("left"),
                                         // trailing: const Text("right"),
                                         percent: 0.7,
-                                        trailing: Text("70.0%", style: TextStyle(fontSize: 11),),
-                                        progressColor: Color(0xfffd9a06),
+                                        trailing: Text("70.0%", style: TextStyle(fontSize: 13),),
+                                        progressColor: Color(0xffff9201),
                                         barRadius: Radius.circular(10),
                                       ),
                                       IconButton(

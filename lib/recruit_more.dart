@@ -135,7 +135,10 @@ class _RecruitMoreState extends State<RecruitMore> {
                   ),
                 ],
               ),
-              Image.asset('image/solQuiz_logo2.png',width: 180,),
+              Container(
+                padding: EdgeInsets.all(40),
+                  child: Image.asset('image/solQuiz_logo3.png',width: 200,),
+              ),
               SizedBox(height: 25,),
               Row(
                 children: [
@@ -151,7 +154,7 @@ class _RecruitMoreState extends State<RecruitMore> {
                       // trailing: const Text("right"),
                       percent: 0.7,
                       trailing: Text("70.0%", style: TextStyle(fontSize: 15),),
-                      progressColor: Color(0xfffd9a06),
+                      progressColor: Color(0xffff9201),
                       barRadius: Radius.circular(10),
                     ),
                   ),
@@ -160,7 +163,31 @@ class _RecruitMoreState extends State<RecruitMore> {
               SizedBox(height: 20,),
               Text('[해안] 발전소 모집',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
               SizedBox(height: 10,),
-              Text('전남 / 해안',style: TextStyle(fontSize: 20,),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('전남 / 해안',style: TextStyle(fontSize: 20,),),
+                  SizedBox(width: 55),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xffff9201),
+                        minimumSize: Size(12, 10),
+                        padding: EdgeInsets.symmetric(horizontal: 13,vertical: 7),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      child: Text('모집 마감',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () => {}
+                  ),
+                ],
+              ),
               SizedBox(height: 20,),
               Container(width: double.infinity, height: 1, color: Colors.grey[400],),
               SizedBox(height: 20,),
@@ -207,7 +234,7 @@ class _RecruitMoreState extends State<RecruitMore> {
           showUnselectedLabels: true,
 
           // bottom 영역 스타일 지정
-          backgroundColor: const Color(0xfffd9a06),
+          backgroundColor: const Color(0xffff9201),
           unselectedItemColor: Colors.white,
           selectedItemColor: Colors.white,
 

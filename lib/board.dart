@@ -8,7 +8,7 @@ class Board extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo1.png',width: 130,),
+        title: Image.asset('image/solQuiz_logo3.png',width: 120,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -43,9 +43,10 @@ class Board extends StatelessWidget {
           height: 50,
           padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('공지사항', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
+              SizedBox(width: 8,),
+              Text('공지사항', style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,),),
 
             ],
           ),

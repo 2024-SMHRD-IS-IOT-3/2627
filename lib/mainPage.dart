@@ -30,20 +30,20 @@ class _SolarEnvState extends State<SolarEnv> {
               Positioned(
                 child: Container(
                   width: double.infinity,
-                  height: 250,
+                  height: 270,
                   decoration: BoxDecoration(
                     // borderRadius: BorderRadius.circular(30),
                     gradient: LinearGradient(
                         begin: const Alignment(0.0, -1.0),
                         end: const Alignment(0.0, 1.0),
-                        colors: [Color(0xff008fff), Color(0xff40abff), Colors.white,]
+                        colors: [Color(0xff008fff), Color(0xff40abff),Color(0xff40abff), Colors.white,]
                     ),
                     shape: BoxShape.rectangle,
                   ),
                   padding: EdgeInsets.all(5),
                   child: Column(
                     children: [
-                      SizedBox(height: 30,),
+                      SizedBox(height: 50,),
                       Row(
                         children: [
                           SizedBox(width: 30,),
@@ -100,27 +100,27 @@ class _SolarEnvState extends State<SolarEnv> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('SolQuiz 발전소', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold,),),
+                          Text('SolQuiz 발전소', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),),
                           Text('가동중', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold,),),
                         ],
                       ),
-                      SizedBox(height: 30,),
-                      Text('금일 예상 수익', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,),),
+                      SizedBox(height: 25,),
+                      Text('금일 예상 수익', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
                       Text('1,963,000원', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,),),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 20,),
                       Row(
                         children: [
                           Column(
                             children: [
-                              Text('평균 발전시간', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,),),
-                              Text('5.11 h', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+                              Text('평균 발전시간', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
+                              Text('5.11 h', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
                             ],
                           ),
                           SizedBox(width: 100,),
                           Column(
                             children: [
-                              Text('금일 발전량', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,),),
-                              Text('8,463 kwh', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+                              Text('금일 발전량', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
+                              Text('8,463 kwh', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
                             ],
                           ),
                           SizedBox(width: 15,),
@@ -142,11 +142,11 @@ class _SolarEnvState extends State<SolarEnv> {
               ),
             ],
           ),
-          SizedBox(height: 180,),
+          SizedBox(height: 165,),
           Row(
             children: [
               SizedBox(width: 20,),
-              Text('시장 동향', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),),
+              Text('시장 동향', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold,),),
 
               IconButton(
                 onPressed: (){
@@ -181,19 +181,19 @@ class _SolarEnvState extends State<SolarEnv> {
                   children: [
                     Row(
                       children: [
-                        Text('SMP', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                        Text('SMP', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),),
                         SizedBox(width: 10,),
-                        Text('원/kWh', style: TextStyle(fontSize: 10, color: Colors.grey,),),
+                        Text('원/kWh', style: TextStyle(fontSize: 12, color: Colors.grey,),),
                       ],
                     ),
-                    SizedBox(height: 7,),
+                    SizedBox(height: 5,),
                     Text('오늘 시장 가격', style: TextStyle(fontSize: 15, color: Colors.black54,),),
-                    SizedBox(height: 4,),
-                    Text('276.67', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red),),
-                    SizedBox(height: 7,),
+                    SizedBox(height: 2,),
+                    Text('276.67', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),),
+                    SizedBox(height: 5,),
                     Text('이번 달 상한 가격', style: TextStyle(fontSize: 15, color: Colors.black54,),),
-                    SizedBox(height: 4,),
-                    Text('276.67', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff006bb9)),),
+                    SizedBox(height: 2,),
+                    Text('276.67', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff006bb9)),),
                   ],
                 ),
               ),
@@ -219,12 +219,13 @@ class _SolarEnvState extends State<SolarEnv> {
                   children: [
                     Row(
                       children: [
-                        Text('REC', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                        Text('REC', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),),
                         SizedBox(width: 10,),
-                        Text('원/REC', style: TextStyle(fontSize: 10, color: Colors.grey,),),
+                        Text('원/REC', style: TextStyle(fontSize: 12, color: Colors.grey,),),
                       ],
                     ),
-                    Text('65,600', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xff006bb9)),),
+                    SizedBox(height: 7,),
+                    Text('65,600', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xff006bb9)),),
                   ],
                 ),
               ),

@@ -104,7 +104,7 @@ class _PredictState extends State<Predict> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo1.png',width: 130,),
+        title: Image.asset('image/solQuiz_logo3.png',width: 120,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -130,17 +130,6 @@ class _PredictState extends State<Predict> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Container(
-            //   width: double.infinity,
-            //   height: 50,
-            //   padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Text('발전량 페이지', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
-            //     ],
-            //   ),
-            // ),
             Container(
               width: double.infinity,
               margin: EdgeInsets.all(10),
@@ -160,16 +149,71 @@ class _PredictState extends State<Predict> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('발전량 예측', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
-                  SizedBox(height: 10,),
-                  Text('2024년 8월 2일', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('발전량 예측', style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold,),),
+                      Container(
+                        width: 150,
+                        height: 35,
+                        margin: EdgeInsets.fromLTRB(15, 20, 10, 15),
+
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26, width: 1),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+
+                          children: [
+                            Text(
+                              '${initialDay.year} - ${initialDay.month} - ${initialDay.day}',
+                              style: TextStyle(fontSize: 17,color: Colors.black54),
+                            ),
+                            IconButton(
+                              onPressed: () async{
+                                final DateTime? dateTime = await showDatePicker(
+                                    context: context,
+                                    initialDate: initialDay,
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(3000),
+
+                                    // custom
+                                    builder: (context, child){
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          colorScheme: ColorScheme.light(
+                                            primary: Color(0xffffb15a), // header background color
+                                            // onPrimary: Colors.purple,  // header text color
+                                            onSurface: Colors.black87,  // body text color
+                                          ),
+                                          textButtonTheme: TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Color(0xffffb15a),
+                                            ),
+                                          ),
+                                        ), child: child!,
+                                      );
+                                    }
+                                );
+                                if (dateTime != null){
+                                  setState(() {
+                                    initialDay = dateTime;
+                                  });
+                                }
+                              }, icon: Icon(Icons.calendar_month, size: 18, color: Colors.black54,),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                   Container(
                     margin: EdgeInsets.all(15),
                       child: SfCartesianChart(
                           primaryXAxis: CategoryAxis(),
                           palette: <Color>[
-                            Color(0xfffd9a06),
+                            Color(0xffff9201),
                             Colors.deepPurple,
+                            // Colors.green,
                           ],
                           series: <CartesianSeries>[
                             // Render column series
@@ -184,6 +228,7 @@ class _PredictState extends State<Predict> {
                                 xValueMapper: (ChartData data, _) => data.x,
                                 yValueMapper: (ChartData data, _) => data.y
                             ),
+
                           ]
                       )
                   ),
@@ -234,12 +279,12 @@ class _PredictState extends State<Predict> {
                       SizedBox(height: 10,),
                       // 날짜 선택
                       Container(
-                        width: 155,
-                        height: 40,
-                        margin: EdgeInsets.all(8),
+                        width: 150,
+                        height: 35,
+                        margin: EdgeInsets.fromLTRB(15, 20, 10, 15),
 
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black54, width: 1),
+                            border: Border.all(color: Colors.black26, width: 1),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -247,7 +292,7 @@ class _PredictState extends State<Predict> {
                           children: [
                             Text(
                               '${initialDay.year} - ${initialDay.month} - ${initialDay.day}',
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(fontSize: 17,color: Colors.black54),
                             ),
                             IconButton(
                               onPressed: () async{
@@ -262,31 +307,31 @@ class _PredictState extends State<Predict> {
                                     return Theme(
                                       data: Theme.of(context).copyWith(
                                         colorScheme: ColorScheme.light(
-                                          primary: Color(0xffff9201), // header background color
+                                          primary: Color(0xffffb15a), // header background color
                                           // onPrimary: Colors.purple,  // header text color
                                           onSurface: Colors.black87,  // body text color
                                         ),
                                         textButtonTheme: TextButtonThemeData(
                                           style: TextButton.styleFrom(
-                                            foregroundColor: Color(0xffff9201),
+                                            foregroundColor: Color(0xffffb15a),
                                           ),
                                         ),
                                       ), child: child!,
                                     );
                                 }
-
                               );
                               if (dateTime != null){
                                 setState(() {
                                   initialDay = dateTime;
                                 });
                               }
-                            }, icon: Icon(Icons.calendar_month, size: 20,),),
+                            }, icon: Icon(Icons.calendar_month, size: 18, color: Colors.black54,),),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  SizedBox(height: 20,),
                   SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: DataTable(
@@ -302,7 +347,8 @@ class _PredictState extends State<Predict> {
                       horizontalMargin: 50,
                       columnSpacing: 45,
                       
-                      border: TableBorder(  // 중간 구분선 
+                      border: TableBorder(  // 중간 구분선
+                        borderRadius: BorderRadius.circular(15),
                         verticalInside: BorderSide(color: Colors.black54, width: 0.7),
                       ),
 
@@ -323,8 +369,8 @@ class _PredictState extends State<Predict> {
                       rows: _envdata.map((data){
                         return DataRow(
                             cells: [
-                              DataCell(Text('${data.hour}', style: TextStyle(fontSize: 16),),),
-                              DataCell(Text('${data.env}', style: TextStyle(fontSize: 16),)),
+                              DataCell(Text('${data.hour}', style: TextStyle(fontSize: 16),textAlign: TextAlign.center,),),
+                              DataCell(Text('${data.env}', style: TextStyle(fontSize: 16),textAlign: TextAlign.center,)),
                         ]);
                     }).toList(),
                   ),
