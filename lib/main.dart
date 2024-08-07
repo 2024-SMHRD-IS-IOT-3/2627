@@ -6,7 +6,11 @@ import 'package:solquiz_2/navigationBar.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/recruit_more.dart';
-import 'package:solquiz_2/test.dart';
+import 'package:solquiz_2/search.dart';
+import 'package:solquiz_2/solarplant_addr.dart';
+import 'package:solquiz_2/solarplant_name.dart';
+
+import 'changePw.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/money' : (context) => Money(),
       },
       debugShowCheckedModeBanner: false,
+
       home:Navigationbar(),
     );
   }

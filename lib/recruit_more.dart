@@ -167,7 +167,7 @@ class _RecruitMoreState extends State<RecruitMore> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text('전남 / 해안',style: TextStyle(fontSize: 20,),),
-                  SizedBox(width: 55),
+                  SizedBox(width: 50),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffff9201),
@@ -177,7 +177,7 @@ class _RecruitMoreState extends State<RecruitMore> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                      child: Text('모집 마감',
+                      child: Text('참여하기',
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.white,
@@ -186,6 +186,7 @@ class _RecruitMoreState extends State<RecruitMore> {
                       ),
                       onPressed: () => {}
                   ),
+                  SizedBox(width: 12,),
                 ],
               ),
               SizedBox(height: 20,),

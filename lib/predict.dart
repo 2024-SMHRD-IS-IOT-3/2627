@@ -13,22 +13,23 @@ class Predict extends StatefulWidget {
 
 class _PredictState extends State<Predict> {
   final List<ChartData> chartData = <ChartData>[
-    ChartData('6', 129 ,90),
-    ChartData('7', 90, 50),
-    ChartData('8', 107, 40),
-    ChartData('9', 68, 70),
-    ChartData('10', 129,42),
-    ChartData('11', 90, 20),
-    ChartData('12', 107, 80),
-    ChartData('13', 68, 70),
-    ChartData('14', 129, 30),
-    ChartData('15', 90, 50),
-    ChartData('16', 107, 80),
-    ChartData('17', 68, 70),
-    ChartData('18', 129, 62),
-    ChartData('19', 90, 20),
-    ChartData('20', 107, 40),
-    ChartData('21', 68, 80),
+    ChartData('6', 0, 0, 0),
+    ChartData('7', 0, 0, 0),
+    ChartData('8', 26.5, 0.94, 17),
+    ChartData('9', 27.1, 1.22, 14),
+    ChartData('10', 29.7, 2.34, 14),
+    ChartData('11', 30.4, 2.87, 14),
+    ChartData('12', 31.9, 3.29, 16),
+    ChartData('13', 33.4, 3.31, 14),
+    ChartData('14', 33.5, 3.34, 17),
+    ChartData('15', 34, 2.34, 15),
+    ChartData('16', 32.1, 1.07, 17),
+    ChartData('17', 32.9, 1.31, 16),
+    ChartData('18', 32.1, 0.86, 19),
+    ChartData('19', 29.1, 0.35, 19),
+    ChartData('20', 29.5, 0.04, 17),
+    ChartData('21', 28.5, 0, 0),
+    ChartData('22', 0, 0, 0),
   ];
 
   // 표
@@ -209,24 +210,54 @@ class _PredictState extends State<Predict> {
                   Container(
                     margin: EdgeInsets.all(15),
                       child: SfCartesianChart(
+                        legend: Legend(
+                          isVisible: true,
+                          position: LegendPosition.bottom,
+                        ),
                           primaryXAxis: CategoryAxis(),
+                          primaryYAxis: CategoryAxis(
+                            minimum: 10,
+                            maximum: 35,
+                          ),
+                          axes: <ChartAxis>[
+                            NumericAxis(
+                              name: 'rightAxis',
+                              opposedPosition: true,
+                              interval: 1,
+                              minimum: 0,
+                              maximum: 7,
+                              // title: AxisTitle(
+                              //   text: '일사량'
+                              // ),
+                            ),
+                          ],
                           palette: <Color>[
                             Color(0xffff9201),
                             Colors.deepPurple,
+                            Colors.green,
                             // Colors.green,
                           ],
                           series: <CartesianSeries>[
                             // Render column series
                             ColumnSeries<ChartData, String>(
+                                name: '기온',
                                 dataSource: chartData,
                                 xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y
+                                yValueMapper: (ChartData data, _) => data.y,
                             ),
                             // Render line series
                             LineSeries<ChartData, String>(
+                                name: '일사량',
                                 dataSource: chartData,
                                 xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y
+                                yValueMapper: (ChartData data, _) => data.z,
+                                yAxisName: 'rightAxis',
+                            ),
+                            LineSeries<ChartData, String>(
+                              name: '미세먼지',
+                                dataSource: chartData,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.a
                             ),
 
                           ]
@@ -356,7 +387,7 @@ class _PredictState extends State<Predict> {
                       sortColumnIndex: _sortColumnIndex,
                       columns: [
                         DataColumn(
-                          label: Expanded(child: Text('시간', style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)),
+                          label: Expanded(child: Text('시간', style: TextStyle(fontSize: 18))),
                           numeric: true,
                           onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
                         ),
@@ -386,10 +417,11 @@ class _PredictState extends State<Predict> {
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.z);
+  ChartData(this.x, this.y, this.z, this.a);
   final String x;
   final double? y;
   final double? z;
+  final double? a;
 }
 
 
