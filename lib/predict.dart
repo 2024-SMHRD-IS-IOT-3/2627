@@ -13,34 +13,25 @@ class Predict extends StatefulWidget {
 
 class _PredictState extends State<Predict> {
   final List<ChartData> chartData = <ChartData>[
-    ChartData('6', 0, 0, 0),
-    ChartData('7', 0, 0, 0),
-    ChartData('8', 26.5, 0.94, 17),
-    ChartData('9', 27.1, 1.22, 14),
-    ChartData('10', 29.7, 2.34, 14),
-    ChartData('11', 30.4, 2.87, 14),
-    ChartData('12', 31.9, 3.29, 16),
-    ChartData('13', 33.4, 3.31, 14),
-    ChartData('14', 33.5, 3.34, 17),
-    ChartData('15', 34, 2.34, 15),
-    ChartData('16', 32.1, 1.07, 17),
-    ChartData('17', 32.9, 1.31, 16),
-    ChartData('18', 32.1, 0.86, 19),
-    ChartData('19', 29.1, 0.35, 19),
-    ChartData('20', 29.5, 0.04, 17),
-    ChartData('21', 28.5, 0, 0),
-    ChartData('22', 0, 0, 0),
+    // ChartData('6', 24, 0, 14),
+    // ChartData('7', 25, 0, 15),
+    ChartData('8', 13.91, 12.07, 13.23),
+    ChartData('9', 24.55, 24.81, 1.06),
+    ChartData('10', 34.92, 34.49, 1.23),
+    ChartData('11', 42.15, 41.81, 0.81),
+    ChartData('12', 46.26, 45.92, 0.73),
+    ChartData('13', 46.41, 47.12, 1.53),
+    ChartData('14', 46.41, 47.12, 1.53),
+    ChartData('15', 46.26, 45.92, 0.73),
+    ChartData('16', 42.15, 41.81, 0.81),
+    ChartData('17', 34.92, 34.49, 1.23),
+    ChartData('18', 24.55, 24.81, 1.06),
+    ChartData('19', 13.91, 12.07, 13.23),
+    ChartData('20', 5.43, 3.82, 29.65),
+    // ChartData('21', 28.5, 0, 16),
+    // ChartData('22', 27.5, 0, 14),
   ];
-
-  // 표
-  /*
-  List<User> _users = [
-    User('John Doe', 25, 'Developer'),
-    User('Jane Smith', 30, 'Designer'),
-    User('Alex Johnson', 28, 'Manager'),
-  ];
-  */
-
+  
   bool _sortAscending = true;
   int _sortColumnIndex = 0;
 
@@ -66,15 +57,21 @@ class _PredictState extends State<Predict> {
 
 
   List<EnvData> _envdata = [
-    EnvData("20240806", 6, 50),
-    EnvData("20240806", 7, 50),
-    EnvData("20240806", 8, 50),
-    EnvData("20240806", 9, 50),
-    EnvData("20240806", 10, 50),
-    EnvData("20240806", 11, 50),
-    EnvData("20240806", 12, 50),
-    EnvData("20240806", 13, 50),
-    EnvData("20240806", 14, 50),
+    // EnvData("20240806", 6, 0.00),
+    EnvData("20240806", 7, 10.67),
+    EnvData("20240806", 8, 389.74),
+    EnvData("20240806", 9, 798.84),
+    EnvData("20240806", 10, 1148.27),
+    EnvData("20240806", 11, 1382.52),
+    EnvData("20240806", 12, 1502.62),
+    EnvData("20240806", 13, 1475.49),
+    EnvData("20240806", 14, 1381.31),
+    EnvData("20240806", 15, 1183.08),
+    EnvData("20240806", 16, 990.36),
+    EnvData("20240806", 17, 728.40),
+    EnvData("20240806", 18, 373.91),
+    EnvData("20240806", 19, 56.85),
+    // EnvData("20240806", 20, 0.00),
   ];
 
   void _sort<T>(Comparable<T> Function(EnvData envdata) getField, int columnIndex, bool ascending){
@@ -105,7 +102,7 @@ class _PredictState extends State<Predict> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo3.png',width: 120,),
+        title: Image.asset('image/solQuiz_logo3.png',width: 110,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -208,7 +205,7 @@ class _PredictState extends State<Predict> {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.all(15),
+                    margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
                       child: SfCartesianChart(
                         legend: Legend(
                           isVisible: true,
@@ -216,50 +213,55 @@ class _PredictState extends State<Predict> {
                         ),
                           primaryXAxis: CategoryAxis(),
                           primaryYAxis: CategoryAxis(
-                            minimum: 10,
-                            maximum: 35,
-                          ),
-                          axes: <ChartAxis>[
-                            NumericAxis(
-                              name: 'rightAxis',
-                              opposedPosition: true,
-                              interval: 1,
-                              minimum: 0,
-                              maximum: 7,
-                              // title: AxisTitle(
-                              //   text: '일사량'
-                              // ),
+                            minimum: 0,
+                            // maximum: 35,
+                            interval: 0.05,
+                            majorGridLines: const MajorGridLines(width: 0),
+
+                            title: AxisTitle(
+                              text: '발전량',
+                              textStyle: TextStyle(fontSize: 10,)
                             ),
-                          ],
+                          ),
+                          // axes: <ChartAxis>[
+                          //   NumericAxis(
+                          //     name: 'rightAxis',
+                          //     opposedPosition: true,
+                          //     interval: 1,
+                          //     minimum: 0,
+                          //     // maximum: 7,
+                          //     title: AxisTitle(
+                          //       text: '오차율',
+                          //       textStyle: TextStyle(fontSize: 10,),
+                          //     ),
+                          //   ),
+                          // ],
                           palette: <Color>[
                             Color(0xffff9201),
-                            Colors.deepPurple,
-                            Colors.green,
-                            // Colors.green,
+                            Colors.blueAccent,
+                            Colors.red,
                           ],
                           series: <CartesianSeries>[
                             // Render column series
                             LineSeries<ChartData, String>(
-                                name: '기온',
+                                name: '예측 발전량',
                                 dataSource: chartData,
                                 xValueMapper: (ChartData data, _) => data.x,
                                 yValueMapper: (ChartData data, _) => data.y,
                             ),
                             // Render line series
                             LineSeries<ChartData, String>(
-                                name: '일사량',
+                                name: '실제 발전량',
                                 dataSource: chartData,
                                 xValueMapper: (ChartData data, _) => data.x,
                                 yValueMapper: (ChartData data, _) => data.z,
-                                yAxisName: 'rightAxis',
                             ),
-                            LineSeries<ChartData, String>(
-                              name: '미세먼지',
-                                dataSource: chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.a
-                            ),
-
+                            // LineSeries<ChartData, String>(
+                            //   name: '오차율',
+                            //     dataSource: chartData,
+                            //     xValueMapper: (ChartData data, _) => data.x,
+                            //     yValueMapper: (ChartData data, _) => data.a
+                            // ),
                           ]
                       )
                   ),
@@ -271,7 +273,9 @@ class _PredictState extends State<Predict> {
                         ),
                         minimumSize: Size(30,10),
                       ),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/predictmore');
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -365,49 +369,61 @@ class _PredictState extends State<Predict> {
                   SizedBox(height: 20,),
                   SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: DataTable(
-                      headingRowColor: MaterialStateColor.resolveWith(
-                          (states){
-                            return const Color(0xffe5e5e5);
-                          }
-                      ),
-                      headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                      decoration: BoxDecoration(  // 바깥선
-                        border: Border.all(color: Colors.black54, width: 1),
-                      ),
-                      horizontalMargin: 50,
-                      columnSpacing: 45,
-
-
-
-
-                      border: TableBorder(  // 중간 구분선
-                        borderRadius: BorderRadius.circular(15),
-                        verticalInside: BorderSide(color: Colors.black54, width: 0.7),
-                      ),
-
-                      sortAscending: _sortAscending,
-                      sortColumnIndex: _sortColumnIndex,
-                      columns: [
-                        DataColumn(
-                          label: Expanded(child: Text('시간', style: TextStyle(fontSize: 18))),
-                          numeric: true,
-                          onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
+                    child: FittedBox(
+                      child: DataTable(
+                        headingRowColor: MaterialStateColor.resolveWith(
+                            (states){
+                              return const Color(0xffe5e5e5);
+                            }
                         ),
-                        DataColumn(
-                          label: Text('발전량', style: TextStyle(fontSize: 20,),),
-                          numeric: true,
-                          onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
+                        headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                        decoration: BoxDecoration(  // 바깥선
+                          border: Border.all(color: Colors.black54, width: 1),
                         ),
-                      ],
-                      rows: _envdata.map((data){
-                        return DataRow(
-                            cells: [
-                              DataCell(Text('${data.hour}', style: TextStyle(fontSize: 16),textAlign: TextAlign.center,),),
-                              DataCell(Text('${data.env}', style: TextStyle(fontSize: 16),textAlign: TextAlign.center,)),
-                        ]);
-                    }).toList(),
-                  ),
+                        horizontalMargin: 35,
+                      
+                        headingRowHeight: 40,
+                        dataRowHeight: 35,
+                        columnSpacing: 51,
+                      
+                        border: TableBorder(  // 중간 구분선
+                          borderRadius: BorderRadius.circular(15),
+                          verticalInside: BorderSide(color: Colors.black54, width: 0.7),
+                        ),
+                      
+                        // sortAscending: _sortAscending,
+                        // sortColumnIndex: _sortColumnIndex,
+                        columns: [
+                          DataColumn(
+                            label: Center(child: Text('  시간', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+                            // numeric: true,
+                            onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
+                          ),
+                          DataColumn(
+                            label: Expanded(child: Center(child: Text('     발전량', style: TextStyle(fontSize: 17,), textAlign: TextAlign.right,))),
+                            // numeric: true,
+                            onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
+                          ),
+                        ],
+                        rows: _envdata.map((data){
+                          return DataRow(
+                              cells: [
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                      child : Text('${data.hour}   ',
+                                      style: TextStyle(fontSize: 16),
+                                      ))),
+                                DataCell(
+                                  Align(
+                                    alignment: Alignment.center,
+                                      child : Text(' ${data.env}',
+                                      style: TextStyle(fontSize: 16),
+                                      ),)),
+                          ]);
+                      }).toList(),
+                                        ),
+                    ),
                   )
                 ]
               ),
@@ -422,9 +438,9 @@ class _PredictState extends State<Predict> {
 class ChartData {
   ChartData(this.x, this.y, this.z, this.a);
   final String x;
-  final double? y;
-  final double? z;
-  final double? a;
+  final double? y;  // 기온
+  final double? z;  // 미세먼지
+  final double? a;  // 일사량
 }
 
 
@@ -432,8 +448,8 @@ class ChartData {
 // 표
 class EnvData {
   final String date;
-  final int hour;
-  final int env;
+  final double? hour;
+  final double? env;
 
   EnvData(this.date, this.hour, this.env);
 }

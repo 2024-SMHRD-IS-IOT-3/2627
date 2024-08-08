@@ -23,91 +23,6 @@ class _JoinState extends State<Join> {
   String? emailError;
   String? nameError;
 
-  Future<void> checkDuplicateId() async {
-    final response = await http.post(
-      Uri.parse('https://your-api-url.com/check_id'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'id': idCon.text,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final result = jsonDecode(response.body);
-      if (result['exists']) {
-        setState(() {
-          idError = '이미 사용 중인 아이디입니다';
-        });
-      } else {
-        setState(() {
-          idError = null;
-        });
-      }
-    } else {
-      throw Exception('Failed to check ID');
-    }
-  }
-
-  void validateFields() {
-    setState(() {
-      // 비밀번호 확인
-      if (pwCon.text != samepwCon.text) {
-        pwError = '비밀번호가 다릅니다';
-      } else {
-        pwError = null;
-      }
-
-      // 이름 필드 확인
-      if (nameCon.text.trim().isEmpty) {
-        nameError = '이름을 입력해주세요';
-      } else {
-        nameError = null;
-      }
-
-      // 전화번호 필드 확인
-      if (phoneCon.text.trim().isEmpty) {
-        phoneError = '휴대폰번호를 입력해주세요';
-      } else {
-        phoneError = null;
-      }
-
-      // 이메일 필드 확인
-      if (emailCon.text.trim().isEmpty) {
-        emailError = '이메일을 입력해주세요';
-      } else {
-        emailError = null;
-      }
-    });
-  }
-
-  void showPopup(String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: Text('알림'),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: Text('확인'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)
-                  ),
-                  backgroundColor: Color(0xfffd9a06)
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +83,7 @@ class _JoinState extends State<Join> {
                               ),
                             ),
                             SizedBox(
-                              width: 90,
+                              width: 80,
                               height: 40,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -271,7 +186,7 @@ class _JoinState extends State<Join> {
                               ),
                             ),
                             SizedBox(
-                              width: 90,
+                              width: 80,
                               height: 40,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -350,6 +265,91 @@ class _JoinState extends State<Join> {
           ),
         ),
       ),
+    );
+  }
+  Future<void> checkDuplicateId() async {
+    final response = await http.post(
+      Uri.parse('https://your-api-url.com/check_id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'id': idCon.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final result = jsonDecode(response.body);
+      if (result['exists']) {
+        setState(() {
+          idError = '이미 사용 중인 아이디입니다';
+        });
+      } else {
+        setState(() {
+          idError = null;
+        });
+      }
+    } else {
+      throw Exception('Failed to check ID');
+    }
+  }
+
+  void validateFields() {
+    setState(() {
+      // 비밀번호 확인
+      if (pwCon.text != samepwCon.text) {
+        pwError = '비밀번호가 다릅니다';
+      } else {
+        pwError = null;
+      }
+
+      // 이름 필드 확인
+      if (nameCon.text.trim().isEmpty) {
+        nameError = '이름을 입력해주세요';
+      } else {
+        nameError = null;
+      }
+
+      // 전화번호 필드 확인
+      if (phoneCon.text.trim().isEmpty) {
+        phoneError = '휴대폰번호를 입력해주세요';
+      } else {
+        phoneError = null;
+      }
+
+      // 이메일 필드 확인
+      if (emailCon.text.trim().isEmpty) {
+        emailError = '이메일을 입력해주세요';
+      } else {
+        emailError = null;
+      }
+    });
+  }
+
+  void showPopup(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text('알림'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('확인'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5)
+                  ),
+                  backgroundColor: Color(0xfffd9a06)
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

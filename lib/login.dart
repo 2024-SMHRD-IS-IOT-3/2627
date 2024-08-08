@@ -103,25 +103,32 @@ class _LoginState extends State<Login> {
                         style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
                   SizedBox(height: 12,),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size(310, 42),
-                          backgroundColor: Color(0xFFFDDC3F),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          )),
-                      onPressed: () {},
-                      child:Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('image/kakao.png', width: 40,),
-                          Text('카카오 계정으로 로그인',
-                               style: TextStyle(fontSize: 17, color: Colors.black)),
-                        ],
-                      ),
-
+                  // Container(
+                  //   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //         minimumSize: Size(310, 42),
+                  //         backgroundColor: Color(0xfffee500),
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(5),
+                  //         )),
+                  //     onPressed: () {},
+                  //     child:Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Image.asset('image/kakaotalk_sharing_btn_small.png', width: 26,),
+                  //         SizedBox(width: 5,),
+                  //         Text('카카오 계정으로 로그인',
+                  //              style: TextStyle(fontSize: 17, color: Colors.black)),
+                  //       ],
+                  //     ),
+                  //
+                  //   ),
+                  // ),
+                  GestureDetector(
+                    onTap: (){print('카카오톡 로그인');},
+                    child: Container(
+                        child: Image.asset('image/kakao_login_large_wide.png', width: 313,)
                     ),
                   ),
                   SizedBox(height: 10,),

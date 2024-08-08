@@ -14,6 +14,195 @@ class _MoneyState extends State<Money> {
   bool julySelected = false;
   bool augustSelected = true;
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        // title: Image.asset('image/solQuiz_logo3.png', width: 120,),
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            color: Colors.black54,
+            onPressed: () {
+              print('icon alert');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.logout_outlined),
+            color: Colors.black54,
+            onPressed: () {
+              print('icon logout');
+            },
+          ),
+        ],
+      ),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.all(7),
+              child: Text(
+                '수익',
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 15),
+            Row(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(99, 32),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor:
+                    juneSelected ? Colors.black : Colors.white,
+                  ),
+                  onPressed: juneSelectedPress,
+                  child: Row(
+                    children: [
+                      if (juneSelected)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Icon(Icons.check, color: Colors.white, size: 20,),
+                        ),
+                      Text(
+                        '6월 수익',
+                        style: TextStyle(
+                            color: juneSelected ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: julySelectedPress,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(99, 32),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor:
+                    julySelected ? Colors.black : Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      if (julySelected)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Icon(Icons.check, color: Colors.white, size: 20,),
+                        ),
+                      Text(
+                        '7월 수익',
+                        style: TextStyle(
+                            color:
+                            julySelected ? Colors.white : Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: augustSelectedPress,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(99, 32),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor:
+                    augustSelected ? Colors.black : Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (augustSelected)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3.0),
+                          child: Icon(Icons.check, color: Colors.white, size: 20,),
+                        ),
+                      SizedBox(width: 10,),
+                      Text(
+                        '8월 수익',
+                        style: TextStyle(
+                            color:
+                            augustSelected ? Colors.white : Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            _buildContainer(),
+          ],
+        ),
+      ),
+    bottomNavigationBar: SizedBox(
+      height: 80,
+          child: BottomNavigationBar(
+            currentIndex: index,
+
+            onTap: onItemTap,
+
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.campaign),
+                label: '공지사항',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.leaderboard),
+                label: '발전량예측',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.wb_sunny_rounded),
+                label: '태양광',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.assignment),
+                label: '모집게시판',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                label: '마이페이지',
+              ),
+            ],
+            // 라벨 스타일
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+
+            // bottom 영역 스타일 지정
+            backgroundColor: const Color(0xffff9201),
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Colors.white,
+
+            // 디자인
+            selectedIconTheme: IconThemeData(
+              size: 27,
+            ),
+            unselectedIconTheme: IconThemeData(
+              size: 27,
+            ),
+
+            selectedLabelStyle: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+        )
+    );
+  }
+  void onItemTap(int i){
+    setState(() {
+      index = i;
+    });
+  }
+
   void juneSelectedPress() {
     setState(() {
       juneSelected = true;
@@ -409,194 +598,5 @@ class _MoneyState extends State<Money> {
         ],
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        // title: Image.asset('image/solQuiz_logo3.png', width: 120,),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            color: Colors.black54,
-            onPressed: () {
-              print('icon alert');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.logout_outlined),
-            color: Colors.black54,
-            onPressed: () {
-              print('icon logout');
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.all(7),
-              child: Text(
-                '수익',
-                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 15),
-            Row(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(99, 32),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor:
-                    juneSelected ? Colors.black : Colors.white,
-                  ),
-                  onPressed: juneSelectedPress,
-                  child: Row(
-                    children: [
-                      if (juneSelected)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
-                          child: Icon(Icons.check, color: Colors.white),
-                        ),
-                      Text(
-                        '6월 수익',
-                        style: TextStyle(
-                            color:
-                            juneSelected ? Colors.white : Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: julySelectedPress,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(99, 32),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor:
-                    julySelected ? Colors.black : Colors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      if (julySelected)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
-                          child: Icon(Icons.check, color: Colors.white),
-                        ),
-                      Text(
-                        '7월 수익',
-                        style: TextStyle(
-                            color:
-                            julySelected ? Colors.white : Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: augustSelectedPress,
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(99, 32),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    backgroundColor:
-                    augustSelected ? Colors.black : Colors.white,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (augustSelected)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 3.0),
-                          child: Icon(Icons.check, color: Colors.white, size: 20,),
-                        ),
-                      SizedBox(width: 10,),
-                      Text(
-                        '8월 수익',
-                        style: TextStyle(
-                            color:
-                            augustSelected ? Colors.white : Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _buildContainer(),
-          ],
-        ),
-      ),
-    bottomNavigationBar: SizedBox(
-      height: 80,
-          child: BottomNavigationBar(
-            currentIndex: index,
-
-            onTap: onItemTap,
-
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.info_outline),
-                label: '공지사항',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.leaderboard),
-                label: '발전량예측',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.wb_sunny_rounded),
-                label: '태양광',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.assignment),
-                label: '모집게시판',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: '마이페이지',
-              ),
-            ],
-            // 라벨 스타일
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-
-            // bottom 영역 스타일 지정
-            backgroundColor: const Color(0xffff9201),
-            unselectedItemColor: Colors.white,
-            selectedItemColor: Colors.white,
-
-            // 디자인
-            selectedIconTheme: IconThemeData(
-              size: 27,
-            ),
-            unselectedIconTheme: IconThemeData(
-              size: 27,
-            ),
-
-            selectedLabelStyle: TextStyle(
-              fontSize: 14,
-            ),
-          ),
-        )
-    );
-  }
-  void onItemTap(int i){
-    setState(() {
-      index = i;
-    });
   }
 }

@@ -10,15 +10,16 @@ class Recruit extends StatefulWidget {
 
 
 class _RecruitState extends State<Recruit> {
-  var txtList = ['[해안] 발전소 모집', '[내륙] 발전소 모집','[내륙] 발전소 모집','[해안] 발전소 모집'];
-  var txtList2 = ['전남 / 해안', '광주 / 내륙','전남 / 해안', '광주 / 내륙'];
+  var txtList = ['[해안] 발전소 모집', '[내륙] 발전소 모집','[해안] 발전소 모집','[내륙] 발전소 모집'];
+  var txtList2 = ['전남 / 해안', '광주 / 내륙','제주 / 해안', '충청 / 내륙'];
+  var percentList = [0.7, 0.6, 0.9, 0.5];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo3.png',width: 120,),
+        title: Image.asset('image/solQuiz_logo3.png',width: 110,),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
@@ -53,9 +54,9 @@ class _RecruitState extends State<Recruit> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('모집 게시판', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+                  Text('모집 게시판', style: TextStyle(fontSize: 23,),),
                   IconButton(
-                      icon: Icon(Icons.add),
+                      icon: Icon(Icons.add, size: 30,),
                       style: ButtonStyle(
                         iconColor: MaterialStateProperty.all<Color>(Colors.black54),
                       ),
@@ -91,28 +92,61 @@ class _RecruitState extends State<Recruit> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child: Image.asset('image/solQuiz_logo2.png', width: 70, )),
+                                child: Image.asset('image/solQuiz_logo2.png', width: 120,),
+                            ),
                             Expanded(
                               flex: 2,
                               child: Column(
                                 children: [
-                                  SizedBox(height: 10,),
-                                  Text('${txtList[index]}',style: TextStyle(fontSize: 20),),
-                                  SizedBox(height: 10,),
-                                  Text('${txtList2[index]}',style: TextStyle(fontSize: 17,),),
-                                  SizedBox(height: 10,),
                                   Row(
                                     children: [
-                                      SizedBox(width: 35,),
+                                      Column(
+                                        children: [
+                                          SizedBox(height: 10,),
+                                          Row(
+                                            children: [
+                                              SizedBox(width: 10,),
+                                              Text('${txtList[index]}',style: TextStyle(fontSize: 20),),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10,),
+                                          Text('${txtList2[index]}',style: TextStyle(fontSize: 17,),),
+                                          SizedBox(height: 10,),
+                                        ],
+                                      ),
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            SizedBox(width: 15,),
+                                            Column(
+                                              children: [
+                                                IconButton(
+                                                  alignment: Alignment.topRight,
+                                                  onPressed: (){},
+                                                  icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
+                                                  style: IconButton.styleFrom(
+                                                    padding: EdgeInsets.zero,
+                                                  ),
+                                                ),
+                                                SizedBox(height: 17,),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
                                       LinearPercentIndicator(
-                                        width: 120.0,
+                                        width: 150.0,
                                         animation: true,
                                         animationDuration: 100,
                                         lineHeight: 3.0,
                                         // leading: const Text("left"),
                                         // trailing: const Text("right"),
-                                        percent: 0.7,
-                                        trailing: Text("70.0%", style: TextStyle(fontSize: 13),),
+                                        percent: percentList[index],
+                                        trailing: Text("${percentList[index]*100}%", style: TextStyle(fontSize: 15),),
                                         progressColor: Color(0xffff9201),
                                         barRadius: Radius.circular(10),
                                       ),
@@ -120,6 +154,9 @@ class _RecruitState extends State<Recruit> {
                                         onPressed: (){
                                           Navigator.pushNamed(context, '/recruitmore');
                                         },
+                                        style: IconButton.styleFrom(
+                                          padding: EdgeInsets.zero,
+                                        ),
                                         icon: Icon(Icons.arrow_forward_ios_outlined), color: Colors.black54, iconSize: 20,),
                                     ],
                                   ),
@@ -151,8 +188,12 @@ class _RecruitState extends State<Recruit> {
         ),
         // alignment: Alignment.bottomCenter,
         insetPadding: const EdgeInsets.symmetric(
-          // horizontal: 10,
-          // vertical: 5
+          horizontal: 10,
+          vertical: 20
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 25,
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -160,14 +201,14 @@ class _RecruitState extends State<Recruit> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('모집글을 등록하시겠습니까?', style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                // SizedBox(width: 10,),
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.close, size: 20,),
-                )
+                Text('모집글을 등록하시겠습니까?', style: TextStyle(fontSize: 22,),),
+                SizedBox(width: 50,),
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   icon: const Icon(Icons.close, size: 20,),
+                // )
               ],
             ),
             SizedBox(height: 20,),

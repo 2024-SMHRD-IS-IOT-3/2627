@@ -4,6 +4,7 @@ import 'package:solquiz_2/board.dart';
 import 'package:solquiz_2/login.dart';
 import 'package:solquiz_2/money.dart';
 import 'package:solquiz_2/navigationBar.dart';
+import 'package:solquiz_2/predict_more.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/recruit_more.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/recruitmore' : (context) => RecruitMore(),
         '/money' : (context) => Money(),
+        '/predictmore' : (context) => PredictMore(),
       },
       debugShowCheckedModeBanner: false,
 

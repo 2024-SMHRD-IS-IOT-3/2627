@@ -43,23 +43,23 @@ class _SolarEnvState extends State<SolarEnv> {
                   padding: EdgeInsets.all(5),
                   child: Column(
                     children: [
-                      SizedBox(height: 50,),
+                      SizedBox(height: 55,),
                       Row(
                         children: [
-                          SizedBox(width: 30,),
+                          SizedBox(width: 35,),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text('30℃', style: TextStyle(fontSize: 38, color: Colors.white),),
                               Text('광주광역시',style: TextStyle(fontSize: 20, color: Colors.white),),
                             ],
                           ),
-                          SizedBox(width: 85,),
+                          SizedBox(width: 80,),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('최저 : 25℃',style: TextStyle(fontSize: 20, color: Colors.white),),
-                              Text('최고 : 30℃',style: TextStyle(fontSize: 20, color: Colors.white),),
+                              Text('최저 : 25℃',style: TextStyle(fontSize: 19, color: Colors.white),),
+                              Text('최고 : 30℃',style: TextStyle(fontSize: 19, color: Colors.white),),
                             ],
                           ),
                           Column(
@@ -78,82 +78,68 @@ class _SolarEnvState extends State<SolarEnv> {
               Positioned(
                 top: 180,
                 left: 13,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: 368,
-                  height: 230,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color : Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1.5,
-                        blurRadius: 5,
-                        offset: Offset(0,3),  // 그림자 위치 변경
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('SolQuiz 발전소', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),),
-                          Text('가동중', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold,),),
-                        ],
-                      ),
-                      SizedBox(height: 25,),
-                      Text('금일 예상 수익', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
-                      Text('1,963,000원', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,),),
-                      SizedBox(height: 20,),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text('평균 발전시간', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
-                              Text('5.11 h', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
+                child: GestureDetector(
+                  onTap: (){Navigator.pushNamed(context, '/money');},
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    width: 368,
+                    height: 230,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color : Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1.5,
+                          blurRadius: 5,
+                          offset: Offset(0,3),  // 그림자 위치 변경
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('SolQuiz 발전소', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,),),
+                            Text('가동중', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold,),),
+                          ],
+                        ),
+                        SizedBox(height: 25,),
+                        Text('금일 예상 수익', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
+                        Text('1,963,000원', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,),),
+                        SizedBox(height: 20,),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text('평균 발전시간', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
+                                Text('5.11 h', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
+                              ],
+                            ),
+                            SizedBox(width: 100,),
+                            Column(
+                              children: [
+                                Text('금일 발전량', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
+                                Text('8,463 kwh', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
+                              ],
+                            ),
+                            SizedBox(width: 15,),
                             ],
-                          ),
-                          SizedBox(width: 100,),
-                          Column(
-                            children: [
-                              Text('금일 발전량', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,),),
-                              Text('8,463 kwh', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,),),
-                            ],
-                          ),
-                          SizedBox(width: 15,),
-                          // IconButton(
-                          //   onPressed: (){print('arrow');},
-                          //   icon: Icon(Icons.arrow_forward),
-                          //   padding: EdgeInsets.zero,
-                          // ),
-                          // IconButton(
-                          //   onPressed: (){
-                          //     Navigator.pushNamed(context, '/money');
-                          //   },
-                          //   icon: Icon(Icons.arrow_forward_ios_outlined), color: Colors.black54, iconSize: 20,),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 165,),
+          SizedBox(height: 170,),
           Row(
             children: [
               SizedBox(width: 20,),
               Text('시장 동향', style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold,),),
-
-              IconButton(
-                onPressed: (){
-                  Navigator.pushNamed(context, '/money');
-                },
-                icon: Icon(Icons.arrow_forward_ios_outlined), color: Colors.black54, iconSize: 20,),
-
             ],
           ),
           Row(

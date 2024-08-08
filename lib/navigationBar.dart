@@ -3,7 +3,6 @@ import 'package:solquiz_2/board.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/predict.dart';
-
 import 'package:solquiz_2/myPage.dart';
 
 
@@ -57,7 +56,7 @@ class _NavigationbarState extends State<Navigationbar> {
 
           type: BottomNavigationBarType.fixed,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.info_outline), label : '공지사항',),
+            BottomNavigationBarItem(icon: Icon(Icons.campaign), label : '공지사항',),
             BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label : '발전량예측',),
             BottomNavigationBarItem(icon: Icon(Icons.wb_sunny_rounded), label : '태양광',),
             BottomNavigationBarItem(icon: Icon(Icons.assignment), label : '모집게시판',),

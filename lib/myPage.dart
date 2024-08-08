@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solquiz_2/profileEdit.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -16,7 +17,7 @@ class _MyPageState extends State<MyPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Image.asset('image/solQuiz_logo3.png',width: 120,),
+          title: Image.asset('image/solQuiz_logo3.png',width: 110,),
           backgroundColor: Colors.white,
           actions: [
             IconButton(
@@ -89,14 +90,14 @@ class _MyPageState extends State<MyPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '사용자 이름',
+                              '홍길동',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              'andslkfj@smhrd.com',
+                              'ghdrlfehd@smhrd.com',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey,
@@ -105,10 +106,15 @@ class _MyPageState extends State<MyPage> {
                           ],
                         ),
                         SizedBox(
-                          width: 55,
+                          width: 45,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => profileEdit()),
+                            );
+                          },
                           child: Text(
                             '정보 수정',
                             style: TextStyle(
@@ -153,7 +159,7 @@ class _MyPageState extends State<MyPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('발전소 관리', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+                    Text('발전소 관리', style: TextStyle(fontSize: 18, color: Colors.black54,),),
                     SizedBox(height: 8,),
                     Row(
                       children: [
@@ -207,7 +213,7 @@ class _MyPageState extends State<MyPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('모집 게시판 관리', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+                    Text('모집 게시판 관리', style: TextStyle(fontSize: 18, color: Colors.black54,),),
                     SizedBox(height: 8,),
                     Row(
                       children: [
