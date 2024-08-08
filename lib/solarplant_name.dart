@@ -77,7 +77,7 @@ class _SolarplantNameState extends State<SolarplantName> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Image.asset(
-          'image/solQuiz_logo1.png',
+          'image/solQuiz_logo3.png',
           width: 130,
         ),
         centerTitle: true,
@@ -121,7 +121,7 @@ class _SolarplantNameState extends State<SolarplantName> {
                       decoration: InputDecoration(
                         label: Align(
                           alignment: Alignment.center,
-                          child: Text('발전소 이름'),
+                          child: Text('발전소 이름', style: TextStyle(fontSize: 19),),
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Color(0xFFA3A3A3)),

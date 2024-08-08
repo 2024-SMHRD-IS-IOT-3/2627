@@ -8,41 +8,6 @@ import 'board.dart';
 import 'mainPage.dart';
 import 'myPage.dart';
 
-/*
-Widget _recruitmore(){
-  return Container(
-    width: double.infinity,
-    margin: EdgeInsets.all(10),
-    padding: EdgeInsets.all(15),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1.5,
-          blurRadius: 5,
-          offset: Offset(0, 3), // 그림자 위치 변경
-        ),
-      ],
-    ),
-    child:
-    Column(
-      children: [
-        Row(
-          children: [
-
-          ],
-        ),
-      ],
-    ),
-  );
-}
-*/
-
-
-
-
 
 class RecruitMore extends StatefulWidget {
   const RecruitMore({super.key});

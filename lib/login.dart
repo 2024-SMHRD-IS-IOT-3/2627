@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:solquiz_2/join.dart';
 import 'package:solquiz_2/search.dart';
 
-class login extends StatefulWidget {
-  const login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<login> createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<login> {
+class _LoginState extends State<Login> {
 
   TextEditingController idCon = TextEditingController();
   TextEditingController pwCon = TextEditingController();
@@ -41,8 +41,8 @@ class _LoginState extends State<login> {
                   Container(
                       child: Image.asset(
                     'image/solQuiz_logo2.png',
-                    width: 180,
-                    height: 180,
+                    width: 300,
+                    height: 300,
                   )),
                   Container(
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -77,6 +77,7 @@ class _LoginState extends State<login> {
                   SizedBox(height: 30,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         minimumSize: Size(310, 42),
                         backgroundColor: Color(0xFFFF9201),
                         shape: RoundedRectangleBorder(
@@ -84,23 +85,24 @@ class _LoginState extends State<login> {
                         )),
                     onPressed: () {},
                     child: Text('로그인',
-                        style: TextStyle(fontSize: 17, color: Colors.white)),
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 12,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         minimumSize: Size(310, 42),
                         backgroundColor: Color(0xFFFF9201),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => join()));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => Join()));
                     },
                     child: Text('회원가입',
-                        style: TextStyle(fontSize: 17, color: Colors.white)),
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 12,),
                   Container(
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: ElevatedButton(
@@ -112,9 +114,9 @@ class _LoginState extends State<login> {
                           )),
                       onPressed: () {},
                       child:Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('image/kakao_logo 2.png',),
+                          Image.asset('image/kakao.png', width: 40,),
                           Text('카카오 계정으로 로그인',
                                style: TextStyle(fontSize: 17, color: Colors.black)),
                         ],
@@ -127,7 +129,7 @@ class _LoginState extends State<login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => search()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => Search()));
                       },
                           child: Text('아이디 / 비밀번호 찾기',
                               style: TextStyle(

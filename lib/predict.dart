@@ -239,7 +239,7 @@ class _PredictState extends State<Predict> {
                           ],
                           series: <CartesianSeries>[
                             // Render column series
-                            ColumnSeries<ChartData, String>(
+                            LineSeries<ChartData, String>(
                                 name: '기온',
                                 dataSource: chartData,
                                 xValueMapper: (ChartData data, _) => data.x,
@@ -377,7 +377,10 @@ class _PredictState extends State<Predict> {
                       ),
                       horizontalMargin: 50,
                       columnSpacing: 45,
-                      
+
+
+
+
                       border: TableBorder(  // 중간 구분선
                         borderRadius: BorderRadius.circular(15),
                         verticalInside: BorderSide(color: Colors.black54, width: 0.7),
@@ -392,7 +395,7 @@ class _PredictState extends State<Predict> {
                           onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
                         ),
                         DataColumn(
-                          label: Text('발전량', style: TextStyle(fontSize: 20),),
+                          label: Text('발전량', style: TextStyle(fontSize: 20,),),
                           numeric: true,
                           onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
                         ),

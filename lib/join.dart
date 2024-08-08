@@ -3,14 +3,14 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-class join extends StatefulWidget {
-  const join({super.key});
+class Join extends StatefulWidget {
+  const Join({super.key});
 
   @override
-  State<join> createState() => _JoinState();
+  State<Join> createState() => _JoinState();
 }
 
-class _JoinState extends State<join> {
+class _JoinState extends State<Join> {
   TextEditingController idCon = TextEditingController();
   TextEditingController pwCon = TextEditingController();
   TextEditingController samepwCon = TextEditingController();
@@ -132,22 +132,80 @@ class _JoinState extends State<join> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                     child: Image.asset(
-                      'image/solQuiz_logo1.png',
-                      width: 300,
+                      'image/solQuiz_logo3.png',
+                      width: 200,
                       height: 50,
                     ),
                   ),
+                  SizedBox(height: 5,),
                   Text(
                     '회원으로 함께 해주세요',
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(fontSize: 23),
                   ),
                   SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: idCon,
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 3, 10, 0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: idCon,
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFFA3A3A3)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xfffd9a06)),
+                                  ),
+                                  labelText: '아이디',
+                                  labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                                  errorText: idError,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 90,
+                              height: 40,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                                  backgroundColor: Color(0xFFFF9201),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  await checkDuplicateId();
+                                },
+                                child: Text(
+                                  '중복체크',
+                                  style: TextStyle(fontSize: 15, color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          controller: pwCon,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFFA3A3A3))),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xfffd9a06))),
+                            labelText: '비밀번호 ',
+                            labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          controller: samepwCon,
+                          obscureText: true,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Color(0xFFA3A3A3)),
@@ -155,155 +213,135 @@ class _JoinState extends State<join> {
                             focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Color(0xfffd9a06)),
                             ),
-                            labelText: '아이디',
+                            labelText: '비밀번호 확인',
                             labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                            errorText: idError,
+                            errorText: pwError,
+                            errorStyle: TextStyle(color: Colors.red),
                           ),
+                          onChanged: (value) {
+                            validateFields();
+                          },
                         ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        height: 35,
-                        child: ElevatedButton(
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          controller: nameCon,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFFA3A3A3)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xfffd9a06)),
+                            ),
+                            labelText: '이름',
+                            labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                            errorText: nameError,
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[ㄱ-ㅎㅏ-ㅣ가-힣]')),
+                          ],
+                          onChanged: (value) {
+                            validateFields();
+                          },
+                        ),
+                        SizedBox(height: 10,),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: phoneCon,
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFFA3A3A3)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xfffd9a06)),
+                                  ),
+                                  labelText: '휴대폰 번호',
+                                  labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                                  hintText: "'-' 없이 입력해주세요",
+                                  hintStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                                  errorText: phoneError,
+                                ),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                onChanged: (value) {
+                                  validateFields();
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 90,
+                              height: 40,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                                  backgroundColor: Color(0xFFFF9201),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  await checkDuplicateId();
+                                },
+                                child: Text(
+                                  '인증하기',
+                                  style: TextStyle(fontSize: 15, color: Colors.white,),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 10,),
+                        TextFormField(
+                          controller: emailCon,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFFA3A3A3)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xfffd9a06)),
+                            ),
+                            labelText: '이메일',
+                            labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                            errorText: emailError,
+                          ),
+                          onChanged: (value) {
+                            validateFields();
+                          },
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            minimumSize: Size(350, 42),
                             backgroundColor: Color(0xFFFF9201),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
                           ),
-                          onPressed: () async {
-                            await checkDuplicateId();
+                          onPressed: () {
+                            validateFields();
+                            if (pwError == null &&
+                                idError == null &&
+                                nameError == null &&
+                                phoneError == null &&
+                                emailError == null) {
+
+                              showPopup('회원가입이 완료되었습니다!');
+                            } else {
+                              showPopup('해당 양식을 올바르게 입력해주세요.');
+                            }
                           },
                           child: Text(
-                            '중복체크',
-                            style: TextStyle(fontSize: 13, color: Colors.white),
+                            '회원가입',
+                            style: TextStyle(fontSize: 19, color: Colors.white),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    controller: pwCon,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFFA3A3A3))),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xfffd9a06))),
-                      labelText: '비밀번호 ',
-                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    controller: samepwCon,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFA3A3A3)),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xfffd9a06)),
-                      ),
-                      labelText: '비밀번호 확인',
-                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                      errorText: pwError,
-                      errorStyle: TextStyle(color: Colors.red),
-                    ),
-                    onChanged: (value) {
-                      validateFields();
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    controller: nameCon,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFA3A3A3)),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xfffd9a06)),
-                      ),
-                      labelText: '이름',
-                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                      errorText: nameError,
-                    ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r'[ㄱ-ㅎㅏ-ㅣ가-힣]')),
-                    ],
-                    onChanged: (value) {
-                      validateFields();
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    controller: phoneCon,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFA3A3A3)),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xfffd9a06)),
-                      ),
-                      labelText: '휴대폰 번호',
-                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                      hintText: "'-' 없이 입력해주세요",
-                      hintStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                      errorText: phoneError,
-                    ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    onChanged: (value) {
-                      validateFields();
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    controller: emailCon,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFA3A3A3)),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xfffd9a06)),
-                      ),
-                      labelText: '이메일',
-                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                      errorText: emailError,
-                    ),
-                    onChanged: (value) {
-                      validateFields();
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(310, 42),
-                      backgroundColor: Color(0xFFFF9201),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    onPressed: () {
-                      validateFields();
-                      if (pwError == null &&
-                          idError == null &&
-                          nameError == null &&
-                          phoneError == null &&
-                          emailError == null) {
-
-                        showPopup('회원가입이 완료되었습니다!');
-                      } else {
-                        showPopup('해당 양식을 올바르게 입력해주세요.');
-                      }
-                    },
-                    child: Text(
-                      '회원가입',
-                      style: TextStyle(fontSize: 17, color: Colors.white),
+                      ],
                     ),
                   ),
                 ],

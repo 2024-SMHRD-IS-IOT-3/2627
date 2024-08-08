@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:solquiz_2/board.dart';
+import 'package:solquiz_2/login.dart';
 import 'package:solquiz_2/money.dart';
 import 'package:solquiz_2/navigationBar.dart';
 import 'package:solquiz_2/recruit.dart';
@@ -11,6 +12,7 @@ import 'package:solquiz_2/solarplant_addr.dart';
 import 'package:solquiz_2/solarplant_name.dart';
 
 import 'changePw.dart';
+import 'join.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
 
-      home:Navigationbar(),
+      home: Navigationbar(),
     );
   }
 }

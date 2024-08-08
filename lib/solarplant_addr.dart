@@ -90,7 +90,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           title: Image.asset(
-            'image/solQuiz_logo1.png',
+            'image/solQuiz_logo3.png',
             width: 130,
           ),
           centerTitle: true,
@@ -124,7 +124,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
                           Text(
                             '지역 상세',
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 19, fontWeight: FontWeight.bold),
                           )
                         ]),
                     SizedBox(
@@ -134,6 +134,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: List.generate(5, (row) {
                         return Row(
+
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(2, (col) {
                             int index = row * 2 + col;
@@ -142,7 +143,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
                               padding: const EdgeInsets.symmetric(horizontal: 7.5),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(155, 45),
+                                  minimumSize: Size(155, 38),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)),
                                   backgroundColor:
@@ -178,7 +179,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
                             borderSide: BorderSide(color: Color(0xfffd9a06)),
                           ),
                           labelText: '상세주소',
-                          labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 18,fontWeight: FontWeight.bold),
                           hintText: '발전소 상세 주소를 입력해주세요',
                           hintStyle: TextStyle(color: Color(0xFFA3A3A3)),
                         errorText: solarplantaddError
@@ -230,7 +231,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
         ),
         bottomNavigationBar: Container(
           color: Color(0xfffd9a06),
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

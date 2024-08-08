@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class search extends StatefulWidget {
-  const search({super.key});
+class Search extends StatefulWidget {
+  const Search({super.key});
 
   @override
-  State<search> createState() => _SearchState();
+  State<Search> createState() => _SearchState();
 }
 
-class _SearchState extends State<search> {
+class _SearchState extends State<Search> {
   bool IdSearch = true;
   bool PwSearch = false;
 
@@ -41,7 +41,7 @@ class _SearchState extends State<search> {
                     borderSide: BorderSide(color: Color(0xFFA3A3A3))),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xfffd9a06))),
-                labelText: '본인 이름을 입력해주세요',
+                labelText: '이름을 입력해주세요',
                 labelStyle: TextStyle(color: Color(0xFFA3A3A3), fontSize: 18),
               ),
             ),
@@ -55,7 +55,7 @@ class _SearchState extends State<search> {
                     borderSide: BorderSide(color: Color(0xFFA3A3A3))),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xfffd9a06))),
-                labelText: '본인 이메일을 입력해주세요',
+                labelText: '이메일을 입력해주세요',
                 labelStyle: TextStyle(color: Color(0xFFA3A3A3), fontSize: 18),
               ),
             ),
@@ -63,14 +63,15 @@ class _SearchState extends State<search> {
           SizedBox(height: 40),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(310, 42),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  minimumSize: Size(350, 42),
                   backgroundColor: Color(0xFFFF9201),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   )),
               onPressed: () {},
               child: Text('아이디 찾기',
-                  style: TextStyle(fontSize: 17, color: Colors.white)))
+                  style: TextStyle(fontSize:19, color: Colors.white)))
         ],
       );
     } else if (PwSearch) {
@@ -85,7 +86,7 @@ class _SearchState extends State<search> {
                     borderSide: BorderSide(color: Color(0xFFA3A3A3))),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xfffd9a06))),
-                labelText: '본인 아이디를 입력해주세요',
+                labelText: '아이디를 입력해주세요',
                 labelStyle: TextStyle(color: Color(0xFFA3A3A3), fontSize: 18),
               ),
             ),
@@ -99,7 +100,7 @@ class _SearchState extends State<search> {
                     borderSide: BorderSide(color: Color(0xFFA3A3A3))),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xfffd9a06))),
-                labelText: '본인 이메일을 입력해주세요',
+                labelText: '이메일을 입력해주세요',
                 labelStyle: TextStyle(color: Color(0xFFA3A3A3), fontSize: 18),
               ),
             ),
@@ -107,14 +108,15 @@ class _SearchState extends State<search> {
           SizedBox(height: 40),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  minimumSize: Size(310, 42),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  minimumSize: Size(350, 42),
                   backgroundColor: Color(0xFFFF9201),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   )),
               onPressed: () {},
               child: Text('비밀번호 찾기',
-                  style: TextStyle(fontSize: 17, color: Colors.white)))
+                  style: TextStyle(fontSize: 19, color: Colors.white)))
         ],
       );
     }
@@ -126,18 +128,18 @@ class _SearchState extends State<search> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          '  아이디 / 비밀번호 찾기',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 25,
-            fontFamily: 'Abhaya Libre',
-            fontWeight: FontWeight.w400,
-            height: 0.07,
-            letterSpacing: 0.40,
-          ),
-        ),
+        // title: Text(
+        //   '  아이디 / 비밀번호 찾기',
+        //   textAlign: TextAlign.center,
+        //   style: TextStyle(
+        //     color: Colors.black,
+        //     fontSize: 25,
+        //     fontFamily: 'Abhaya Libre',
+        //     fontWeight: FontWeight.w400,
+        //     height: 0.07,
+        //     letterSpacing: 0.40,
+        //   ),
+        // ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -158,6 +160,8 @@ class _SearchState extends State<search> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Text('아이디 / 비밀번호 찾기', style: TextStyle(fontSize: 25,),),
+                SizedBox(height: 20,),
                 Container(
                   color: Colors.white,
                   child: Row(

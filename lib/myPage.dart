@@ -42,18 +42,18 @@ class _MyPageState extends State<MyPage> {
         body: SingleChildScrollView(
           child : Column(
             children: [
-              Container(
-                width: double.infinity,
-                height: 50,
-                padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 8,),
-                    Text('마이페이지', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
-                  ],
-                ),
-              ),
+              // Container(
+              //   width: double.infinity,
+              //   height: 50,
+              //   padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       SizedBox(width: 8,),
+              //       Text('마이페이지', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+              //     ],
+              //   ),
+              // ),
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.all(10),
