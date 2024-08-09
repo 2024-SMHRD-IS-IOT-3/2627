@@ -125,7 +125,8 @@ class _PredictState extends State<Predict> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        height: double.infinity,
         child: Column(
           children: [
             Container(
@@ -180,7 +181,7 @@ class _PredictState extends State<Predict> {
                                       return Theme(
                                         data: Theme.of(context).copyWith(
                                           colorScheme: ColorScheme.light(
-                                            primary: Color(0xffffb15a), // header background color
+                                            primary: Color(0xffff9201), // header background color
                                             // onPrimary: Colors.purple,  // header text color
                                             onSurface: Colors.black87,  // body text color
                                           ),
@@ -205,6 +206,7 @@ class _PredictState extends State<Predict> {
                     ],
                   ),
                   Container(
+                    height: 450,
                     margin: EdgeInsets.fromLTRB(0, 2, 0, 0),
                       child: SfCartesianChart(
                         legend: Legend(
@@ -218,10 +220,10 @@ class _PredictState extends State<Predict> {
                             interval: 0.05,
                             majorGridLines: const MajorGridLines(width: 0),
 
-                            title: AxisTitle(
-                              text: '발전량',
-                              textStyle: TextStyle(fontSize: 10,)
-                            ),
+                            // title: AxisTitle(
+                            //   text: '발전량',
+                            //   textStyle: TextStyle(fontSize: 10,)
+                            // ),
                           ),
                           // axes: <ChartAxis>[
                           //   NumericAxis(
@@ -237,9 +239,11 @@ class _PredictState extends State<Predict> {
                           //   ),
                           // ],
                           palette: <Color>[
-                            Color(0xffff9201),
-                            Colors.blueAccent,
+                            // Color(0xffff9201),
                             Colors.red,
+                            Colors.blueAccent,
+
+                            // Colors.red,
                           ],
                           series: <CartesianSeries>[
                             // Render column series
@@ -267,7 +271,7 @@ class _PredictState extends State<Predict> {
                   ),
                   TextButton(
                       style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -288,146 +292,146 @@ class _PredictState extends State<Predict> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1.5,
-                    blurRadius: 5,
-                    offset: Offset(0, 3), // 그림자 위치 변경
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('발전량 표', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
-                      SizedBox(height: 10,),
-                      // 날짜 선택
-                      Container(
-                        width: 150,
-                        height: 35,
-                        margin: EdgeInsets.fromLTRB(15, 20, 10, 15),
-
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black26, width: 1),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-
-                          children: [
-                            Text(
-                              '${initialDay.year} - ${initialDay.month} - ${initialDay.day}',
-                              style: TextStyle(fontSize: 17,color: Colors.black54),
-                            ),
-                            IconButton(
-                              onPressed: () async{
-                              final DateTime? dateTime = await showDatePicker(
-                                  context: context,
-                                  initialDate: initialDay,
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(3000),
-
-                                  // custom
-                                builder: (context, child){
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary: Color(0xffffb15a), // header background color
-                                          // onPrimary: Colors.purple,  // header text color
-                                          onSurface: Colors.black87,  // body text color
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: Color(0xffffb15a),
-                                          ),
-                                        ),
-                                      ), child: child!,
-                                    );
-                                }
-                              );
-                              if (dateTime != null){
-                                setState(() {
-                                  initialDay = dateTime;
-                                });
-                              }
-                            }, icon: Icon(Icons.calendar_month, size: 18, color: Colors.black54,),),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: FittedBox(
-                      child: DataTable(
-                        headingRowColor: MaterialStateColor.resolveWith(
-                            (states){
-                              return const Color(0xffe5e5e5);
-                            }
-                        ),
-                        headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                        decoration: BoxDecoration(  // 바깥선
-                          border: Border.all(color: Colors.black54, width: 1),
-                        ),
-                        horizontalMargin: 35,
-                      
-                        headingRowHeight: 40,
-                        dataRowHeight: 35,
-                        columnSpacing: 51,
-                      
-                        border: TableBorder(  // 중간 구분선
-                          borderRadius: BorderRadius.circular(15),
-                          verticalInside: BorderSide(color: Colors.black54, width: 0.7),
-                        ),
-                      
-                        // sortAscending: _sortAscending,
-                        // sortColumnIndex: _sortColumnIndex,
-                        columns: [
-                          DataColumn(
-                            label: Center(child: Text('  시간', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
-                            // numeric: true,
-                            onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
-                          ),
-                          DataColumn(
-                            label: Expanded(child: Center(child: Text('     발전량', style: TextStyle(fontSize: 17,), textAlign: TextAlign.right,))),
-                            // numeric: true,
-                            onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
-                          ),
-                        ],
-                        rows: _envdata.map((data){
-                          return DataRow(
-                              cells: [
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                      child : Text('${data.hour}   ',
-                                      style: TextStyle(fontSize: 16),
-                                      ))),
-                                DataCell(
-                                  Align(
-                                    alignment: Alignment.center,
-                                      child : Text(' ${data.env}',
-                                      style: TextStyle(fontSize: 16),
-                                      ),)),
-                          ]);
-                      }).toList(),
-                                        ),
-                    ),
-                  )
-                ]
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   margin: EdgeInsets.all(10),
+            //   padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(12),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.grey.withOpacity(0.5),
+            //         spreadRadius: 1.5,
+            //         blurRadius: 5,
+            //         offset: Offset(0, 3), // 그림자 위치 변경
+            //       ),
+            //     ],
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           Text('발전량 표', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
+            //           SizedBox(height: 10,),
+            //           // 날짜 선택
+            //           Container(
+            //             width: 150,
+            //             height: 35,
+            //             margin: EdgeInsets.fromLTRB(15, 20, 10, 15),
+            //
+            //             decoration: BoxDecoration(
+            //                 border: Border.all(color: Colors.black26, width: 1),
+            //             ),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.end,
+            //
+            //               children: [
+            //                 Text(
+            //                   '${initialDay.year} - ${initialDay.month} - ${initialDay.day}',
+            //                   style: TextStyle(fontSize: 17,color: Colors.black54),
+            //                 ),
+            //                 IconButton(
+            //                   onPressed: () async{
+            //                   final DateTime? dateTime = await showDatePicker(
+            //                       context: context,
+            //                       initialDate: initialDay,
+            //                       firstDate: DateTime(2000),
+            //                       lastDate: DateTime(3000),
+            //
+            //                       // custom
+            //                     builder: (context, child){
+            //                         return Theme(
+            //                           data: Theme.of(context).copyWith(
+            //                             colorScheme: ColorScheme.light(
+            //                               primary: Color(0xffffb15a), // header background color
+            //                               // onPrimary: Colors.purple,  // header text color
+            //                               onSurface: Colors.black87,  // body text color
+            //                             ),
+            //                             textButtonTheme: TextButtonThemeData(
+            //                               style: TextButton.styleFrom(
+            //                                 foregroundColor: Color(0xffffb15a),
+            //                               ),
+            //                             ),
+            //                           ), child: child!,
+            //                         );
+            //                     }
+            //                   );
+            //                   if (dateTime != null){
+            //                     setState(() {
+            //                       initialDay = dateTime;
+            //                     });
+            //                   }
+            //                 }, icon: Icon(Icons.calendar_month, size: 18, color: Colors.black54,),),
+            //               ],
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //       SizedBox(height: 20,),
+            //       SingleChildScrollView(
+            //         scrollDirection: Axis.vertical,
+            //         child: FittedBox(
+            //           child: DataTable(
+            //             headingRowColor: MaterialStateColor.resolveWith(
+            //                 (states){
+            //                   return const Color(0xffe5e5e5);
+            //                 }
+            //             ),
+            //             headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+            //             decoration: BoxDecoration(  // 바깥선
+            //               border: Border.all(color: Colors.black54, width: 1),
+            //             ),
+            //             horizontalMargin: 35,
+            //
+            //             headingRowHeight: 40,
+            //             dataRowHeight: 35,
+            //             columnSpacing: 51,
+            //
+            //             border: TableBorder(  // 중간 구분선
+            //               borderRadius: BorderRadius.circular(15),
+            //               verticalInside: BorderSide(color: Colors.black54, width: 0.7),
+            //             ),
+            //
+            //             // sortAscending: _sortAscending,
+            //             // sortColumnIndex: _sortColumnIndex,
+            //             columns: [
+            //               DataColumn(
+            //                 label: Center(child: Text('  시간', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
+            //                 // numeric: true,
+            //                 onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
+            //               ),
+            //               DataColumn(
+            //                 label: Expanded(child: Center(child: Text('     발전량', style: TextStyle(fontSize: 17,), textAlign: TextAlign.right,))),
+            //                 // numeric: true,
+            //                 onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
+            //               ),
+            //             ],
+            //             rows: _envdata.map((data){
+            //               return DataRow(
+            //                   cells: [
+            //                     DataCell(
+            //                       Align(
+            //                         alignment: Alignment.center,
+            //                           child : Text('${data.hour}   ',
+            //                           style: TextStyle(fontSize: 16),
+            //                           ))),
+            //                     DataCell(
+            //                       Align(
+            //                         alignment: Alignment.center,
+            //                           child : Text(' ${data.env}',
+            //                           style: TextStyle(fontSize: 16),
+            //                           ),)),
+            //               ]);
+            //           }).toList(),
+            //                             ),
+            //         ),
+            //       )
+            //     ]
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 30,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                         minimumSize: Size(310, 42),
                         backgroundColor: Color(0xFFFF9201),
                         shape: RoundedRectangleBorder(
@@ -85,12 +85,12 @@ class _LoginState extends State<Login> {
                         )),
                     onPressed: () {},
                     child: Text('로그인',
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                        style: TextStyle(fontSize: 17.5, color: Colors.white)),
                   ),
                   SizedBox(height: 12,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                         minimumSize: Size(310, 42),
                         backgroundColor: Color(0xFFFF9201),
                         shape: RoundedRectangleBorder(
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                       Navigator.push(context, MaterialPageRoute(builder: (_) => Join()));
                     },
                     child: Text('회원가입',
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                        style: TextStyle(fontSize: 17, color: Colors.white)),
                   ),
                   SizedBox(height: 12,),
                   // Container(
@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                       TextButton(onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (_) => Search()));
                       },
-                          child: Text('아이디 / 비밀번호 찾기',
+                          child: Text('아이디 찾기 | 비밀번호 찾기',
                               style: TextStyle(
                                   fontSize: 15,
                                   color: Color(0xFFA3A3A3),

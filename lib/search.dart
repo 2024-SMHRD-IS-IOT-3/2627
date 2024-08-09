@@ -26,6 +26,7 @@ class _SearchState extends State<Search> {
       IdSearch = false;
       PwSearch = true;
     });
+
   }
 
   Widget _buildContent() {
@@ -69,7 +70,9 @@ class _SearchState extends State<Search> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   )),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/search2');
+              },
               child: Text('아이디 찾기',
                   style: TextStyle(fontSize:19, color: Colors.white)))
         ],
@@ -114,7 +117,9 @@ class _SearchState extends State<Search> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   )),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/search2');
+              },
               child: Text('비밀번호 찾기',
                   style: TextStyle(fontSize: 19, color: Colors.white)))
         ],

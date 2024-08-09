@@ -146,7 +146,7 @@ class _PredictMoreState extends State<PredictMore> {
                                               return Theme(
                                                 data: Theme.of(context).copyWith(
                                                   colorScheme: ColorScheme.light(
-                                                    primary: Color(0xffffb15a), // header background color
+                                                    primary: Color(0xffff9201), // header background color
                                                     // onPrimary: Colors.purple,  // header text color
                                                     onSurface: Colors.black87,  // body text color
                                                   ),

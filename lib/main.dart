@@ -9,6 +9,7 @@ import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/recruit_more.dart';
 import 'package:solquiz_2/search.dart';
+import 'package:solquiz_2/search2.dart';
 import 'package:solquiz_2/solarplant_addr.dart';
 import 'package:solquiz_2/solarplant_name.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/recruitmore' : (context) => RecruitMore(),
         '/money' : (context) => Money(),
         '/predictmore' : (context) => PredictMore(),
+        '/search2' : (context) => Search2(),
       },
       debugShowCheckedModeBanner: false,
 

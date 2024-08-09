@@ -83,7 +83,30 @@ class _profileEditState extends State<profileEdit> {
                           ),
                         ),
                         Container(
-                          child: Text('',style: TextStyle(
+                          child: Text('010-1234-5678',style: TextStyle(
+                            color: Color(0xFFA3A3A3),
+                            fontSize: 20,
+                            //fontFamily: 'Abhaya Libre',
+                            fontWeight: FontWeight.w400,
+                          ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Text('이메일', style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 21,
+                            fontFamily: 'Abhaya Libre',
+                            fontWeight: FontWeight.w400,)
+                          ),
+                        ),
+                        Container(
+                          child: Text('ghdrlfehd@smhrd.com',style: TextStyle(
                             color: Color(0xFFA3A3A3),
                             fontSize: 20,
                             //fontFamily: 'Abhaya Libre',
