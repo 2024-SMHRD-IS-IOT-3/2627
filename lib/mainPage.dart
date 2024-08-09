@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
+import 'package:solquiz_2/SampleWeather.dart';
+
 
 class SolarEnv extends StatefulWidget {
   const SolarEnv({super.key});
 
-  // 위치 정보에 대한 기능을 수행하는 메소드 생성
-  void getLocation() async{
-    await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    print(position);
-  }
+  // final SampleWeather w;
 
   @override
   State<SolarEnv> createState() => _SolarEnvState();
 }
 
 class _SolarEnvState extends State<SolarEnv> {
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -222,6 +223,56 @@ class _SolarEnvState extends State<SolarEnv> {
 
     );
   }
+
+  // 위치 정보에 대한 기능을 수행하는 메소드 생성
+  void getLocation(context) async{
+    await Geolocator.requestPermission();
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+
+    double lat = position.latitude;
+    double lon = position.longitude;
+
+    print("lat: $lat, lon: $lon");
+    getWeather(lat, lon, context);
+  }
+
+  void getWeather(double lat, double lon, context) async{
+    String url = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=311b37be82274842eb40377115dbd958&units=metric";
+    print(url);
+    Response res = await get(Uri.parse(url));
+    print(res.body);
+
+    SampleWeather w = sampleWeatherFromJson(res.body);
+
+    final temp = w.main.temp;
+    final temp_min = w.main.tempMin;
+    final temp_max = w.main.tempMax;
+    final location = w.name;
+
+    print(temp_min);
+  }
+
+  // 날씨 정보 받아오기
+  void getWeatherData() async{
+    Response res = await get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=35.14537&lon=126.919163&appid=311b37be82274842eb40377115dbd958&units=metric"));
+    print(res.statusCode); // 에러 코드 출력 -> 정상 : 200번대
+    if (res.statusCode == 200) {
+
+    }
+    print(res.body); // res.body --> 넘어오는 데이터 타입 : String
+
+    SampleWeather w = sampleWeatherFromJson(res.body);
+    print(w.clouds);  // decode 되어서 객체로 접근 가능해졌다!
+    print(w.main.temp);
+
+    final temp = w.main.temp;
+    final temp_min = w.main.tempMin;
+    final temp_max = w.main.tempMax;
+    final location = w.name;
+
+    print(temp_min);
+  }
+
 
 }
 
