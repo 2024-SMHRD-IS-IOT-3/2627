@@ -16,7 +16,12 @@ class PredictMore extends StatefulWidget {
 class _PredictMoreState extends State<PredictMore> {
 
   int index = 0;
-  List<Widget> pageList = [ Board(), Predict(), SolarEnv(), Recruit(), MyPage()];
+  List<Widget> pageList = [
+    Board(sqlQuery: 'select * from TB_BOARD '),
+    Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
+    SolarEnv(),
+    Recruit(),
+    MyPage()];
 
   List<EnvData> _envdata = [
     EnvData("20240806", 6, 13.91, 12.07, 13.23),

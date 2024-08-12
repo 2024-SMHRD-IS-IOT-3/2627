@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
 import 'package:solquiz_2/board.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/predict.dart';
+import 'package:solquiz_2/predict.dart' as predictP;
 import 'package:solquiz_2/myPage.dart';
+import 'package:solquiz_2/weather/SampleWeather.dart';
 
 
 class Navigationbar extends StatefulWidget {
@@ -15,36 +19,21 @@ class Navigationbar extends StatefulWidget {
 
 class _NavigationbarState extends State<Navigationbar> {
   int index = 0;
-  List<Widget> pageList = [ Board(), Predict(), SolarEnv(), Recruit(), MyPage()];
+
+  // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67';
+  // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_DATE = )';
+
+
+  List<Widget> pageList = [
+    Board(sqlQuery: 'select * from TB_BOARD '),
+    Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
+    SolarEnv(),
+    Recruit(),
+    MyPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Image.asset('image/solQuiz_logo1.png',width: 130,),
-      //   backgroundColor: Colors.white,
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.notifications),
-      //       style: ButtonStyle(
-      //         iconColor: MaterialStateProperty.all<Color>(Colors.grey),
-      //       ),
-      //       onPressed: (){
-      //         print('icon alert');
-      //       },
-      //     ),
-      //     IconButton(
-      //       icon: Icon(Icons.logout_outlined),
-      //       style: ButtonStyle(
-      //         iconColor: MaterialStateProperty.all<Color>(Colors.grey),
-      //       ),
-      //       onPressed: (){
-      //         print('icon logout');
-      //       },
-      //     ),
-      //
-      //   ],
-      // ),
       body: pageList[index],
 
       bottomNavigationBar: SizedBox(
@@ -84,7 +73,9 @@ class _NavigationbarState extends State<Navigationbar> {
         ),
       ),
     );
+
   }
+
   void onItemTap(int i){
     setState(() {
       index = i;

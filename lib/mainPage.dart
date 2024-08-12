@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:solquiz_2/SampleWeather.dart';
+import 'package:solquiz_2/weather/SampleWeather.dart';
+import 'weather/weather_model.dart';
 
 
 class SolarEnv extends StatefulWidget {
   const SolarEnv({super.key});
 
-  // final SampleWeather w;
 
   @override
   State<SolarEnv> createState() => _SolarEnvState();
@@ -18,6 +21,8 @@ class _SolarEnvState extends State<SolarEnv> {
 
   @override
   Widget build(BuildContext context) {
+    // final w = getLocation(context);
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -42,37 +47,55 @@ class _SolarEnvState extends State<SolarEnv> {
                     shape: BoxShape.rectangle,
                   ),
                   padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 55,),
-                      Row(
+                  child: FutureBuilder(
+                    // future: getLocation(context),
+                    future: getWeather(context),
+                    // future: getWeather(객체.필드, 객체.필드 context),
+                    builder: (context, AsyncSnapshot<SampleWeather> snapshot) {
+                      //데이터가 만약 들어오지 않았을때는 뱅글뱅글 로딩이 뜬다
+                      if (snapshot.hasData == false) {
+                        return CircularProgressIndicator();
+                      }
+                      return Column(
                         children: [
-                          SizedBox(width: 35,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          SizedBox(height: 55,),
+                          Row(
                             children: [
-                              Text('30℃', style: TextStyle(fontSize: 38, color: Colors.white),),
-                              Text('광주광역시',style: TextStyle(fontSize: 20, color: Colors.white),),
-                            ],
-                          ),
-                          SizedBox(width: 80,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text('최저 : 25℃',style: TextStyle(fontSize: 19, color: Colors.white),),
-                              Text('최고 : 30℃',style: TextStyle(fontSize: 19, color: Colors.white),),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(height: 5,),
-                              Image.asset('image/sun3_remove.png', width: 80,height: 80,),
+                              SizedBox(width: 35,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('${snapshot.data?.main.temp}℃', style: TextStyle(
+                                      fontSize: 38, color: Colors.white),),
+                                  Text('${snapshot.data?.name}', style: TextStyle(
+                                      fontSize: 20, color: Colors.white),),
+                                ],
+                              ),
+                              SizedBox(width: 80,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('최저 : ${snapshot.data?.main.tempMin}℃', style: TextStyle(
+                                      fontSize: 19, color: Colors.white),),
+                                  Text('최고 : ${snapshot.data?.main.tempMax}℃', style: TextStyle(
+                                      fontSize: 19, color: Colors.white),),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(height: 5,),
+                                  // Image.asset(
+                                  //   'image/sun3_remove.png', width: 80,
+                                  //   height: 80,),
+
+                                ],
+                              ),
                             ],
                           ),
                         ],
-                      ),
-                    ],
-                  ),
+                      );
+                    }
+                    )
                 ),
               ),
               // -----------두번째 컨테이너---------------
@@ -224,8 +247,10 @@ class _SolarEnvState extends State<SolarEnv> {
     );
   }
 
-  // 위치 정보에 대한 기능을 수행하는 메소드 생성
-  void getLocation(context) async{
+
+
+  // Future<SampleWeather> getWeather(double lat, double lon, context) async{
+  Future<SampleWeather> getWeather(context) async{
     await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
@@ -233,10 +258,7 @@ class _SolarEnvState extends State<SolarEnv> {
     double lon = position.longitude;
 
     print("lat: $lat, lon: $lon");
-    getWeather(lat, lon, context);
-  }
 
-  void getWeather(double lat, double lon, context) async{
     String url = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=311b37be82274842eb40377115dbd958&units=metric";
     print(url);
     Response res = await get(Uri.parse(url));
@@ -249,7 +271,12 @@ class _SolarEnvState extends State<SolarEnv> {
     final temp_max = w.main.tempMax;
     final location = w.name;
 
-    print(temp_min);
+    print("check : " + temp_min.toString());
+    print("최저기온 : " +temp_min.toString());
+    print("최고기온 : " +temp_max.toString());
+    print('getWeather 함수 실행됨!!!!!');
+
+    return w;
   }
 
   // 날씨 정보 받아오기
@@ -264,19 +291,11 @@ class _SolarEnvState extends State<SolarEnv> {
     SampleWeather w = sampleWeatherFromJson(res.body);
     print(w.clouds);  // decode 되어서 객체로 접근 가능해졌다!
     print(w.main.temp);
-
-    final temp = w.main.temp;
-    final temp_min = w.main.tempMin;
-    final temp_max = w.main.tempMax;
-    final location = w.name;
-
-    print(temp_min);
   }
-
 
 }
 
-Widget _container(double width, double height, Widget child) {
+  Widget _container(double width, double height, Widget child) {
   return Container(
     width: width,
     height: height,

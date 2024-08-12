@@ -1,17 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'db/tb_prediction.dart';
+import 'provider.dart';
+
 
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
-
 
 class Predict extends StatefulWidget {
-  const Predict({super.key});
+
+  // DB 통신
+  final String sqlQuery; // SQL 쿼리를 매개변수로 받아옵니다.
+
+  Predict({required this.sqlQuery});
 
   @override
   State<Predict> createState() => _PredictState();
 }
 
 class _PredictState extends State<Predict> {
+
+
+  final String _url = 'http://10.0.2.2:3000/query'; // 서버 URL
+  List<TbPrediction> _tbPrediction = [];
+  String _error = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _sendQuery(widget.sqlQuery); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+  }
+
+  Future<void> _sendQuery(String query) async {
+    try {
+      final response = await http.post(
+        Uri.parse(_url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({'sql': query}),
+      );
+
+      if (response.statusCode == 200) {
+        // 응답 본문을 JSON으로 디코딩
+        final dynamic jsonResponse = json.decode(response.body);
+
+        // JSON 데이터가 객체인지 배열인지 확인
+        if (jsonResponse is List) {
+          setState(() {
+            _tbPrediction = jsonResponse
+                .map((data) => TbPrediction.fromJson(data as Map<String, dynamic>))
+                .toList();
+          });
+        } else if (jsonResponse is Map) {
+          setState(() {
+            _tbPrediction = [TbPrediction.fromJson(jsonResponse as Map<String, dynamic>)];
+          });
+        } else {
+          setState(() {
+            _error = 'Unexpected JSON format';
+          });
+        }
+      } else {
+        setState(() {
+          _error = 'Failed to execute query';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Error: $e';
+      });
+    }
+  }
+
+  // =================DB 통신 끝=====================
+
   final List<ChartData> chartData = <ChartData>[
     // ChartData('6', 24, 0, 14),
     // ChartData('7', 25, 0, 15),
@@ -31,74 +94,15 @@ class _PredictState extends State<Predict> {
     // ChartData('21', 28.5, 0, 16),
     // ChartData('22', 27.5, 0, 14),
   ];
-  
-  bool _sortAscending = true;
-  int _sortColumnIndex = 0;
-
-  /*
-  void _sort<T>(Comparable<T> Function(User user) getField, int columnIndex, bool ascending){
-    _users.sort((a,b){
-      if (!ascending) {
-        final User c = a;
-        a = b;
-        b = c;
-      }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
-      return Comparable.compare(aValue, bValue);
-    });
-
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
-  }
-  */
-
-
-  List<EnvData> _envdata = [
-    // EnvData("20240806", 6, 0.00),
-    EnvData("20240806", 7, 10.67),
-    EnvData("20240806", 8, 389.74),
-    EnvData("20240806", 9, 798.84),
-    EnvData("20240806", 10, 1148.27),
-    EnvData("20240806", 11, 1382.52),
-    EnvData("20240806", 12, 1502.62),
-    EnvData("20240806", 13, 1475.49),
-    EnvData("20240806", 14, 1381.31),
-    EnvData("20240806", 15, 1183.08),
-    EnvData("20240806", 16, 990.36),
-    EnvData("20240806", 17, 728.40),
-    EnvData("20240806", 18, 373.91),
-    EnvData("20240806", 19, 56.85),
-    // EnvData("20240806", 20, 0.00),
-  ];
-
-  void _sort<T>(Comparable<T> Function(EnvData envdata) getField, int columnIndex, bool ascending){
-    _envdata.sort((a,b){
-      if (!ascending) {
-        final EnvData c = a;
-        a = b;
-        b = c;
-      }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
-      return Comparable.compare(aValue, bValue);
-    });
-
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = ascending;
-    });
-  }
-
-
 
   // 날짜 선택
   DateTime initialDay = DateTime.now();
+  var predict_date;
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -219,31 +223,10 @@ class _PredictState extends State<Predict> {
                             // maximum: 35,
                             interval: 0.05,
                             majorGridLines: const MajorGridLines(width: 0),
-
-                            // title: AxisTitle(
-                            //   text: '발전량',
-                            //   textStyle: TextStyle(fontSize: 10,)
-                            // ),
                           ),
-                          // axes: <ChartAxis>[
-                          //   NumericAxis(
-                          //     name: 'rightAxis',
-                          //     opposedPosition: true,
-                          //     interval: 1,
-                          //     minimum: 0,
-                          //     // maximum: 7,
-                          //     title: AxisTitle(
-                          //       text: '오차율',
-                          //       textStyle: TextStyle(fontSize: 10,),
-                          //     ),
-                          //   ),
-                          // ],
                           palette: <Color>[
-                            // Color(0xffff9201),
                             Colors.red,
                             Colors.blueAccent,
-
-                            // Colors.red,
                           ],
                           series: <CartesianSeries>[
                             // Render column series
@@ -260,12 +243,6 @@ class _PredictState extends State<Predict> {
                                 xValueMapper: (ChartData data, _) => data.x,
                                 yValueMapper: (ChartData data, _) => data.z,
                             ),
-                            // LineSeries<ChartData, String>(
-                            //   name: '오차율',
-                            //     dataSource: chartData,
-                            //     xValueMapper: (ChartData data, _) => data.x,
-                            //     yValueMapper: (ChartData data, _) => data.a
-                            // ),
                           ]
                       )
                   ),
@@ -292,146 +269,6 @@ class _PredictState extends State<Predict> {
                 ],
               ),
             ),
-            // Container(
-            //   width: double.infinity,
-            //   margin: EdgeInsets.all(10),
-            //   padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.circular(12),
-            //     boxShadow: [
-            //       BoxShadow(
-            //         color: Colors.grey.withOpacity(0.5),
-            //         spreadRadius: 1.5,
-            //         blurRadius: 5,
-            //         offset: Offset(0, 3), // 그림자 위치 변경
-            //       ),
-            //     ],
-            //   ),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.center,
-            //     children: [
-            //       Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         children: [
-            //           Text('발전량 표', style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),),
-            //           SizedBox(height: 10,),
-            //           // 날짜 선택
-            //           Container(
-            //             width: 150,
-            //             height: 35,
-            //             margin: EdgeInsets.fromLTRB(15, 20, 10, 15),
-            //
-            //             decoration: BoxDecoration(
-            //                 border: Border.all(color: Colors.black26, width: 1),
-            //             ),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.end,
-            //
-            //               children: [
-            //                 Text(
-            //                   '${initialDay.year} - ${initialDay.month} - ${initialDay.day}',
-            //                   style: TextStyle(fontSize: 17,color: Colors.black54),
-            //                 ),
-            //                 IconButton(
-            //                   onPressed: () async{
-            //                   final DateTime? dateTime = await showDatePicker(
-            //                       context: context,
-            //                       initialDate: initialDay,
-            //                       firstDate: DateTime(2000),
-            //                       lastDate: DateTime(3000),
-            //
-            //                       // custom
-            //                     builder: (context, child){
-            //                         return Theme(
-            //                           data: Theme.of(context).copyWith(
-            //                             colorScheme: ColorScheme.light(
-            //                               primary: Color(0xffffb15a), // header background color
-            //                               // onPrimary: Colors.purple,  // header text color
-            //                               onSurface: Colors.black87,  // body text color
-            //                             ),
-            //                             textButtonTheme: TextButtonThemeData(
-            //                               style: TextButton.styleFrom(
-            //                                 foregroundColor: Color(0xffffb15a),
-            //                               ),
-            //                             ),
-            //                           ), child: child!,
-            //                         );
-            //                     }
-            //                   );
-            //                   if (dateTime != null){
-            //                     setState(() {
-            //                       initialDay = dateTime;
-            //                     });
-            //                   }
-            //                 }, icon: Icon(Icons.calendar_month, size: 18, color: Colors.black54,),),
-            //               ],
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //       SizedBox(height: 20,),
-            //       SingleChildScrollView(
-            //         scrollDirection: Axis.vertical,
-            //         child: FittedBox(
-            //           child: DataTable(
-            //             headingRowColor: MaterialStateColor.resolveWith(
-            //                 (states){
-            //                   return const Color(0xffe5e5e5);
-            //                 }
-            //             ),
-            //             headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-            //             decoration: BoxDecoration(  // 바깥선
-            //               border: Border.all(color: Colors.black54, width: 1),
-            //             ),
-            //             horizontalMargin: 35,
-            //
-            //             headingRowHeight: 40,
-            //             dataRowHeight: 35,
-            //             columnSpacing: 51,
-            //
-            //             border: TableBorder(  // 중간 구분선
-            //               borderRadius: BorderRadius.circular(15),
-            //               verticalInside: BorderSide(color: Colors.black54, width: 0.7),
-            //             ),
-            //
-            //             // sortAscending: _sortAscending,
-            //             // sortColumnIndex: _sortColumnIndex,
-            //             columns: [
-            //               DataColumn(
-            //                 label: Center(child: Text('  시간', style: TextStyle(fontSize: 17), textAlign: TextAlign.center,)),
-            //                 // numeric: true,
-            //                 onSort: (columnIndex, ascending) => _sort<String>((data)=> data.hour.toString(), columnIndex, ascending),
-            //               ),
-            //               DataColumn(
-            //                 label: Expanded(child: Center(child: Text('     발전량', style: TextStyle(fontSize: 17,), textAlign: TextAlign.right,))),
-            //                 // numeric: true,
-            //                 onSort: (columnIndex, ascending) => _sort<String>((data)=> data.env.toString(), columnIndex, ascending),
-            //               ),
-            //             ],
-            //             rows: _envdata.map((data){
-            //               return DataRow(
-            //                   cells: [
-            //                     DataCell(
-            //                       Align(
-            //                         alignment: Alignment.center,
-            //                           child : Text('${data.hour}   ',
-            //                           style: TextStyle(fontSize: 16),
-            //                           ))),
-            //                     DataCell(
-            //                       Align(
-            //                         alignment: Alignment.center,
-            //                           child : Text(' ${data.env}',
-            //                           style: TextStyle(fontSize: 16),
-            //                           ),)),
-            //               ]);
-            //           }).toList(),
-            //                             ),
-            //         ),
-            //       )
-            //     ]
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -442,18 +279,11 @@ class _PredictState extends State<Predict> {
 class ChartData {
   ChartData(this.x, this.y, this.z, this.a);
   final String x;
-  final double? y;  // 기온
-  final double? z;  // 미세먼지
-  final double? a;  // 일사량
+  final double? y;  // 예측 발전량
+  final double? z;  // 실제 발전량
+  final double? a;  // 오차율
 }
 
-
-// DateFormat("yyyy년 MM월 dd일").format(_startDate)
-// 표
-class EnvData {
-  final String date;
-  final double? hour;
-  final double? env;
-
-  EnvData(this.date, this.hour, this.env);
-}
+// class PredictDate {
+//   DateTime initialDay = DateTime.now();
+// }

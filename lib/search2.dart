@@ -15,11 +15,6 @@ class Search2 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // SizedBox(height: 100,),
-              // Container(
-              //   padding: EdgeInsets.all(50),
-              //     child: Image.asset('image/solQuiz_logo3.png', width: 200,)
-              // ),
               Container(
                   child: Column(
                     children: [

@@ -14,6 +14,7 @@ import 'package:solquiz_2/solarplant_addr.dart';
 import 'package:solquiz_2/solarplant_name.dart';
 
 import 'changePw.dart';
+import 'db/heewonapp.dart';
 import 'join.dart';
 
 Future main() async {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       home: Navigationbar(),
+      // home: DataFetcher(sqlQuery: "SELECT * FROM TB_MEMBER where MEM_pw = '1234'",),
     );
   }
 }

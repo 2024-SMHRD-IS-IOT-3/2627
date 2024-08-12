@@ -19,7 +19,12 @@ class RecruitMore extends StatefulWidget {
 class _RecruitMoreState extends State<RecruitMore> {
 
   int index = 0;
-  List<Widget> pageList = [ Board(), Predict(), SolarEnv(), Recruit(), MyPage()];
+  List<Widget> pageList = [
+    Board(sqlQuery: 'select * from TB_BOARD '),
+    Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
+    SolarEnv(),
+    Recruit(),
+    MyPage()];
 
   List<User> _users = [
     User('광주 / 전남', '해안', 5),

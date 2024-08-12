@@ -567,34 +567,6 @@ class _MoneyState extends State<Money> {
             ],
           ),
           SizedBox(height: 20),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-          //     TextButton(
-          //       onPressed: () {},
-          //       child: Row(
-          //         children: [
-          //           Text(
-          //             '수익 전체보기',
-          //             style: TextStyle(
-          //               color: Color(0xFF757575),
-          //               fontSize: 14,
-          //               fontFamily: 'Inter',
-          //               fontWeight: FontWeight.w600,
-          //             ),
-          //           ),
-          //           IconButton(
-          //             onPressed: () {},
-          //             icon: Icon(Icons.arrow_forward, color: Colors.black),
-          //             style: IconButton.styleFrom(
-          //                 foregroundColor: Color(0xFFFF9201)),
-          //           ),
-          //         ],
-          //       ),
-          //       style: TextButton.styleFrom(foregroundColor: Color(0xFFFF9201)),
-          //     )
-          //   ],
-          // )
         ],
       ),
     );
