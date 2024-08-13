@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solquiz_2/changePw.dart';
+import 'package:solquiz_2/db/tb_member.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class profileEdit extends StatefulWidget {
   const profileEdit({super.key});
@@ -9,6 +12,70 @@ class profileEdit extends StatefulWidget {
 }
 
 class _profileEditState extends State<profileEdit> {
+
+  final String _url = 'http://10.0.2.2:3000/login/lselect'; // 서버 URL
+  List<Member> _member = []; // Boards 객체 리스트
+  String _error = '';
+  var index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+  }
+
+  Future<void> _sendQuery() async {
+    try {
+      final response = await http.post(
+        Uri.parse(_url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response.body);
+        print("마이페이지 연결 성공");
+        print(jsonResponse);
+
+        if (jsonResponse is Map<String, dynamic>) {
+          // 단일 객체인 경우
+          final member = Member.fromJson(jsonResponse);
+          setState(() {
+            _member = [member];
+            print(_member);
+          });
+        } else if (jsonResponse is List) {
+          // 배열인 경우
+          final member = jsonResponse.map((data) {
+            if (data is Map<String, dynamic>) {
+              return Member.fromJson(data);
+            } else {
+              return null; // 데이터가 올바른 형식이 아닌 경우
+            }
+          }).whereType<Member>().toList();
+
+          setState(() {
+            _member = member;
+            print(_member);
+            print(_member[0]);
+          });
+        } else {
+          setState(() {
+            _error = 'Unexpected JSON format';
+          });
+        }
+      } else {
+        setState(() {
+          _error = 'Failed to execute query';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Error: $e';
+      });
+    }
+  }
 
 
   @override
@@ -37,7 +104,17 @@ class _profileEditState extends State<profileEdit> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Container(
+      body: _error.isNotEmpty
+              ? Center(child: Text(_error),)
+              : _member.isEmpty
+              ? Container(
+                color: Colors.white,
+                child: Center(
+                    child: CircularProgressIndicator(
+                    color: Colors.white,
+                  )),
+              )
+          : Container(
           width: double.infinity,
           height: double.infinity,
           color: Colors.white,
@@ -60,7 +137,7 @@ class _profileEditState extends State<profileEdit> {
                     ),
                     ),
                       Container(
-                        child: Text('홍길동',style: TextStyle(
+                        child: Text('${_member[0].MEM_NAME[0]}',style: TextStyle(
                          color: Color(0xFFA3A3A3),
                          fontSize: 20,
                           fontFamily: 'Abhaya Libre',
@@ -83,7 +160,7 @@ class _profileEditState extends State<profileEdit> {
                           ),
                         ),
                         Container(
-                          child: Text('010-1234-5678',style: TextStyle(
+                          child: Text('${_member[0].MEM_PHONE[0]}',style: TextStyle(
                             color: Color(0xFFA3A3A3),
                             fontSize: 20,
                             //fontFamily: 'Abhaya Libre',
@@ -106,7 +183,7 @@ class _profileEditState extends State<profileEdit> {
                           ),
                         ),
                         Container(
-                          child: Text('ghdrlfehd@smhrd.com',style: TextStyle(
+                          child: Text('${_member[0].MEM_EMAIL[0]}',style: TextStyle(
                             color: Color(0xFFA3A3A3),
                             fontSize: 20,
                             //fontFamily: 'Abhaya Libre',

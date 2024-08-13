@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:solquiz_2/board.dart';
 import 'package:solquiz_2/login.dart';
 import 'package:solquiz_2/money.dart';
+import 'package:solquiz_2/myPage.dart';
 import 'package:solquiz_2/navigationBar.dart';
 import 'package:solquiz_2/predict_more.dart';
 import 'package:solquiz_2/recruit.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
 
-      home: Navigationbar(),
+      home: Login(),
       // home: DataFetcher(sqlQuery: "SELECT * FROM TB_MEMBER where MEM_pw = '1234'",),
     );
   }

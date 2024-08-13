@@ -148,7 +148,7 @@ class _ChangePwState extends State<changePw> {
                   SizedBox(height: 30),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(310, 42),
+                      minimumSize: Size(350, 42),
                       backgroundColor: Color(0xFFFF9201),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),

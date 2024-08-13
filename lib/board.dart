@@ -4,9 +4,7 @@ import 'dart:convert';
 import '/db/tb_board.dart';
 
 class Board extends StatefulWidget {
-  final String sqlQuery; // SQL 쿼리를 매개변수로 받아옵니다.
-
-  Board({required this.sqlQuery});
+  const Board({super.key});
 
   @override
   State<Board> createState() => _BoardState();
@@ -18,42 +16,37 @@ class _BoardState extends State<Board> {
   List<Boards> _boards = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
-  // if (_boardst != null && _boards.length > index) {
-  //   _boards[index]; // You can safely access the element here.
-  // }
 
   @override
   void initState() {
     super.initState();
-    _sendQuery(widget.sqlQuery); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
   }
 
-  Future<void> _sendQuery(String query) async {
+  Future<void> _sendQuery() async {
     try {
       final response = await http.post(
         Uri.parse(_url),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: json.encode({'sql': query}),
       );
 
       if (response.statusCode == 200) {
         final dynamic jsonResponse = json.decode(response.body);
-        print("연결 성공");
-        print(jsonResponse["title"]);
+        // print("연결 성공");
+        // print(jsonResponse);
+
         if (jsonResponse is Map<String, dynamic>) {
           // 단일 객체인 경우
           final boards = Boards.fromJson(jsonResponse);
-          print("연결 성공 2");
-          print(boards.B_IDX);
           setState(() {
             _boards = [boards];
+            // print(_boards);
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
           final boards = jsonResponse.map((data) {
-            print("연결 성공 3");
             if (data is Map<String, dynamic>) {
               return Boards.fromJson(data);
             } else {
@@ -80,6 +73,7 @@ class _BoardState extends State<Board> {
       });
     }
   }
+
 
 
   @override
@@ -111,57 +105,55 @@ class _BoardState extends State<Board> {
             ]
         ),
         body: _error.isNotEmpty
-            ? Center(child: Text(_error)) // 에러 메시지 표시
-            : ListView.builder(
-            shrinkWrap: true,
-            itemCount: _boards[0].B_IDX.length,
-            itemBuilder: (context, index) {
-              return Center(
-                child: Column(
-                    children: [
-                      SizedBox(height: 10,),
-                      Container(
-                        width: 350,
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1.5,
-                              blurRadius: 5,
-                              offset: Offset(0, 3), // 그림자 위치 변경
+                ? Center(child: Text(_error),)
+                : _boards.isEmpty
+                ? Center(child: CircularProgressIndicator(
+                    color: Colors.white,
+                ))
+                : ListView.builder(
+                shrinkWrap: true,
+                itemCount: _boards[0].B_IDX.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: Column(
+                        children: [
+                          SizedBox(height: 10,),
+                          Container(
+                            width: 350,
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1.5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3), // 그림자 위치 변경
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                'image/solQuiz_logo3.png', width: 150,),
-                              padding: EdgeInsets.fromLTRB(80, 30, 20, 30),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Image.asset(
+                                    'image/solQuiz_logo3.png', width: 150,),
+                                  padding: EdgeInsets.fromLTRB(80, 30, 20, 30),
+                                ),
+                                SizedBox(height: 8,),
+                                Text(
+                                  '${_boards[0].B_TITLE[index]}',
+                                  style: TextStyle(fontSize: 18, color: Color(
+                                      0xff1e1e1e)),),
+                              ],
                             ),
-                            SizedBox(height: 8,),
-                            Text(_boards[0].B_TITLE[index].toString(),
-                              style: TextStyle(fontSize: 18, color: Color(
-                                  0xff1e1e1e)),),
-                            Text('${(_boards[0].B_IDX.length).runtimeType}'),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-                    ]
-                ),
-              );
-            }
-        )
-    );
+                          ),
+                          SizedBox(height: 20,),
+                        ]
+                    ),
+                  );
+                })
+        );
   }
-
 }
-
-
-

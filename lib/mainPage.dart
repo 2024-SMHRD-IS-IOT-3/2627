@@ -54,36 +54,49 @@ class _SolarEnvState extends State<SolarEnv> {
                     builder: (context, AsyncSnapshot<SampleWeather> snapshot) {
                       //데이터가 만약 들어오지 않았을때는 뱅글뱅글 로딩이 뜬다
                       if (snapshot.hasData == false) {
-                        return CircularProgressIndicator();
+                        return SizedBox(
+                          child: CircularProgressIndicator(
+                            color : Colors.white,
+                          ),
+                          width: 10,
+                          height: 10,
+                        );
                       }
                       return Column(
                         children: [
-                          SizedBox(height: 55,),
+                          SizedBox(height: 57,),
                           Row(
                             children: [
-                              SizedBox(width: 35,),
+                              SizedBox(width: 40,),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text('${snapshot.data?.main.temp}℃', style: TextStyle(
-                                      fontSize: 38, color: Colors.white),),
+                                      fontSize: 33, color: Colors.white),),
                                   Text('${snapshot.data?.name}', style: TextStyle(
                                       fontSize: 20, color: Colors.white),),
                                 ],
                               ),
-                              SizedBox(width: 80,),
+                              SizedBox(width: 45,),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text('최저 : ${snapshot.data?.main.tempMin}℃', style: TextStyle(
-                                      fontSize: 19, color: Colors.white),),
-                                  Text('최고 : ${snapshot.data?.main.tempMax}℃', style: TextStyle(
-                                      fontSize: 19, color: Colors.white),),
+                                  Text('최저 : ${(snapshot.data?.main.tempMin)!-3.72}℃', style: TextStyle(
+                                      fontSize: 17, color: Colors.white),),
+                                  Text('최고 : ${(((snapshot.data?.main.tempMax)! +3.83).toStringAsFixed(2))}℃', style: TextStyle(
+                                      fontSize: 17, color: Colors.white),),
                                 ],
                               ),
+                              SizedBox(width: 5,),
                               Column(
                                 children: [
                                   SizedBox(height: 5,),
+                                  Container(
+                                      child: Image.network('https://openweathermap.org/img/wn/${snapshot.data?.weather[0].icon}.png',fit: BoxFit.contain,
+                                      ),
+                                      height: 73,
+                                      width: 73,
+                                  ),
                                   // Image.asset(
                                   //   'image/sun3_remove.png', width: 80,
                                   //   height: 80,),

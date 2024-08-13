@@ -20,7 +20,8 @@ class _RecruitMoreState extends State<RecruitMore> {
 
   int index = 0;
   List<Widget> pageList = [
-    Board(sqlQuery: 'select * from TB_BOARD '),
+    // Board(sqlQuery: 'select * from TB_BOARD '),
+    Board(),
     Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
     SolarEnv(),
     Recruit(),

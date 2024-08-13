@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:solquiz_2/db/member.dart';
+import 'package:solquiz_2/db/tb_member.dart';
 import 'package:solquiz_2/profileEdit.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -9,6 +13,70 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+
+  final String _url = 'http://10.0.2.2:3000/login/lselect'; // 서버 URL
+  List<Member> _member = []; // Boards 객체 리스트
+  String _error = '';
+  var index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+  }
+
+  Future<void> _sendQuery() async {
+    try {
+      final response = await http.post(
+        Uri.parse(_url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response.body);
+        print("마이페이지 연결 성공");
+        print(jsonResponse);
+
+        if (jsonResponse is Map<String, dynamic>) {
+          // 단일 객체인 경우
+          final member = Member.fromJson(jsonResponse);
+          setState(() {
+            _member = [member];
+            print(_member);
+          });
+        } else if (jsonResponse is List) {
+          // 배열인 경우
+          final member = jsonResponse.map((data) {
+            if (data is Map<String, dynamic>) {
+              return Member.fromJson(data);
+            } else {
+              return null; // 데이터가 올바른 형식이 아닌 경우
+            }
+          }).whereType<Member>().toList();
+
+          setState(() {
+            _member = member;
+            print(_member);
+            print(_member[0]);
+          });
+        } else {
+          setState(() {
+            _error = 'Unexpected JSON format';
+          });
+        }
+      } else {
+        setState(() {
+          _error = 'Failed to execute query';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Error: $e';
+      });
+    }
+  }
 
   var recruitList = ['전남 / 해안 / 5MWh', '충청 / 내륙 / 10MWh', '대전 / 내륙 / 15MWh',];
 
@@ -40,21 +108,15 @@ class _MyPageState extends State<MyPage> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
+        body: _error.isNotEmpty
+            ? Center(child: Text(_error),)
+            : _member.isEmpty
+            ? Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ))
+            : SingleChildScrollView(
           child : Column(
             children: [
-              // Container(
-              //   width: double.infinity,
-              //   height: 50,
-              //   padding: EdgeInsets.fromLTRB(12, 0, 0, 5),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       SizedBox(width: 8,),
-              //       Text('마이페이지', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
-              //     ],
-              //   ),
-              // ),
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.all(10),
@@ -74,40 +136,43 @@ class _MyPageState extends State<MyPage> {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ClipRRect(
-                          child: Image.asset(
-                            'image/moomin9.jpg',
-                            width: 50,
-                            height: 50,
+                        Container(
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                child: Image.asset(
+                                  'image/moomin9.jpg',
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(80)),
+                              ),
+                              SizedBox(width: 10,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${_member[0].MEM_NAME[0]}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${_member[0].MEM_EMAIL[0]}',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(80)),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '홍길동',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'ghdrlfehd@smhrd.com',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 45,
-                        ),
+                        // SizedBox(width: 80,),
                         ElevatedButton(
                           onPressed: () {
                             Navigator.push(

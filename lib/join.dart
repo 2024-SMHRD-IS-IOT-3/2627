@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
+import 'login.dart';
+
 class Join extends StatefulWidget {
   const Join({super.key});
 
@@ -13,7 +15,7 @@ class Join extends StatefulWidget {
 class _JoinState extends State<Join> {
   TextEditingController idCon = TextEditingController();
   TextEditingController pwCon = TextEditingController();
-  TextEditingController samepwCon = TextEditingController();
+  TextEditingController checkpwCon = TextEditingController();
   TextEditingController nameCon = TextEditingController();
   TextEditingController phoneCon = TextEditingController();
   TextEditingController emailCon = TextEditingController();
@@ -22,6 +24,50 @@ class _JoinState extends State<Join> {
   String? phoneError;
   String? emailError;
   String? nameError;
+
+  final String _url = 'http://10.0.2.2:3000/join/join'; // 서버 URL
+  String _error = '';
+
+  Future<void> sendLoginData() async{
+    String id = idCon.text.toString();
+    String pw = pwCon.text.toString();
+    String checkpw = checkpwCon.text.toString();
+    String name = nameCon.text.toString();
+    String phone = phoneCon.text.toString();
+    String email = emailCon.text.toString();
+
+    print('id : ' + id);
+    print('pw : ' + pw);
+
+    try {
+      final response = await http.post(Uri.parse(_url),
+        headers : {'Content-Type': 'application/json'},
+        body: json.encode({'id': id,'pw': pw, 'name' : name, 'phone' : phone, 'email' : email}),
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response.body);
+        print("연결 성공");
+        // print("통신 response : "+ jsonResponse);
+
+        if (jsonResponse == 'success') {
+          print(jsonResponse);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Login()),
+          );
+        }else if (jsonResponse == 'failed'){
+          print("통신 response : "+ jsonResponse);
+          print('로그인 실패');
+          showPopup('아이디와 비밀번호를 다시 확인해주세요');
+        }
+      }
+
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
 
   @override
@@ -119,7 +165,7 @@ class _JoinState extends State<Join> {
                         ),
                         SizedBox(height: 10,),
                         TextFormField(
-                          controller: samepwCon,
+                          controller: checkpwCon,
                           obscureText: true,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -151,9 +197,9 @@ class _JoinState extends State<Join> {
                             labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
                             errorText: nameError,
                           ),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[ㄱ-ㅎㅏ-ㅣ가-힣]')),
-                          ],
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.allow(RegExp(r'[ㄱ-ㅎㅏ-ㅣ가-힣]')),
+                          // ],
                           onChanged: (value) {
                             validateFields();
                           },
@@ -185,26 +231,26 @@ class _JoinState extends State<Join> {
                                 },
                               ),
                             ),
-                            SizedBox(
-                              width: 80,
-                              height: 40,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-                                  backgroundColor: Color(0xFFFF9201),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                onPressed: () async {
-                                  await checkDuplicateId();
-                                },
-                                child: Text(
-                                  '인증하기',
-                                  style: TextStyle(fontSize: 15, color: Colors.white,),
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: 80,
+                            //   height: 40,
+                            //   child: ElevatedButton(
+                            //     style: ElevatedButton.styleFrom(
+                            //       padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                            //       backgroundColor: Color(0xFFFF9201),
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(5),
+                            //       ),
+                            //     ),
+                            //     onPressed: () async {
+                            //       await checkDuplicateId();
+                            //     },
+                            //     child: Text(
+                            //       '인증하기',
+                            //       style: TextStyle(fontSize: 15, color: Colors.white,),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
 
@@ -245,6 +291,9 @@ class _JoinState extends State<Join> {
                                 nameError == null &&
                                 phoneError == null &&
                                 emailError == null) {
+
+
+
 
                               showPopup('회원가입이 완료되었습니다!');
                             } else {
@@ -297,7 +346,7 @@ class _JoinState extends State<Join> {
   void validateFields() {
     setState(() {
       // 비밀번호 확인
-      if (pwCon.text != samepwCon.text) {
+      if (pwCon.text != checkpwCon.text) {
         pwError = '비밀번호가 다릅니다';
       } else {
         pwError = null;
@@ -336,7 +385,7 @@ class _JoinState extends State<Join> {
           content: Text(message),
           actions: <Widget>[
             TextButton(
-              child: Text('확인'),
+              child: Text('확인', style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.of(context).pop();
               },

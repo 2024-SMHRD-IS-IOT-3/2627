@@ -18,14 +18,15 @@ class Navigationbar extends StatefulWidget {
 }
 
 class _NavigationbarState extends State<Navigationbar> {
-  int index = 0;
+  int index = 2;
 
   // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67';
   // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_DATE = )';
 
 
   List<Widget> pageList = [
-    Board(sqlQuery: 'select * from TB_BOARD '),
+    // Board(sqlQuery: 'select * from TB_BOARD'),
+    Board(),
     Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
     SolarEnv(),
     Recruit(),

@@ -2,12 +2,12 @@
 class Boards {
   final List<int?> B_IDX; // 게시물 인덱스 목록
   final List<String?> B_TITLE; // 제목 목록
-  final List<String> B_FILE; // 파일 목록
-  final List<String> CREATED_AT; // 생성일 목록
-  final List<int> B_VIEW; // 조회수 목록
-  final List<int> B_LIKES; // 좋아요 수 목록
-  final List<String> MEM_ID; // 회원 ID 목록
-  final List<String> B_CONTENT; // 내용 목록
+  final List<String?> B_FILE; // 파일 목록
+  final List<String?> CREATED_AT; // 생성일 목록
+  final List<int?> B_VIEW; // 조회수 목록
+  final List<int?> B_LIKES; // 좋아요 수 목록
+  final List<String?> MEM_ID; // 회원 ID 목록
+  final List<String?> B_CONTENT; // 내용 목록
 
   Boards({
     required this.B_IDX,
