@@ -25,7 +25,7 @@ class _NavigationbarState extends State<Navigationbar> {
 
   List<Widget> pageList = [
     Board(),
-    Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
+    Predict(),
     SolarEnv(),
     Recruit(),
     MyPage()];

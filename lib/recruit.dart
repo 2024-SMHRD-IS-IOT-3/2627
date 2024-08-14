@@ -85,154 +85,159 @@ class _RecruitState extends State<Recruit> {
   }
 
 
-  var txtList = ['[해안] 발전소 모집', '[내륙] 발전소 모집','[해안] 발전소 모집','[내륙] 발전소 모집'];
-  var txtList2 = ['전남 / 해안', '광주 / 내륙','제주 / 해안', '충청 / 내륙'];
+
   var percentList = [0.7, 0.6, 0.9, 0.5, 0.6];
+  var re_idx = 0;
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar: Appbar(key: ,),
-
-      body: _error.isNotEmpty
-          ? Center(child: Text(_error),)
-          : _recruit_boards.isEmpty
-          ? Center(child: CircularProgressIndicator(
-        color: Colors.white,
-      ))
-          : Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 50,
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('모집 게시판', style: TextStyle(fontSize: 23,),),
-                    IconButton(
-                        icon: Icon(Icons.add, size: 30,),
-                        style: ButtonStyle(
-                          iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-                        ),
-                        onPressed: () {myDialog(context);}
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true, // 내부 콘텐츠에 맞춰서 높이 결정
-                  itemCount: _recruit_boards[0].MEM_ID.length,
-                  itemBuilder: (context, index) =>
-                      GestureDetector(
-                        // onTap: (){},
-                        child: Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1.5,
-                                blurRadius: 5,
-                                offset: Offset(0, 3), // 그림자 위치 변경
-                              ),
-                            ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: Appbar(),
+        ),
+        body: _error.isNotEmpty
+            ? Center(child: Text(_error),)
+            : _recruit_boards.isEmpty
+            ? Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ))
+            : Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('모집 게시판', style: TextStyle(fontSize: 23,),),
+                      IconButton(
+                          icon: Icon(Icons.add, size: 30,),
+                          style: ButtonStyle(
+                            iconColor: MaterialStateProperty.all<Color>(Colors.black54),
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Image.asset('image/solQuiz_logo2.png', width: 120,),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              SizedBox(height: 10,),
-                                              Row(
-                                                children: [
-                                                  SizedBox(width: 10,),
-                                                  Text('[${_recruit_boards[0].SB_TYPE[index] == 'Inland' ? '내륙' : '해안'}] 발전소 모집',style: TextStyle(fontSize: 19),),
-                                                ],
-                                              ),
-                                              SizedBox(height: 10,),
-                                              Text('${_recruit_boards[0].PLACE[index]}',style: TextStyle(fontSize: 17,),),
-                                              SizedBox(height: 10,),
-                                            ],
-                                          ),
-                                          Container(
-                                            child: Row(
+                          onPressed: () {myDialog(context);}
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true, // 내부 콘텐츠에 맞춰서 높이 결정
+                    itemCount: _recruit_boards[0].MEM_ID.length,
+                    itemBuilder: (context, index) =>
+                        GestureDetector(
+                          // onTap: (){},
+                          child: Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.fromLTRB(10, 3, 0, 3),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1.5,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3), // 그림자 위치 변경
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Image.asset('image/solQuiz_logo2.png', width: 120,),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
                                               children: [
-                                                SizedBox(width: 15,),
-                                                Column(
+                                                SizedBox(height: 10,),
+                                                Row(
                                                   children: [
-                                                    IconButton(
-                                                      alignment: Alignment.topRight,
-                                                      onPressed: (){},
-                                                      icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
-                                                      style: IconButton.styleFrom(
-                                                        padding: EdgeInsets.zero,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 17,),
+                                                    SizedBox(width: 10,),
+                                                    Text('[${_recruit_boards[0].SB_TYPE[index] == 'Inland' ? '내륙' : '해안'}] 발전소 모집',style: TextStyle(fontSize: 19),),
                                                   ],
                                                 ),
+                                                SizedBox(height: 10,),
+                                                Text('${_recruit_boards[0].PLACE[index]}',style: TextStyle(fontSize: 17,),),
+                                                SizedBox(height: 10,),
                                               ],
                                             ),
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 15,),
+                                                  Column(
+                                                    children: [
+                                                      IconButton(
+                                                        alignment: Alignment.topRight,
+                                                        onPressed: (){},
+                                                        icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
+                                                        style: IconButton.styleFrom(
+                                                          padding: EdgeInsets.zero,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 17,),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          LinearPercentIndicator(
+                                            width: 150.0,
+                                            animation: true,
+                                            animationDuration: 100,
+                                            lineHeight: 3.0,
+                                            // leading: const Text("left"),
+                                            // trailing: const Text("right"),
+                                            percent: percentList[index],
+                                            trailing: Text("${percentList[index]*100}%", style: TextStyle(fontSize: 15),),
+                                            progressColor: Color(0xffff9201),
+                                            barRadius: Radius.circular(10),
                                           ),
+                                          IconButton(
+                                            onPressed: (){
+                                              print('모집 게시판 더보기 ${index}');
+                                              Navigator.pushNamed(context, '/recruitmore', arguments: index);
+                                            },
+                                            style: IconButton.styleFrom(
+                                              padding: EdgeInsets.zero,
+                                            ),
+                                            icon: Icon(Icons.arrow_forward_ios_outlined), color: Colors.black54, iconSize: 20,),
                                         ],
                                       ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        LinearPercentIndicator(
-                                          width: 150.0,
-                                          animation: true,
-                                          animationDuration: 100,
-                                          lineHeight: 3.0,
-                                          // leading: const Text("left"),
-                                          // trailing: const Text("right"),
-                                          percent: percentList[index],
-                                          trailing: Text("${percentList[index]*100}%", style: TextStyle(fontSize: 15),),
-                                          progressColor: Color(0xffff9201),
-                                          barRadius: Radius.circular(10),
-                                        ),
-                                        IconButton(
-                                          onPressed: (){
-                                            Navigator.pushNamed(context, '/recruitmore');
-                                          },
-                                          style: IconButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                          ),
-                                          icon: Icon(Icons.arrow_forward_ios_outlined), color: Colors.black54, iconSize: 20,),
-                                      ],
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-
+      
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+      ),
     );
 
   }

@@ -279,14 +279,6 @@ class _SolarEnvState extends State<SolarEnv> {
 
     SampleWeather w = sampleWeatherFromJson(res.body);
 
-    final temp = w.main.temp;
-    final temp_min = w.main.tempMin;
-    final temp_max = w.main.tempMax;
-    final location = w.name;
-
-    // print("check : " + temp_min.toString());
-    // print("최저기온 : " +temp_min.toString());
-    // print("최고기온 : " +temp_max.toString());
     print('getWeather 함수 실행됨!!!!!');
 
     return w;

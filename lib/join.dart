@@ -388,7 +388,7 @@ class _JoinState extends State<Join> {
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => SolarplantName()),
+                  MaterialPageRoute(builder: (_) => Login()),
                 );
               },
               style: TextButton.styleFrom(

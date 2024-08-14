@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:solquiz_2/solarplant_addr.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +23,18 @@ class _SolarplantNameState extends State<SolarplantName> {
       } else {
         solarplantnameError = null;
       }
+    });
+  }
+
+  final storage = FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 비동기로 flutter secure storage 정보를 불러오는 작업
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // _asyncMethod();
     });
   }
 
@@ -63,9 +76,10 @@ class _SolarplantNameState extends State<SolarplantName> {
     String solarplantname = solarplantnameCon.text.toString();
     validateFields();
     if (solarplantnameError == null) {
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(builder: (_) => SolarplantAddr()),
+        '/solarplantaddr',
+        arguments: solarplantname
       );
     } else {
       showPopup('해당 양식을 올바르게 입력해주세요.');
@@ -92,7 +106,7 @@ class _SolarplantNameState extends State<SolarplantName> {
         actions: [
           IconButton(
             icon: Icon(Icons.arrow_forward),
-            onPressed: NextButton,
+            onPressed: (){NextButton();},
           ),
         ],
       ),
@@ -115,31 +129,29 @@ class _SolarplantNameState extends State<SolarplantName> {
                   FocusScope.of(context).unfocus();
                 },
                 child: SingleChildScrollView(
-                  child: Expanded(
-                    child: TextFormField(
-                      controller: solarplantnameCon,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        label: Align(
-                          alignment: Alignment.center,
-                          child: Text('발전소 이름', style: TextStyle(fontSize: 19),),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xFFA3A3A3)),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xfffd9a06)),
-                        ),
-                        labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
-                        errorText: solarplantnameError,
+                  child: TextFormField(
+                    controller: solarplantnameCon,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      label: Align(
+                        alignment: Alignment.center,
+                        child: Text('발전소 이름', style: TextStyle(fontSize: 19),),
                       ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[a-z A-Z ㄱ-ㅎ|가-힣|·|：]')),
-                      ],
-                      onChanged: (value) {
-                        validateFields();
-                      },
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFA3A3A3)),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xfffd9a06)),
+                      ),
+                      labelStyle: TextStyle(color: Color(0xFFA3A3A3)),
+                      errorText: solarplantnameError,
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-z A-Z ㄱ-ㅎ|가-힣|·|：]')),
+                    ],
+                    onChanged: (value) {
+                      validateFields();
+                    },
                   ),
                 ),
               ),

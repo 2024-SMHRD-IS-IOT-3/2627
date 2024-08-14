@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:solquiz_2/appbar.dart';
 import 'dart:convert';
 import '/db/tb_board.dart';
 
@@ -88,83 +89,64 @@ class _BoardState extends State<Board> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            title: Image.asset('image/solQuiz_logo3.png', width: 110,),
-            backgroundColor: Colors.white,
-            actions: [
-              IconButton(
-                icon: Icon(Icons.notifications),
-                style: ButtonStyle(
-                  iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-                ),
-                onPressed: () {
-                  print('icon alert');
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.logout_outlined),
-                style: ButtonStyle(
-                  iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-                ),
-                onPressed: () {
-                  print('icon logout');
-                  logout();
-                },
-              ),
-            ]
-        ),
-        body: _error.isNotEmpty
-                ? Center(child: Text(_error),)
-                : _boards.isEmpty
-                ? Center(child: CircularProgressIndicator(
-                    color: Colors.white,
-                ))
-                : ListView.builder(
-                shrinkWrap: true,
-                itemCount: _boards[0].B_IDX.length,
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: Column(
-                        children: [
-                          SizedBox(height: 10,),
-                          Container(
-                            width: 350,
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1.5,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3), // 그림자 위치 변경
-                                ),
-                              ],
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Appbar(),
+          ),
+          body: _error.isNotEmpty
+                  ? Center(child: Text(_error),)
+                  : _boards.isEmpty
+                  ? Center(child: CircularProgressIndicator(
+                      color: Colors.white,
+                  ))
+                  : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _boards[0].B_IDX.length,
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: Column(
+                          children: [
+                            SizedBox(height: 10,),
+                            Container(
+                              width: 350,
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1.5,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3), // 그림자 위치 변경
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Image.asset(
+                                      'image/solQuiz_logo3.png', width: 150,),
+                                    padding: EdgeInsets.fromLTRB(80, 30, 20, 30),
+                                  ),
+                                  SizedBox(height: 8,),
+                                  Text(
+                                    '${_boards[0].B_TITLE[index]}',
+                                    style: TextStyle(fontSize: 18, color: Color(
+                                        0xff1e1e1e)),),
+                                ],
+                              ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Image.asset(
-                                    'image/solQuiz_logo3.png', width: 150,),
-                                  padding: EdgeInsets.fromLTRB(80, 30, 20, 30),
-                                ),
-                                SizedBox(height: 8,),
-                                Text(
-                                  '${_boards[0].B_TITLE[index]}',
-                                  style: TextStyle(fontSize: 18, color: Color(
-                                      0xff1e1e1e)),),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20,),
-                        ]
-                    ),
-                  );
-                })
-        );
+                            SizedBox(height: 20,),
+                          ]
+                      ),
+                    );
+                  })
+          ),
+    );
   }
 }

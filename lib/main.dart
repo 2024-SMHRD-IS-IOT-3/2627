@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+
       // 라우트 연결
       routes: {
         '/recruitmore' : (context) => RecruitMore(),
@@ -43,6 +45,8 @@ class MyApp extends StatelessWidget {
         '/navigationbar' : (context) => Navigationbar(),
         '/login' : (context) => Login(),
         '/solarplantname' : (context) => SolarplantName(),
+        '/solarplantaddr' : (context) => SolarplantAddr(),
+        '/mypage' : (context) => MyPage(),
       },
       debugShowCheckedModeBanner: false,
 
@@ -74,13 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Theme
             .of(context)
             .colorScheme
             .inversePrimary,
         title: Text(widget.title),
-      ),*/
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
