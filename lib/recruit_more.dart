@@ -5,8 +5,12 @@ import 'package:solquiz_2/predict.dart';
 import 'package:solquiz_2/recruit.dart';
 
 import 'board.dart';
+import 'db/tb_solar_board.dart';
 import 'mainPage.dart';
 import 'myPage.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 class RecruitMore extends StatefulWidget {
@@ -17,10 +21,70 @@ class RecruitMore extends StatefulWidget {
 }
 
 class _RecruitMoreState extends State<RecruitMore> {
+  final String _url = 'http://10.0.2.2:3000/recruitsql/bselect'; // 서버 URL
+  List<RecruitBoards> _recruit_boards = []; // Boards 객체 리스트
+  String _error = '';
+  var index = 0;
 
-  int index = 0;
+  @override
+  void initState() {
+    super.initState();
+    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+  }
+
+  Future<void> _sendQuery() async {
+    try {
+      final response = await http.post(
+        Uri.parse(_url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response.body);
+        print("연결 성공");
+        print(jsonResponse);
+
+        if (jsonResponse is Map<String, dynamic>) {
+          // 단일 객체인 경우
+          final recruit_boards = RecruitBoards.fromJson(jsonResponse);
+          setState(() {
+            _recruit_boards = [recruit_boards];
+            print(_recruit_boards);
+          });
+        } else if (jsonResponse is List) {
+          // 배열인 경우
+          final recruit_boards = jsonResponse.map((data) {
+            if (data is Map<String, dynamic>) {
+              return RecruitBoards.fromJson(data);
+            } else {
+              return null; // 데이터가 올바른 형식이 아닌 경우
+            }
+          }).whereType<RecruitBoards>().toList();
+
+          setState(() {
+            _recruit_boards = recruit_boards;
+            print(_recruit_boards);
+          });
+        } else {
+          setState(() {
+            _error = 'Unexpected JSON format';
+          });
+        }
+      } else {
+        setState(() {
+          _error = 'Failed to execute query';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = 'Error: $e';
+      });
+    }
+  }
+
   List<Widget> pageList = [
-    // Board(sqlQuery: 'select * from TB_BOARD '),
     Board(),
     Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
     SolarEnv(),

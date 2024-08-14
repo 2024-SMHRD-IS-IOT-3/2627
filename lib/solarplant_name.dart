@@ -60,6 +60,7 @@ class _SolarplantNameState extends State<SolarplantName> {
   }
 
   void NextButton() {
+    String solarplantname = solarplantnameCon.text.toString();
     validateFields();
     if (solarplantnameError == null) {
       Navigator.push(

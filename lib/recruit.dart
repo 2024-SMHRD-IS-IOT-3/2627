@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:solquiz_2/appbar.dart';
 
 import 'db/tb_solar_board.dart';
 import 'package:http/http.dart' as http;
@@ -15,10 +17,14 @@ class Recruit extends StatefulWidget {
 
 class _RecruitState extends State<Recruit> {
 
+  final storage = FlutterSecureStorage();
+
   final String _url = 'http://10.0.2.2:3000/recruitsql/bselect'; // 서버 URL
   List<RecruitBoards> _recruit_boards = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
+
+
 
   @override
   void initState() {
@@ -88,30 +94,7 @@ class _RecruitState extends State<Recruit> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Image.asset('image/solQuiz_logo3.png',width: 110,),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            style: ButtonStyle(
-              iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-            ),
-            onPressed: (){
-              print('icon alert');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.logout_outlined),
-            style: ButtonStyle(
-              iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-            ),
-            onPressed: (){
-              print('icon logout');
-            },
-          ),
-        ],
-      ),
+      // appBar: Appbar(key: ,),
 
       body: _error.isNotEmpty
           ? Center(child: Text(_error),)
@@ -343,10 +326,3 @@ class _RecruitState extends State<Recruit> {
     );
   }
 }
-
-
-// void addList(){
-//   txtList.add('[해안] 발전소 모집');
-//   txtList2.add('전남 / 해안');
-//   print('text');
-// }

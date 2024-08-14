@@ -4,6 +4,7 @@ import 'package:solquiz_2/navigationBar.dart';
 import 'package:solquiz_2/search.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,10 +18,38 @@ class _LoginState extends State<Login> {
   TextEditingController idCon = TextEditingController();
   TextEditingController pwCon = TextEditingController();
 
+  final storage = FlutterSecureStorage();
+  dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
+
   final String _url = 'http://10.0.2.2:3000/login/loginpage'; // 서버 URL
   String _error = '';
 
-  Future<void> sendLoginData() async{
+  @override
+  void initState() {
+    super.initState();
+
+    // 비동기로 flutter secure storage 정보를 불러오는 작업
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    // read 함수로 key값에 맞는 정보를 불러오고 데이터타입은 String 타입
+    // 데이터가 없을때는 null을 반환
+    userInfo = await storage.read(key:'login');
+
+    // user의 정보가 있다면 로그인 후 들어가는 첫 페이지로 넘어가게 합니다.
+    if (userInfo != null) {
+      print('로그인 _asyncMethod userInfo : ' + userInfo);
+      Navigator.push(context, MaterialPageRoute(builder: (_) => Navigationbar()));
+    } else {
+      print('로그인이 필요합니다');
+    }
+  }
+
+
+  Future<void> sendLoginData() async {
     String id = idCon.text.toString();
     String pw = pwCon.text.toString();
 
@@ -28,12 +57,17 @@ class _LoginState extends State<Login> {
     print('pw : ' + pw);
 
     try {
-      // dynamic login = {'id' : id, 'pw' : pw};
-
       final response = await http.post(Uri.parse(_url),
           headers : {'Content-Type': 'application/json'},
           body: json.encode({'id': id,'pw':pw}),
       );
+      var val = jsonEncode({'id': id,'pw':pw});
+      await storage.write(
+        key: 'login',
+        value: val
+      );
+
+      print('로그인 flutter secure storage 접속 성공!');
 
       if (response.statusCode == 200) {
         final dynamic jsonResponse = json.decode(response.body);
@@ -42,9 +76,11 @@ class _LoginState extends State<Login> {
 
         if (jsonResponse == 'success') {
           print(jsonResponse);
+          _asyncMethod();
+
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => Navigationbar()),
+            MaterialPageRoute(builder: (context) => Navigationbar()),
           );
         }else if (jsonResponse == 'failed'){
           print("통신 response : "+ jsonResponse);

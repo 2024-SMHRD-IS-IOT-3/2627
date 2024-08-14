@@ -81,9 +81,9 @@ class _SolarEnvState extends State<SolarEnv> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text('최저 : ${(snapshot.data?.main.tempMin)!-3.72}℃', style: TextStyle(
+                                  Text('최저 : ${((snapshot.data?.main.tempMin)!-3.72).toStringAsFixed(2)}℃', style: TextStyle(
                                       fontSize: 17, color: Colors.white),),
-                                  Text('최고 : ${(((snapshot.data?.main.tempMax)! +3.83).toStringAsFixed(2))}℃', style: TextStyle(
+                                  Text('최고 : ${((snapshot.data?.main.tempMax)! +3.83).toStringAsFixed(2)}℃', style: TextStyle(
                                       fontSize: 17, color: Colors.white),),
                                 ],
                               ),
@@ -273,9 +273,9 @@ class _SolarEnvState extends State<SolarEnv> {
     print("lat: $lat, lon: $lon");
 
     String url = "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=311b37be82274842eb40377115dbd958&units=metric";
-    print(url);
+    // print(url);
     Response res = await get(Uri.parse(url));
-    print(res.body);
+    // print(res.body);
 
     SampleWeather w = sampleWeatherFromJson(res.body);
 
@@ -284,47 +284,11 @@ class _SolarEnvState extends State<SolarEnv> {
     final temp_max = w.main.tempMax;
     final location = w.name;
 
-    print("check : " + temp_min.toString());
-    print("최저기온 : " +temp_min.toString());
-    print("최고기온 : " +temp_max.toString());
+    // print("check : " + temp_min.toString());
+    // print("최저기온 : " +temp_min.toString());
+    // print("최고기온 : " +temp_max.toString());
     print('getWeather 함수 실행됨!!!!!');
 
     return w;
   }
-
-  // 날씨 정보 받아오기
-  void getWeatherData() async{
-    Response res = await get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=35.14537&lon=126.919163&appid=311b37be82274842eb40377115dbd958&units=metric"));
-    print(res.statusCode); // 에러 코드 출력 -> 정상 : 200번대
-    if (res.statusCode == 200) {
-
-    }
-    print(res.body); // res.body --> 넘어오는 데이터 타입 : String
-
-    SampleWeather w = sampleWeatherFromJson(res.body);
-    print(w.clouds);  // decode 되어서 객체로 접근 가능해졌다!
-    print(w.main.temp);
-  }
-
-}
-
-  Widget _container(double width, double height, Widget child) {
-  return Container(
-    width: width,
-    height: height,
-    child: child,
-    padding: EdgeInsets.all(15),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color : Colors.grey.withOpacity(0.5),
-          spreadRadius: 1.5,
-          blurRadius: 5,
-          offset: Offset(0,3),  // 그림자 위치 변경
-        ),
-      ],
-    ),
-  );
 }

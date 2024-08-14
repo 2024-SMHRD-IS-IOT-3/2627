@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:solquiz_2/solarplant_name.dart';
 
 import 'login.dart';
 
@@ -25,19 +26,21 @@ class _JoinState extends State<Join> {
   String? emailError;
   String? nameError;
 
-  final String _url = 'http://10.0.2.2:3000/join/join'; // 서버 URL
+  final String _url = 'http://10.0.2.2:3000/join/joinpage'; // 서버 URL
   String _error = '';
 
-  Future<void> sendLoginData() async{
+  Future<void> sendJoinData() async{
     String id = idCon.text.toString();
     String pw = pwCon.text.toString();
-    String checkpw = checkpwCon.text.toString();
     String name = nameCon.text.toString();
     String phone = phoneCon.text.toString();
     String email = emailCon.text.toString();
 
     print('id : ' + id);
     print('pw : ' + pw);
+    print('name : ' + name);
+    print('phone : ' + phone);
+    print('email : ' + email);
 
     try {
       final response = await http.post(Uri.parse(_url),
@@ -51,14 +54,10 @@ class _JoinState extends State<Join> {
         // print("통신 response : "+ jsonResponse);
 
         if (jsonResponse == 'success') {
-          print(jsonResponse);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => Login()),
-          );
+          print('회원 가입 성공 - ' +jsonResponse);
         }else if (jsonResponse == 'failed'){
-          print("통신 response : "+ jsonResponse);
-          print('로그인 실패');
+          print("회원가입 통신 response : "+ jsonResponse);
+          print('회원가입 실패');
           showPopup('아이디와 비밀번호를 다시 확인해주세요');
         }
       }
@@ -286,14 +285,13 @@ class _JoinState extends State<Join> {
                           ),
                           onPressed: () {
                             validateFields();
+                            sendJoinData();
+
                             if (pwError == null &&
                                 idError == null &&
                                 nameError == null &&
                                 phoneError == null &&
                                 emailError == null) {
-
-
-
 
                               showPopup('회원가입이 완료되었습니다!');
                             } else {
@@ -388,6 +386,10 @@ class _JoinState extends State<Join> {
               child: Text('확인', style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SolarplantName()),
+                );
               },
               style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(

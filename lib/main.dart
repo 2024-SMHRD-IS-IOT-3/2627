@@ -22,6 +22,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.delayed(const Duration(seconds: 3));
   FlutterNativeSplash.remove();
+  // SharedPreferences.setMockInitialValues({});
   runApp(const MyApp());
 }
 
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         '/money' : (context) => Money(),
         '/predictmore' : (context) => PredictMore(),
         '/search2' : (context) => Search2(),
+        '/navigationbar' : (context) => Navigationbar(),
+        '/login' : (context) => Login(),
+        '/solarplantname' : (context) => SolarplantName(),
       },
       debugShowCheckedModeBanner: false,
 

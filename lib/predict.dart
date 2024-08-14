@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'db/tb_prediction.dart';
-import 'provider.dart';
-
-
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'db/tb_prediction.dart';
 
 class Predict extends StatefulWidget {
 
@@ -20,10 +19,17 @@ class Predict extends StatefulWidget {
 
 class _PredictState extends State<Predict> {
 
+  final storage = FlutterSecureStorage();
 
   final String _url = 'http://10.0.2.2:3000/query'; // 서버 URL
   List<TbPrediction> _tbPrediction = [];
   String _error = '';
+
+  // 로그아웃 함수
+  logout() async {
+    await storage.delete(key: 'login');
+    Navigator.pushNamed(context, '/login');
+  }
 
   @override
   void initState() {
@@ -125,6 +131,7 @@ class _PredictState extends State<Predict> {
             ),
             onPressed: (){
               print('icon logout');
+              logout();
             },
           ),
         ],

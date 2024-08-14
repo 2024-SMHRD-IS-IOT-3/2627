@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:solquiz_2/db/member.dart';
 import 'package:solquiz_2/db/tb_member.dart';
 import 'package:solquiz_2/profileEdit.dart';
@@ -14,15 +15,41 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
 
-  final String _url = 'http://10.0.2.2:3000/login/lselect'; // 서버 URL
+  final storage = FlutterSecureStorage();
+  dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
+
+  checkUserState() async {
+    userInfo = await storage.read(key: 'login');
+    print('checkUserState 함수 : '+ userInfo);
+    userInfo = json.decode(userInfo);
+    print('checkUserState 함수 안의 아이디 : '+ userInfo["id"]);
+    if (userInfo == null) {
+      print('로그인 페이지로 이동');
+      Navigator.pushNamed(context, '/login'); // 로그인 페이지로 이동
+    } else {
+      print('로그인 중');
+      _sendQuery();
+    }
+  }
+
+  // 로그아웃 함수
+  logout() async {
+    await storage.delete(key: 'login');
+    Navigator.pushNamed(context, '/login');
+  }
+
+  final String _url = 'http://10.0.2.2:3000/login/mypage'; // 서버 URL
   List<Member> _member = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
 
+
   @override
   void initState() {
     super.initState();
-    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkUserState();
+    });
   }
 
   Future<void> _sendQuery() async {
@@ -32,7 +59,9 @@ class _MyPageState extends State<MyPage> {
         headers: {
           'Content-Type': 'application/json',
         },
+          body : json.encode({'userInfo' : userInfo})
       );
+
 
       if (response.statusCode == 200) {
         final dynamic jsonResponse = json.decode(response.body);
@@ -61,6 +90,8 @@ class _MyPageState extends State<MyPage> {
             print(_member);
             print(_member[0]);
           });
+
+
         } else {
           setState(() {
             _error = 'Unexpected JSON format';
@@ -71,12 +102,15 @@ class _MyPageState extends State<MyPage> {
           _error = 'Failed to execute query';
         });
       }
+
+
     } catch (e) {
       setState(() {
         _error = 'Error: $e';
       });
     }
   }
+
 
   var recruitList = ['전남 / 해안 / 5MWh', '충청 / 내륙 / 10MWh', '대전 / 내륙 / 15MWh',];
 
@@ -104,6 +138,7 @@ class _MyPageState extends State<MyPage> {
               ),
               onPressed: (){
                 print('icon logout');
+                logout();
               },
             ),
           ],
@@ -153,12 +188,18 @@ class _MyPageState extends State<MyPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '${_member[0].MEM_NAME[0]}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  Row(
+                                    children: [
+                                      SizedBox(width: 5
+                                        ,),
+                                      Text(
+                                        '${_member[0].MEM_NAME[0]}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     '${_member[0].MEM_EMAIL[0]}',

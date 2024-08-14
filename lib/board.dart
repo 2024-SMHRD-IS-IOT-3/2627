@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '/db/tb_board.dart';
@@ -11,11 +14,18 @@ class Board extends StatefulWidget {
 }
 
 class _BoardState extends State<Board> {
+  final storage = FlutterSecureStorage();
 
   final String _url = 'http://10.0.2.2:3000/boardsql/bselect'; // 서버 URL
   List<Boards> _boards = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
+
+  // 로그아웃 함수
+  logout() async {
+    await storage.delete(key: 'login');
+    Navigator.pushNamed(context, '/login');
+  }
 
   @override
   void initState() {
@@ -100,6 +110,7 @@ class _BoardState extends State<Board> {
                 ),
                 onPressed: () {
                   print('icon logout');
+                  logout();
                 },
               ),
             ]

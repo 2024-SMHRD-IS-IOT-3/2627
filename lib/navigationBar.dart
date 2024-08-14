@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:solquiz_2/board.dart';
+import 'package:solquiz_2/db/tb_member.dart';
 import 'package:solquiz_2/recruit.dart';
 import 'package:solquiz_2/mainPage.dart';
 import 'package:solquiz_2/predict.dart';
@@ -12,6 +13,8 @@ import 'package:solquiz_2/weather/SampleWeather.dart';
 
 class Navigationbar extends StatefulWidget {
   const Navigationbar({super.key});
+  // const Navigationbar({Key? key, required this.user}) : super(key: key);
+  // final Member user;
 
   @override
   State<Navigationbar> createState() => _NavigationbarState();
@@ -20,12 +23,7 @@ class Navigationbar extends StatefulWidget {
 class _NavigationbarState extends State<Navigationbar> {
   int index = 2;
 
-  // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67';
-  // String predict_query = 'SELECT * FROM TB_PREDICTION WHERE PRED_DATE = )';
-
-
   List<Widget> pageList = [
-    // Board(sqlQuery: 'select * from TB_BOARD'),
     Board(),
     Predict(sqlQuery: 'SELECT * FROM TB_PREDICTION WHERE PRED_IDX = 67',),
     SolarEnv(),
