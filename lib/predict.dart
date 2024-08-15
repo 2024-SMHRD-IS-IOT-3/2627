@@ -261,7 +261,7 @@ class _PredictState extends State<Predict> {
                         Navigator.pushNamed(
                             context,
                             '/predictmore',
-                            arguments: '${initialDay.year}-0${initialDay.month}-0${initialDay.day}'
+                            arguments: '${initialDay.year}-0${initialDay.month}-${initialDay.day}'
                         );
                       },
                       child: Row(

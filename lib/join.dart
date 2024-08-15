@@ -138,8 +138,11 @@ class _JoinState extends State<Join> {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                 ),
-                                onPressed: () async {
-                                  await checkDuplicateId();
+                                onPressed: ()  {
+                                  setState(() {
+                                    idError = null;
+                                    checkDuplicateId();
+                                  });
                                 },
                                 child: Text(
                                   '중복체크',
@@ -315,19 +318,18 @@ class _JoinState extends State<Join> {
     );
   }
   Future<void> checkDuplicateId() async {
-    final response = await http.post(
-      Uri.parse('https://your-api-url.com/check_id'),
+    final String _url2 = 'http://10.0.2.2:3000/join/checkduplicateId';
+    final response = await http.post(Uri.parse(_url2),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'id': idCon.text,
-      }),
+      body: jsonEncode({'id': '${idCon.text}'}),
     );
+
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
-      if (result['exists']) {
+      if (result == 'exists') {
         setState(() {
           idError = '이미 사용 중인 아이디입니다';
         });
@@ -339,6 +341,7 @@ class _JoinState extends State<Join> {
     } else {
       throw Exception('Failed to check ID');
     }
+
   }
 
   void validateFields() {
@@ -388,7 +391,7 @@ class _JoinState extends State<Join> {
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => Login()),
+                  MaterialPageRoute(builder: (_) => Join()),
                 );
               },
               style: TextButton.styleFrom(

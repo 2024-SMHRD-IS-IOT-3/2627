@@ -101,12 +101,18 @@ class _SolarplantNameState extends State<SolarplantName> {
             Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
+          style: ButtonStyle(
+            iconColor: MaterialStateProperty.all<Color>(Colors.black87),
+          ),
         ),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: Icon(Icons.arrow_forward),
             onPressed: (){NextButton();},
+            style: ButtonStyle(
+              iconColor: MaterialStateProperty.all<Color>(Colors.black87),
+            ),
           ),
         ],
       ),

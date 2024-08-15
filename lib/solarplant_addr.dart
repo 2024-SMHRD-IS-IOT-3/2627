@@ -30,18 +30,22 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
   List<String> regionList = ['서울/인천/경기', '강원', '광주/전남', '전북', '충북', '세종/대전/충남', '대구/경북', '제주', '부산/울산/경남', '기타'];
   List<String> placeList = ['Coast', 'Inland'];
 
+  // 전역 변수로 사용될 필드
+  String? selectedRegion;
+  String? selectedPlace;
+
+
   void onRegionPress(int index) {
     setState(() {
       selectedIndex = index;
-      print('onRegionPress 안' + '${index}');
       // 모든 값을 false로 설정하고, 선택된 인덱스만 true로 설정
-      // for (int i = 0; i < regions.length; i++) {
-      //   regions[i] = i == index;
-      // }
-      print(regionList[index]);
+      for (int i = 0; i < regions.length; i++) {
+        regions[i] = i == index;
+      }
+      print("지역 상세 : ${regionList[index]}");
     });
-
-    // return regionList[index];
+    // 지역 상세 추가 코드 작성 부분
+    selectedRegion = regionList[index];
   }
 
   void onPlacePress(int index) {
@@ -52,6 +56,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
         places[i] = i == index;
       }
     });
+    selectedPlace = placeList[selectedIndex];
   }
 
 
@@ -96,16 +101,14 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
     // read 함수로 key값에 맞는 정보를 불러오고 데이터타입은 String 타입
     // 데이터가 없을때는 null을 반환
     userInfo = await storage.read(key:'login');
+    userInfo = json.decode(userInfo);
 
-    // user의 정보가 있다면 로그인 후 들어가는 첫 페이지로 넘어가게 합니다.
     if (userInfo != null) {
       print('발전소 등록 페이지 _asyncMethod userInfo : ' + userInfo);
       // {"id":"apple","pw":"banana"}
       // Navigator.pushNamed(context, '/navigationbar');
     }
   }
-
-
 
   // --------db 통신 끝 ---------
 
@@ -143,30 +146,33 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments;
     print(arguments);
     Future<void> insertSolarPlant() async {
-      String id = '${arguments}';
+      String plant_name = '${arguments}';
       String sp_addr = solarplantaddCon.text.toString();
       String sp_power = solarplantpowerCon.text.toString();
 
       print('sp_addr : ' + sp_addr);
       print('sp_power : ' + sp_power);
       print(arguments);
-
-
+      print("발전소 등록에 필요한 데이터 : 지역구분-> ${selectedRegion}, 지역상세-> ${selectedPlace} ");
+      print('데이터 타입을 확인해보자 지역구분 -> ${selectedRegion.runtimeType}');
+      print('데이터 타입을 확인해보자 지역상세 -> ${selectedPlace.runtimeType}');
+      print('userinfo id : '+ userInfo["id"]);
       try {
         final response = await http.post(Uri.parse(_url),
           headers : {'Content-Type': 'application/json'},
-          body: json.encode({'id' : id, 'plant_name' : arguments, 'plant_addr': sp_addr,'plant_power':sp_power}),
-        );
-        var val = jsonEncode({'id' : id, 'plant_name' : arguments, 'plant_addr': sp_addr,'plant_power':sp_power});
-        await storage.write(
-            key: 'login',
-            value: val
+          body: json.encode({
+            'id' : '${userInfo["id"]}',
+            'plant_name' : plant_name,
+            'plant_addr': sp_addr,
+            'plant_power':sp_power,
+            'place' : '${selectedRegion}',
+            'sb_type' :'${selectedPlace}'
+          }),
         );
 
         print('발전소 등록 flutter secure storage 접속 성공!');
@@ -178,12 +184,9 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
 
           if (jsonResponse == 'success') {
             print(jsonResponse);
-            _asyncMethod();
+            Navigator.pushNamed(context, '/navigationbar');
 
-            // Navigator.pushNamed(
-            //   context,
-            //   '/mypage'
-            // );
+
           }else if (jsonResponse == 'failed'){
             print("통신 response : "+ jsonResponse);
             print('로그인 실패');
@@ -475,8 +478,4 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
         return '내륙';
     }
   }
-
-
-
-
 }
