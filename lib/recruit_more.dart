@@ -28,6 +28,8 @@ class _RecruitMoreState extends State<RecruitMore> {
   String _error = '';
   var index = 0;
 
+  var idxList = [];
+
   int idx = 0;
 
   final storage = FlutterSecureStorage();
@@ -38,7 +40,6 @@ class _RecruitMoreState extends State<RecruitMore> {
     super.initState();
     _asyncMethod();
     _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
-    _recruit_more();
   }
 
   _asyncMethod() async {
@@ -74,6 +75,10 @@ class _RecruitMoreState extends State<RecruitMore> {
           setState(() {
             _recruit_boards = [recruit_boards];
             print(_recruit_boards[0]);
+
+            idxList = List<int>.generate(_recruit_boards[0].MEM_ID.length, (i) => i++);
+            print('idxList 생성 됐니 ${idxList}');
+            print('idxList 타입 내놔 ${idxList[0].runtimeType}');
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -104,6 +109,7 @@ class _RecruitMoreState extends State<RecruitMore> {
         _error = 'Error: $e';
       });
     }
+    _recruit_more();
   }
 
   List<Widget> pageList = [
@@ -123,8 +129,8 @@ class _RecruitMoreState extends State<RecruitMore> {
     print('${idx}');
     try {
       final response2 = await http.post(Uri.parse(_url2),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({'idx': '${idx}'})
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'idx': '${idx}'})
       );
 
       if (response2.statusCode == 200) {
@@ -153,7 +159,7 @@ class _RecruitMoreState extends State<RecruitMore> {
             _recruitcomment = recruitcomment;
             print('_recruitcomment을 뽑아보자 ${_recruitcomment}');
             print('_recruitcomment[0]을 뽑아보자 ${_recruitcomment[0]}');
-            
+
 
           });
         }
@@ -184,143 +190,154 @@ class _RecruitMoreState extends State<RecruitMore> {
             ? Center(child: Text(_error),)
             : _recruit_boards.isEmpty
             ? Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ))
+            : SingleChildScrollView(
+              child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
               color: Colors.white,
-            ))
-                : Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1.5,
-                          blurRadius: 5,
-                          offset: Offset(0, 3), // 그림자 위치 변경
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1.5,
+                  blurRadius: 5,
+                  offset: Offset(0, 3), // 그림자 위치 변경
+                ),
+              ],
+                        ),
+                        child:
+                        Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(8, 5, 8, 7),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Color(0xffff9201),
+                      ),
+                      child: Text('모집중', style: TextStyle(color: Colors.white, fontSize: 13,),),
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: (){},
+                          icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
+                        ),
+                        IconButton(
+                          onPressed: (){},
+                          icon: Icon(Icons.edit, color: Colors.black54,),
                         ),
                       ],
                     ),
-                    child:
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.fromLTRB(8, 5, 8, 7),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Color(0xffff9201),
-                                ),
-                                child: Text('모집중', style: TextStyle(color: Colors.white, fontSize: 13,),),
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: (){},
-                                      icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
-                                  ),
-                                  IconButton(
-                                      onPressed: (){},
-                                      icon: Icon(Icons.edit, color: Colors.black54,),
-                                  ),
-                                ],
-                              ),
-                            ],
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.all(40),
+                  child: Image.asset('image/solQuiz_logo3.png',width: 200,),
+                ),
+                SizedBox(height: 25,),
+                Row(
+                  children: [
+                    SizedBox(width: 20,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: LinearPercentIndicator(
+                        width: 270,
+                        animation: true,
+                        animationDuration: 100,
+                        lineHeight: 3.0,
+                        // leading: const Text("left"),
+                        // trailing: const Text("right"),
+                        percent: 0.7,
+                        trailing: Text("70.0%", style: TextStyle(fontSize: 15),),
+                        progressColor: Color(0xffff9201),
+                        barRadius: Radius.circular(10),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Text('[${_recruit_boards[0].SB_TYPE[idx] == 'Inland' ? '내륙' : '해안'}] 발전소 모집',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('${_recruit_boards[0].PLACE[idx]}',style: TextStyle(fontSize: 20,),),
+                    SizedBox(width: 50),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xffff9201),
+                          minimumSize: Size(12, 10),
+                          padding: EdgeInsets.symmetric(horizontal: 13,vertical: 7),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          Container(
-                            padding: EdgeInsets.all(40),
-                              child: Image.asset('image/solQuiz_logo3.png',width: 200,),
+                        ),
+                        child: Text('참여하기',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(height: 25,),
-                          Row(
-                            children: [
-                              SizedBox(width: 20,),
-                              Container(
-                                alignment: Alignment.center,
-                                child: LinearPercentIndicator(
-                                  width: 270,
-                                  animation: true,
-                                  animationDuration: 100,
-                                  lineHeight: 3.0,
-                                  // leading: const Text("left"),
-                                  // trailing: const Text("right"),
-                                  percent: 0.7,
-                                  trailing: Text("70.0%", style: TextStyle(fontSize: 15),),
-                                  progressColor: Color(0xffff9201),
-                                  barRadius: Radius.circular(10),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Text('[${_recruit_boards[0].SB_TYPE[idx] == 'Inland' ? '내륙' : '해안'}] 발전소 모집',
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                          SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text('${_recruit_boards[0].PLACE[idx]}',style: TextStyle(fontSize: 20,),),
-                              SizedBox(width: 50),
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xffff9201),
-                                    minimumSize: Size(12, 10),
-                                    padding: EdgeInsets.symmetric(horizontal: 13,vertical: 7),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                  child: Text('참여하기',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onPressed: () => {}
-                              ),
-                              SizedBox(width: 12,),
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Container(width: double.infinity, height: 1, color: Colors.grey[400],),
-                          SizedBox(height: 20,),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '참여 현황',
-                                    style: TextStyle(
-                                        fontSize: 17,fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  SizedBox(height: 8,),
-                                  // _userContainer(_recruitcomment[0].PLACE[0]!, _recruitcomment[0].SB_TYPE[0]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[0]),
-                                  // for(place in _recruitcomment[0].PLACE) _userContainer(region1, region2, env)
-                                  // _recruitcomment[0].PLACE
-                                  // List.generate(_recruitcomment[0].PLACE.length, (index){
-                                  //   return _userContainer(_recruitcomment[0].PLACE, _recruitcomment[0].SB_TYPE, _recruitcomment[0].PLANT_POWER);
-                                  // }),
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                      itemCount: _recruitcomment[0].PLACE[0]?.length,
-                                      itemBuilder: (context, index){
-                                        return Expanded(child: _userContainer(_recruitcomment[0].PLACE[index]!, _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[index]));
-                                      })
+                        ),
+                        onPressed: () => {}
+                    ),
+                    SizedBox(width: 12,),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Container(width: double.infinity, height: 1, color: Colors.grey[400],),
+                SizedBox(height: 20,),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '참여 현황',
+                        style: TextStyle(
+                            fontSize: 17,fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 8,),
+                      // _userContainer(_recruitcomment[0].PLACE[0]!, _recruitcomment[0].SB_TYPE[0]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[0] as String?),
 
-                                ],
-                              ),
-                          ),
+                      for (index in idxList) SizedBox(
+                          child: _userContainer(
+                              _recruitcomment[0].PLACE[index]!,
+                              _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안',
+                              _recruitcomment[0].PLANT_POWER[index] as String?)),
 
+                      // for(place in _recruitcomment[0].PLACE) _userContainer(region1, region2, env)
+                      // _recruitcomment[0].PLACE
+                      // List.generate(_recruitcomment[0].PLACE.length, (index){
+                      //   return _userContainer(_recruitcomment[0].PLACE, _recruitcomment[0].SB_TYPE, _recruitcomment[0].PLANT_POWER);
+                      // }),
+                      /*
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: idxList.length,
+                        itemBuilder: (context, index){
+                          return _userContainer(_recruitcomment[0].PLACE[index]!, _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[index] as String?);
+                        })
+
+                       */
+                    ],
+                  ),
+                ),
+              
               ],
+                        ),
+                      ),
             ),
-        ),
         bottomNavigationBar: SizedBox(
           height: 80,
           child: BottomNavigationBar(
@@ -420,5 +437,4 @@ Widget _userContainer(String? region1, String? region2, String? env){
     ),
   );
 }
-
 

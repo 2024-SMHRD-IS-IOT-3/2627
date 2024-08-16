@@ -1,4 +1,5 @@
 // TB_SOLAR_COMMENT
+
 class RecruitComment {
   final List<String?> PLANT_POWER;
   final List<String?> PLACE;
@@ -20,3 +21,35 @@ class RecruitComment {
     );
   }
 }
+
+
+
+/*
+class RecruitComment {
+  final List<String?> PLACE;
+  final List<String?> SB_TYPE;
+  final List<int?> PLANT_POWER;
+
+  RecruitComment({
+    required this.PLACE,
+    required this.SB_TYPE,
+    required this.PLANT_POWER,
+  });
+
+  // 객체를 JSON으로 변환
+  Map<String, dynamic> toJson() => {
+    'PLACE': PLACE,
+    'SB_TYPE': SB_TYPE,
+    'PLANT_POWER': PLANT_POWER,
+  };
+
+  // JSON을 객체로 변환
+  factory RecruitComment.fromJson(Map<String, dynamic> json) => RecruitComment(
+    PLACE: List<String?>.from(json['PLACE'] ?? []),
+    SB_TYPE: List<String?>.from(json['SB_TYPE'] ?? []),
+    PLANT_POWER: List<int?>.from(json['PLANT_POWER'] ?? []),
+  );
+}
+
+ */
+
