@@ -27,10 +27,9 @@ class _RecruitMoreState extends State<RecruitMore> {
   List<RecruitBoards> _recruit_boards = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
-
   var idxList = [];
-
   int idx = 0;
+  var powersumList = null;
 
   final storage = FlutterSecureStorage();
   dynamic userInfo = '';
@@ -75,10 +74,6 @@ class _RecruitMoreState extends State<RecruitMore> {
           setState(() {
             _recruit_boards = [recruit_boards];
             print(_recruit_boards[0]);
-
-            idxList = List<int>.generate(_recruit_boards[0].MEM_ID.length, (i) => i++);
-            print('idxList 생성 됐니 ${idxList}');
-            print('idxList 타입 내놔 ${idxList[0].runtimeType}');
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -119,14 +114,13 @@ class _RecruitMoreState extends State<RecruitMore> {
     Recruit(),
     MyPage()];
 
-  final List<RecruitMore> RecruitmoreList = <RecruitMore>[];
-
-  // 참여현황 리스트 띄우기
+  // 참여현황 리스트 띄우기 + percent를 띄워보자
   final String _url2 = 'http://10.0.2.2:3000/recruit/recruitmore';
   List<RecruitComment> _recruitcomment = [];
+  final List<RecruitMore> RecruitmoreList = <RecruitMore>[];
 
   Future<void> _recruit_more() async {
-    print('${idx}');
+    print('꼬부기 ' + '${idx}');
     try {
       final response2 = await http.post(Uri.parse(_url2),
           headers: {'Content-Type': 'application/json'},
@@ -135,15 +129,15 @@ class _RecruitMoreState extends State<RecruitMore> {
 
       if (response2.statusCode == 200) {
         final dynamic jsonResponse = json.decode(response2.body);
-        print("모집 게시판 더보기 페이지 연결 성공");
-
-
+        print("모집 게시판 더보기 페이지 연결 성공 - 펭도리");
+        
         if (jsonResponse is Map<String, dynamic>) {
           // 단일 객체인 경우
           final recruitcomment = RecruitComment.fromJson(jsonResponse);
           setState(() {
             _recruitcomment = [recruitcomment];
             print('단일 객체인 경우 ${_recruitcomment[0].PLACE}');
+            
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -159,8 +153,6 @@ class _RecruitMoreState extends State<RecruitMore> {
             _recruitcomment = recruitcomment;
             print('_recruitcomment을 뽑아보자 ${_recruitcomment}');
             print('_recruitcomment[0]을 뽑아보자 ${_recruitcomment[0]}');
-
-
           });
         }
       }
@@ -176,9 +168,6 @@ class _RecruitMoreState extends State<RecruitMore> {
     print('arguments로 받아온 데이터 확인 : ${arguments}');
     idx = arguments as int;
 
-    // print('arguments 로 넘어온 idx : ${idx}');
-    // print(_recruit_boards[0].SB_TYPE[idx]);
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -190,8 +179,8 @@ class _RecruitMoreState extends State<RecruitMore> {
             ? Center(child: Text(_error),)
             : _recruit_boards.isEmpty
             ? Center(child: CircularProgressIndicator(
-          color: Colors.white,
-        ))
+              color: Colors.white,
+            ))
             : SingleChildScrollView(
               child: Container(
                         width: double.infinity,
@@ -296,7 +285,15 @@ class _RecruitMoreState extends State<RecruitMore> {
                 SizedBox(height: 20,),
                 Container(width: double.infinity, height: 1, color: Colors.grey[400],),
                 SizedBox(height: 20,),
-                Container(
+                idxList == {}
+                ?SizedBox(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                    width: 10,
+                    height: 10,
+                  )
+                    : Container(
                   padding: EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,32 +305,14 @@ class _RecruitMoreState extends State<RecruitMore> {
                         ),
                       ),
                       SizedBox(height: 8,),
-                      // _userContainer(_recruitcomment[0].PLACE[0]!, _recruitcomment[0].SB_TYPE[0]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[0] as String?),
-
-                      for (index in idxList) SizedBox(
+                      for(index in idxList) SizedBox(
                           child: _userContainer(
                               _recruitcomment[0].PLACE[index]!,
                               _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안',
                               _recruitcomment[0].PLANT_POWER[index] as String?)),
-
-                      // for(place in _recruitcomment[0].PLACE) _userContainer(region1, region2, env)
-                      // _recruitcomment[0].PLACE
-                      // List.generate(_recruitcomment[0].PLACE.length, (index){
-                      //   return _userContainer(_recruitcomment[0].PLACE, _recruitcomment[0].SB_TYPE, _recruitcomment[0].PLANT_POWER);
-                      // }),
-                      /*
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: idxList.length,
-                        itemBuilder: (context, index){
-                          return _userContainer(_recruitcomment[0].PLACE[index]!, _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안', _recruitcomment[0].PLANT_POWER[index] as String?);
-                        })
-
-                       */
                     ],
                   ),
                 ),
-              
               ],
                         ),
                       ),
@@ -342,9 +321,7 @@ class _RecruitMoreState extends State<RecruitMore> {
           height: 80,
           child: BottomNavigationBar(
             currentIndex: index,
-
             onTap: onItemTap,
-
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.campaign), label : '공지사항',),
@@ -380,7 +357,7 @@ class _RecruitMoreState extends State<RecruitMore> {
   }
   void onItemTap(int i){
     setState(() {
-      index = i;
+      Navigator.pushNamed(context, '/navigationbar');
     });
   }
 }

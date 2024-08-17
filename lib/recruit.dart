@@ -28,11 +28,11 @@ class _RecruitState extends State<Recruit> {
   List<RecruitBoards> _recruit_boards = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
-  List<int> idxList = [0];
+  List<int> idxList = [];
 
-  get percentList => null;
+  get percentList => {};
   var powerList = [0];
-  var powersumList = null;
+  var powersumList = {};
 
 
 
@@ -53,12 +53,14 @@ class _RecruitState extends State<Recruit> {
       );
 
       if (response.statusCode == 200) {
-        final dynamic jsonResponse = json.decode(response.body);
+        dynamic jsonResponse = '';
+        jsonResponse = json.decode(response.body);
         print("연결 성공");
         print(jsonResponse);
 
         if (jsonResponse is Map<String, dynamic>) {
           // 단일 객체인 경우
+
           final recruit_boards = RecruitBoards.fromJson(jsonResponse);
           setState(() {
             _recruit_boards = [recruit_boards];
@@ -114,30 +116,25 @@ class _RecruitState extends State<Recruit> {
     }
   }
 
-
-
   late final double percent;
   var re_idx = 0;
 
-
-  
   // 참여현황 percent를 띄워야 한다
   final String _url2 = 'http://10.0.2.2:3000/recruit/recruitmore';
   List<RecruitComment> _recruitcomment = [];
   final List<RecruitMore> RecruitmoreList = <RecruitMore>[];
 
 
-
   Future<void> _recruit_more() async {
     print('_recruit_more 함수 안임');
-    Iterable<int> commentList = idxList.map((e) => e);
-    print('리스트 만들었음'+ '${commentList}');
+    Iterable<int> commentList = [0];
+    commentList = idxList.map((e) => e);
+    // print('리스트 만들었음'+ '${commentList}');
 
     Map<String, dynamic> power_map = {};
 
     for (int i = 0; i < idxList.length; i++) {
       // print('${i}');
-
 
       try {
         final response2 = await http.post(Uri.parse(_url2),
@@ -146,7 +143,8 @@ class _RecruitState extends State<Recruit> {
         );
 
         if (response2.statusCode == 200) {
-          final dynamic jsonResponse = json.decode(response2.body);
+          dynamic jsonResponse = '';
+          jsonResponse = json.decode(response2.body);
           print("모집 게시판 _url2 페이지 연결 성공");
 
 
@@ -157,28 +155,16 @@ class _RecruitState extends State<Recruit> {
               _recruitcomment = [recruitcomment];
               print('단일 객체인 경우 ${_recruitcomment[0].PLACE}');
 
-              // var powerList = idxList.map((e)=> _recruitcomment[0].PLANT_POWER[e]);
-              // print('powerList 만들었음' + '${powerList}');
-
-              // power_map['${idxList}'] = powerList['0'];
-
               List<int> powerList = _recruitcomment[0].PLANT_POWER.map((e) => int.parse(e!)).toList();
 
               double sum = 0;
               powerList.forEach((e) => sum += e);
 
               power_map['${i}'] = sum;
-              print('쿠로미 ' + ' ${i}'+ ' ${power_map}');
+              // print('쿠로미 ' + ' ${i}'+ ' ${power_map}');
 
               powersumList = power_map;
-              print('powerList key 값 확인해보자'+'${powersumList}');
-              /*
-              for (var per in _recruitcomment[0].PLANT_POWER)
-                percentList.add(double.parse(per!));
-              // print('percentList 생성됐나 ${percentList}');
-              for (double per in percentList)
-                percentSum = percentSum + per;
-               */
+              // print('powerList key 값 확인해보자'+'${powersumList}');
             });
           } else if (jsonResponse is List) {
             // 배열인 경우
@@ -204,27 +190,10 @@ class _RecruitState extends State<Recruit> {
 
     }
 
-    print('마이멜로디' + '$power_map');
-    print('포챠코 ' + '${power_map['0'].runtimeType}');  // List<String> -> List<int> 변경 성공!
-    // print('파워퍼프걸 ' + '${power_map['0'][0].runtimeType}');
-
-
-    /*
-    for (int i = 0; i < power_map.length; i++) {
-      double sum$i = 0;
-      for (int j = 0; j < power_map['$i']; j++) {
-        sum$i = sum$i + double.parse(power_map['i'][j]);
-
-        print('뭐가 null 이냐' + '$index');
-        print('폼폼푸린' + '${sum$i}');
-      }
-    }
-    */
-
+    // print('마이멜로디' + '$power_map');
+    // print('포챠코 ' + '${power_map['0'].runtimeType}');  // List<String> -> List<int> 변경 성공!
 
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -235,9 +204,7 @@ class _RecruitState extends State<Recruit> {
           preferredSize: Size.fromHeight(50),
           child: Appbar(),
         ),
-        body: _error.isNotEmpty
-            ? Center(child: Text(_error),)
-            : powersumList == {}
+        body: powersumList["$index"] == null
             ? Center(child: CircularProgressIndicator(
           color: Colors.white,
         ))
@@ -266,7 +233,7 @@ class _RecruitState extends State<Recruit> {
               ),
             ),
             Expanded(
-              child: powersumList.length == 0
+              child: powersumList == {}
                   ? SizedBox(
                     child: CircularProgressIndicator(
                       color: Colors.white,
@@ -361,24 +328,31 @@ class _RecruitState extends State<Recruit> {
                                   ),
                                   Row(
                                     children: [
-                                      LinearPercentIndicator(
-                                        width: 140.0,
-                                        animation: true,
-                                        animationDuration: 100,
-                                        lineHeight: 3.0,
-                                        // leading: const Text("left"),
-                                        // trailing: const Text("right"),
-                                        percent: (powersumList["$index"]/20 >= 1.0 ? 1.0 : powersumList["$index"]/20),
-                                        trailing: Text(
-                                          '${(powersumList["$index"]/20)*100}%',
-                                          style: TextStyle(fontSize: 15),),
-                                        progressColor: Color(0xffff9201),
-                                        barRadius: Radius.circular(10),
-                                      ),
+                                      powersumList["$index"] == null
+                                      ? SizedBox(
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                        width: 10,
+                                        height: 10,
+                                        )
+                                       : LinearPercentIndicator(
+                                            width: 140.0,
+                                            animation: true,
+                                            animationDuration: 100,
+                                            lineHeight: 3.0,
+                                            // leading: const Text("left"),
+                                            // trailing: const Text("right"),
+                                            percent: ((powersumList["$index"])/20 >= 1.0 ? 1.0 : powersumList["$index"]/20),
+                                            trailing: Text(
+                                              '${((powersumList["$index"])/20)*100}%',
+                                              style: TextStyle(fontSize: 15),),
+                                            progressColor: Color(0xffff9201),
+                                            barRadius: Radius.circular(10),
+                                          ),
                                       IconButton(
                                         onPressed: () {
                                           print('모집 게시판 더보기 ${index}');
-
                                           Navigator.pushNamed(
                                               context, '/recruitmore',
                                               arguments: index);

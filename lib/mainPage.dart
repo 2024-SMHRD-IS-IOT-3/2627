@@ -29,9 +29,10 @@ class _SolarEnvState extends State<SolarEnv> {
   }
 
   Future<void> _sendQuery() async {
-    final String _url =
-        'http://192.168.219.217:3000/smprecsql/smprecselect'; // 서버 URL
+    final String _url = 'http://10.0.2.2:3000:3000/smprecsql/smprecselect'; // 서버 URL
+        // 'http://192.168.219.217:3000/smprecsql/smprecselect'; // 맥북 서버 URL
     String _error = '';
+
     try {
       final response = await http.post(
         Uri.parse(_url),
@@ -51,6 +52,7 @@ class _SolarEnvState extends State<SolarEnv> {
           max_rec = jsonResponse[0][5];
           min_rec = jsonResponse[0][6];
           avg_rec = jsonResponse[0][7];
+          print('코난' + max_smp.toString());
         });
       } else {
         setState(() {
@@ -180,7 +182,7 @@ class _SolarEnvState extends State<SolarEnv> {
               ),
 // -----------두번째 컨테이너---------------
               Positioned(
-                top: 180,
+                top: 150,
                 left: 13,
                 child: GestureDetector(
                   onTap: () {
@@ -297,14 +299,10 @@ class _SolarEnvState extends State<SolarEnv> {
               ),
             ],
           ),
-          SizedBox(
-            height: 170,
-          ),
+          SizedBox(height: 100,),
           Row(
             children: [
-              SizedBox(
-                width: 20,
-              ),
+              SizedBox(width: 20,),
               Text(
                 '시장 동향',
                 style: TextStyle(
@@ -319,7 +317,7 @@ class _SolarEnvState extends State<SolarEnv> {
             children: [
               Container(
                 width: 176,
-                height: 176,
+                // height: 176,
                 margin: EdgeInsets.fromLTRB(15, 15, 5, 15),
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -376,9 +374,7 @@ class _SolarEnvState extends State<SolarEnv> {
                           fontWeight: FontWeight.bold,
                           color: Colors.red),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5,),
                     Text(
                       '오늘 상한가',
                       style: TextStyle(
@@ -386,9 +382,7 @@ class _SolarEnvState extends State<SolarEnv> {
                         color: Colors.black54,
                       ),
                     ),
-                    SizedBox(
-                      height: 2,
-                    ),
+                    SizedBox(height: 2,),
                     Text(
                       '${max_smp}',
                       style: TextStyle(
@@ -424,7 +418,7 @@ class _SolarEnvState extends State<SolarEnv> {
               ),
               Container(
                 width: 176,
-                height: 176,
+                // height: 176,
                 margin: EdgeInsets.fromLTRB(5, 15, 15, 15),
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
