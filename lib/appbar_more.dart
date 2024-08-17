@@ -76,28 +76,15 @@ class _AppbarState extends State<Appbar2> {
                 ),
               ),
               Container(
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.notifications),
-                      style: ButtonStyle(
-                        iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-                      ),
-                      onPressed: () {
-                        print('icon alert');
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.logout_outlined),
-                      style: ButtonStyle(
-                        iconColor: MaterialStateProperty.all<Color>(Colors.black54),
-                      ),
-                      onPressed: () {
-                        print('icon logout');
-                        logout();
-                      },
-                    ),
-                  ],
+                child: IconButton(
+                  icon: Icon(Icons.logout_outlined),
+                  style: ButtonStyle(
+                    iconColor: MaterialStateProperty.all<Color>(Colors.black54),
+                  ),
+                  onPressed: () {
+                    print('icon logout');
+                    logout();
+                  },
                 ),
               )
             ]

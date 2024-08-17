@@ -29,6 +29,7 @@ class _RecruitState extends State<Recruit> {
   String _error = '';
   var index = 0;
   List<int> idxList = [];
+  List<int> idxList2 = [];
 
   get percentList => {};
   var powerList = [0];
@@ -38,7 +39,6 @@ class _RecruitState extends State<Recruit> {
   @override
   void initState() {
     super.initState();
-    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
     _asyncMethod(); // storage 안에 있는 로그인 정보 받아오기
   }
 
@@ -54,17 +54,21 @@ class _RecruitState extends State<Recruit> {
       if (response.statusCode == 200) {
         dynamic jsonResponse = '';
         jsonResponse = json.decode(response.body);
-        print("연결 성공");
-        print(jsonResponse);
+        print("물짱이 연결 성공");
+        print('물짱이' + jsonResponse.toString());
+        print('물짱이' + jsonResponse.runtimeType.toString());
 
         if (jsonResponse is Map<String, dynamic>) {
           // 단일 객체인 경우
+          print('애나비 여기여야 하잖아');
           final recruit_boards = RecruitBoards.fromJson(jsonResponse);
+          print('애나비' + recruit_boards.SB_TYPE.toString());
           setState(() {
             _recruit_boards = [recruit_boards];
             print('_recruit_boards임 :  ${_recruit_boards}');
 
             idxList = List<int>.generate(_recruit_boards[0].MEM_ID.length, (i) => i++);
+            idxList2 = idxList;
             print('idxList 생성 됐니 ${idxList}');
             print('idxList 타입 내놔 ${idxList[0].runtimeType}');
 
@@ -73,6 +77,7 @@ class _RecruitState extends State<Recruit> {
           // 배열인 경우
           final recruit_boards = jsonResponse.map((data) {
             if (data is Map<String, dynamic>) {
+              print('여기냐');
               return RecruitBoards.fromJson(data);
             } else {
               return null; // 데이터가 올바른 형식이 아닌 경우
@@ -81,7 +86,7 @@ class _RecruitState extends State<Recruit> {
 
           setState(() {
             _recruit_boards = recruit_boards;
-            print(_recruit_boards);
+            print("쿠로미 " + _recruit_boards.toString());
           });
         } else {
           setState(() {
@@ -108,10 +113,11 @@ class _RecruitState extends State<Recruit> {
     userInfo = json.decode(userInfo);
 
     if (userInfo != null) {
-      print('모집 게시판 userInfo : ' + userInfo);
+      print('모집 게시판 userInfo : ' + userInfo.toString());
     } else {
       print('로그인이 필요합니다');
     }
+    _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
   }
 
   late final double percent;
@@ -125,6 +131,7 @@ class _RecruitState extends State<Recruit> {
 
   Future<void> _recruit_more() async {
     print('_recruit_more 함수 안임');
+    print('아차모' + idxList.toString());
     Iterable<int> commentList = [0];
     commentList = idxList.map((e) => e);
     print('리스트 만들었음'+ '${commentList}');
@@ -144,7 +151,6 @@ class _RecruitState extends State<Recruit> {
           dynamic jsonResponse = '';
           jsonResponse = json.decode(response2.body);
           print("모집 게시판 _url2 페이지 연결 성공");
-
 
           if (jsonResponse is Map<String, dynamic>) {
             // 단일 객체인 경우
@@ -184,8 +190,6 @@ class _RecruitState extends State<Recruit> {
       } catch (e) {
         print(e);
       }
-
-
     }
 
     // print('마이멜로디' + '$power_map');
@@ -265,8 +269,9 @@ class _RecruitState extends State<Recruit> {
                           children: [
                             Expanded(
                               flex: 1,
-                              child: Image.asset(
-                                'image/solQuiz_logo2.png', width: 120,),
+                              child: _recruit_boards[0].B_STATE[index] == 'ing'
+                                    ? Image.asset('image/solQuiz_logo2.png', width: 120,)
+                                    : Image.asset('image/solQuiz_logo2_grey.png', width: 120,)
                             ),
                             Expanded(
                               flex: 2,
@@ -302,22 +307,6 @@ class _RecruitState extends State<Recruit> {
                                           child: Row(
                                             children: [
                                               SizedBox(width: 15,),
-                                              Column(
-                                                children: [
-                                                  IconButton(
-                                                    alignment: Alignment
-                                                        .topRight,
-                                                    onPressed: () {},
-                                                    icon: Icon(Icons
-                                                        .favorite_border_sharp,
-                                                      color: Colors.black54,),
-                                                    style: IconButton.styleFrom(
-                                                      padding: EdgeInsets.zero,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 17,),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -345,7 +334,7 @@ class _RecruitState extends State<Recruit> {
                                             trailing: Text(
                                               '${((powersumList["$index"])/20)*100}%',
                                               style: TextStyle(fontSize: 15),),
-                                            progressColor: Color(0xffff9201),
+                                            progressColor: _recruit_boards[0].B_STATE[index] == 'ing'? Color(0xffff9201) : Colors.grey,
                                             barRadius: Radius.circular(10),
                                           ),
                                       IconButton(
@@ -375,8 +364,49 @@ class _RecruitState extends State<Recruit> {
             ),
           ],
         ),
-      ),
+        // bottomNavigationBar: SizedBox(
+        //   height: 80,
+        //   child: BottomNavigationBar(
+        //     currentIndex: index,
+        //
+        //     // onTap: onItemTap,
+        //
+        //     type: BottomNavigationBarType.fixed,
+        //     items: [
+        //       BottomNavigationBarItem(icon: Icon(Icons.campaign), label : '공지사항',),
+        //       BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label : '발전량예측',),
+        //       BottomNavigationBarItem(icon: Icon(Icons.wb_sunny_rounded), label : '태양광',),
+        //       BottomNavigationBarItem(icon: Icon(Icons.assignment), label : '모집게시판',),
+        //       BottomNavigationBarItem(icon: Icon(Icons.account_circle), label : '마이페이지',),
+        //     ],
+        //     // 라벨 스타일
+        //     showSelectedLabels: true,
+        //     showUnselectedLabels: true,
+        //
+        //     // bottom 영역 스타일 지정
+        //     backgroundColor: const Color(0xffff9201),
+        //     unselectedItemColor: Colors.white,
+        //     selectedItemColor: Colors.white,
+        //
+        //     // 디자인
+        //     selectedIconTheme: IconThemeData(
+        //       size: 27,
+        //     ),
+        //     unselectedIconTheme: IconThemeData(
+        //       size: 27,
+        //     ),
+        //
+        //     selectedLabelStyle: TextStyle(fontSize: 14,),
+        //
+        //   ),
+        // ),
+      )
     );
+  }
+  void onItemTap(int i){
+    setState(() {
+      Navigator.pushNamed(context, '/navigationbar');
+    });
   }
 
   void myDialog(context) {
@@ -419,7 +449,6 @@ class _RecruitState extends State<Recruit> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        percentList.add(0.5);
                         addRecruit();
                       },
                       child: Text(
@@ -491,11 +520,12 @@ class _RecruitState extends State<Recruit> {
 
         if (jsonResponse == 'success') {
           print('통신 후의 percentList : ${percentList}');
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                  super.widget));
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (BuildContext context) =>
+          //         super.widget));
+          Navigator.pushNamed(context, ('/navigationbar'));
         } else if (jsonResponse == 'failed') {
           print('모집글 추가 실패');
         }

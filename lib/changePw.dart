@@ -70,7 +70,7 @@ class _ChangePwState extends State<changePw> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => profileEdit()));
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
         ),

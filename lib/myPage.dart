@@ -119,9 +119,6 @@ class _MyPageState extends State<MyPage> {
     _recruit_more();
   }
 
-
-  var recruitList = ['전남 / 해안 / 5MWh', '충청 / 내륙 / 10MWh', '대전 / 내륙 / 15MWh',];
-
   // 참여현황 리스트 띄우기 + percent를 띄워보자
   final String _url2 = 'http://10.0.2.2:3000/recruit/myrecruit';
   List<RecruitComment> _recruitcomment = [];
@@ -156,6 +153,7 @@ class _MyPageState extends State<MyPage> {
             idxList = List<int>.generate(_recruitcomment[0].PLANT_POWER.length, (i) => i++);
             print('잠만보 ${idxList}');
             print('메타몽 ${idxList[0].runtimeType}');
+            print('브이젤 ${_recruitcomment[0]}');
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -176,6 +174,55 @@ class _MyPageState extends State<MyPage> {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  final String _url3 = 'http://10.0.2.2:3000/bstate/bstate';
+  List<dynamic> _recruitcomment2 = [];
+
+  // 발전소 모집 현황 모집 마감 버튼
+  Future<void> _b_state() async {
+    try {
+      final response3 = await http.post(Uri.parse(_url3),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'userInfo' : userInfo})
+      );
+
+      if (response3.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response3.body);
+        print('폼폼푸린' + jsonResponse.toString());
+        print('폼폼푸린폼폼' + jsonResponse.runtimeType.toString());
+
+        if (jsonResponse is Map<String, dynamic>) {
+          // 단일 객체인 경우
+          final recruitcomment2 = RecruitComment2.fromJson(jsonResponse);
+          setState(() {
+            _recruitcomment2 = [recruitcomment2];
+            print('쿠로미' + _recruitcomment2.toString());
+            print('마이멜로디' + _recruitcomment2[0]);
+          });
+        } else if (jsonResponse is List) {
+          // 배열인 경우
+          final recruitcomment = jsonResponse.map((data) {
+            if (data is Map<String, dynamic>) {
+              return RecruitComment.fromJson(data);
+            } else {
+              return null; // 데이터가 올바른 형식이 아닌 경우
+            }
+          }).whereType<RecruitComment>().toList();
+
+          setState(() {
+            _recruitcomment = recruitcomment;
+            print('_recruitcomment을 뽑아보자 ${_recruitcomment}');
+            print('_recruitcomment[0]을 뽑아보자 ${_recruitcomment[0]}');
+          });
+        }
+
+
+      }
+
+    } catch (e) {
+      print('여기는 안돼 '+ e.toString());
     }
   }
 
@@ -201,7 +248,7 @@ class _MyPageState extends State<MyPage> {
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.fromLTRB(15, 25, 15, 25),
+                    padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -295,7 +342,7 @@ class _MyPageState extends State<MyPage> {
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.fromLTRB(15, 25, 15, 25),
+                    padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -355,7 +402,7 @@ class _MyPageState extends State<MyPage> {
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.fromLTRB(15, 25, 15, 25),
+                    padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -392,7 +439,7 @@ class _MyPageState extends State<MyPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                onPressed: () => {}
+                                onPressed: () => {_b_state()}
                             ),
                             IconButton(
                               icon: Icon(Icons.arrow_forward_ios_outlined),

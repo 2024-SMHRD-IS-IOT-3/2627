@@ -50,8 +50,6 @@ class _RecruitMoreState extends State<RecruitMore> {
 
     if (userInfo != null) {
       print('모집게시판 상세 페이지 _asyncMethod userInfo : ' + userInfo);
-      // {"id":"apple","pw":"banana"}
-      // Navigator.pushNamed(context, '/navigationbar');
     }
   }
 
@@ -227,25 +225,13 @@ class _RecruitMoreState extends State<RecruitMore> {
                       ),
                       child: Text('모집중', style: TextStyle(color: Colors.white, fontSize: 13,),),
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.favorite_border_sharp, color: Colors.black54,),
-                        ),
-                        IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.edit, color: Colors.black54,),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
                 Container(
                   padding: EdgeInsets.all(40),
                   child: Image.asset('image/solQuiz_logo3.png',width: 200,),
                 ),
-                SizedBox(height: 25,),
+                SizedBox(height: 15,),
                 Row(
                   children: [
                     SizedBox(width: 20,),

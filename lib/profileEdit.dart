@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:solquiz_2/changePw.dart';
 import 'package:solquiz_2/db/tb_member.dart';
 import 'package:http/http.dart' as http;
@@ -13,24 +14,43 @@ class profileEdit extends StatefulWidget {
 
 class _profileEditState extends State<profileEdit> {
 
-  final String _url = 'http://10.0.2.2:3000/login/lselect'; // 서버 URL
+  final String _url = 'http://10.0.2.2:3000/login/mypage'; // 서버 URL
   List<Member> _member = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
 
+  final storage = FlutterSecureStorage();
+  dynamic userInfo = '';
+
   @override
   void initState() {
     super.initState();
+    _asyncMethod();
+
+  }
+  _asyncMethod() async {
+    userInfo = await storage.read(key:'login');
+    userInfo = json.decode(userInfo);
+
+    print('미뇽' + userInfo.toString());
+    print('신뇽' + userInfo.runtimeType.toString());
+    print('망나뇽' + userInfo['id']);
+    print('라이츄' + userInfo['id'].runtimeType.toString());
+
+    if (userInfo != null) {
+      print('마이페이지 정보수정 _asyncMethod userInfo : ' + userInfo.toString());
+    }
     _sendQuery(); // 위젯에서 받은 SQL 쿼리를 사용합니다.
   }
 
   Future<void> _sendQuery() async {
     try {
       final response = await http.post(
-        Uri.parse(_url),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+          Uri.parse(_url),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body : json.encode({'userInfo' : userInfo})
       );
 
       if (response.statusCode == 200) {
@@ -43,7 +63,7 @@ class _profileEditState extends State<profileEdit> {
           final member = Member.fromJson(jsonResponse);
           setState(() {
             _member = [member];
-            print(_member);
+            print('토게피'+_member.toString());
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -60,6 +80,8 @@ class _profileEditState extends State<profileEdit> {
             print(_member);
             print(_member[0]);
           });
+
+
         } else {
           setState(() {
             _error = 'Unexpected JSON format';
@@ -70,11 +92,18 @@ class _profileEditState extends State<profileEdit> {
           _error = 'Failed to execute query';
         });
       }
+
+
     } catch (e) {
       setState(() {
         _error = 'Error: $e';
       });
     }
+  }
+
+  logout() async {
+    await storage.delete(key: 'login');
+    Navigator.pushNamed(context, '/login');
   }
 
 
@@ -252,7 +281,7 @@ class _profileEditState extends State<profileEdit> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    onPressed: () {},
+                    onPressed: () {logout();},
                     child: Text('로그아웃',
                         style: TextStyle(fontSize: 18, color: Colors.white)),
                   ),

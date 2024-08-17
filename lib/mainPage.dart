@@ -527,7 +527,6 @@ class _SolarEnvState extends State<SolarEnv> {
     );
   }
 
-// Future<SampleWeather> getWeather(double lat, double lon, context) async{
   Future<SampleWeather> getWeather(context) async {
     await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition(
@@ -540,10 +539,7 @@ class _SolarEnvState extends State<SolarEnv> {
 
     String url =
         "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=311b37be82274842eb40377115dbd958&units=metric";
-// print(url);
     Response res = await get(Uri.parse(url));
-// print(res.body);
-
     SampleWeather w = sampleWeatherFromJson(res.body);
 
     print('getWeather 함수 실행됨!!!!!');
