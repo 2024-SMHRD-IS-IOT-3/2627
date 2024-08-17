@@ -35,7 +35,6 @@ class _RecruitState extends State<Recruit> {
   var powersumList = {};
 
 
-
   @override
   void initState() {
     super.initState();
@@ -60,7 +59,6 @@ class _RecruitState extends State<Recruit> {
 
         if (jsonResponse is Map<String, dynamic>) {
           // 단일 객체인 경우
-
           final recruit_boards = RecruitBoards.fromJson(jsonResponse);
           setState(() {
             _recruit_boards = [recruit_boards];
@@ -129,7 +127,7 @@ class _RecruitState extends State<Recruit> {
     print('_recruit_more 함수 안임');
     Iterable<int> commentList = [0];
     commentList = idxList.map((e) => e);
-    // print('리스트 만들었음'+ '${commentList}');
+    print('리스트 만들었음'+ '${commentList}');
 
     Map<String, dynamic> power_map = {};
 
@@ -161,7 +159,7 @@ class _RecruitState extends State<Recruit> {
               powerList.forEach((e) => sum += e);
 
               power_map['${i}'] = sum;
-              // print('쿠로미 ' + ' ${i}'+ ' ${power_map}');
+              print('쿠로미 ' + ' ${i}'+ ' ${power_map}');
 
               powersumList = power_map;
               // print('powerList key 값 확인해보자'+'${powersumList}');
@@ -352,7 +350,6 @@ class _RecruitState extends State<Recruit> {
                                           ),
                                       IconButton(
                                         onPressed: () {
-                                          print('모집 게시판 더보기 ${index}');
                                           Navigator.pushNamed(
                                               context, '/recruitmore',
                                               arguments: index);

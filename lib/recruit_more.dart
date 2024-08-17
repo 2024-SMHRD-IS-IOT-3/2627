@@ -28,8 +28,9 @@ class _RecruitMoreState extends State<RecruitMore> {
   String _error = '';
   var index = 0;
   var idxList = [];
+  var idxList2 = [];
   int idx = 0;
-  var powersumList = null;
+  double powersum = 0;
 
   final storage = FlutterSecureStorage();
   dynamic userInfo = '';
@@ -45,7 +46,7 @@ class _RecruitMoreState extends State<RecruitMore> {
     // read 함수로 key값에 맞는 정보를 불러오고 데이터타입은 String 타입
     // 데이터가 없을때는 null을 반환
     userInfo = await storage.read(key:'login');
-    userInfo = json.decode(userInfo);
+    // userInfo = json.decode(userInfo);
 
     if (userInfo != null) {
       print('모집게시판 상세 페이지 _asyncMethod userInfo : ' + userInfo);
@@ -73,7 +74,11 @@ class _RecruitMoreState extends State<RecruitMore> {
           final recruit_boards = RecruitBoards.fromJson(jsonResponse);
           setState(() {
             _recruit_boards = [recruit_boards];
-            print(_recruit_boards[0]);
+            print('고라파덕 ' + _recruit_boards[0].runtimeType.toString()); // RecruitBoards
+
+            idxList = List<int>.generate(_recruit_boards[0].MEM_ID.length, (i) => i++);
+            print('idxList 생성 됐니 ${idxList}');
+            print('idxList 타입 내놔 ${idxList[0].runtimeType}');
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -117,7 +122,7 @@ class _RecruitMoreState extends State<RecruitMore> {
   // 참여현황 리스트 띄우기 + percent를 띄워보자
   final String _url2 = 'http://10.0.2.2:3000/recruit/recruitmore';
   List<RecruitComment> _recruitcomment = [];
-  final List<RecruitMore> RecruitmoreList = <RecruitMore>[];
+  List<RecruitMore> RecruitmoreList = <RecruitMore>[];
 
   Future<void> _recruit_more() async {
     print('꼬부기 ' + '${idx}');
@@ -137,7 +142,16 @@ class _RecruitMoreState extends State<RecruitMore> {
           setState(() {
             _recruitcomment = [recruitcomment];
             print('단일 객체인 경우 ${_recruitcomment[0].PLACE}');
-            
+
+            print('이브이 ' + _recruitcomment[0].PLANT_POWER.runtimeType.toString());
+
+            idxList2 = List<int>.generate(_recruitcomment[0].PLACE.length, (i) => i++);
+            print('idxList2 생성 됐니 ${idxList2}');
+            print('idxList2 타입 내놔 ${idxList2[0].runtimeType}');
+            List<int> powerList = _recruitcomment[0].PLANT_POWER.map((e) => int.parse(e!)).toList();
+            powerList.forEach((e) => powersum += e);
+            print('파이리 ' + ' $idx' + ' $powerList');
+            print('뮤츠' + powersum.toString());
           });
         } else if (jsonResponse is List) {
           // 배열인 경우
@@ -187,16 +201,16 @@ class _RecruitMoreState extends State<RecruitMore> {
                         margin: EdgeInsets.all(10),
                         padding: EdgeInsets.all(15),
                         decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1.5,
-                  blurRadius: 5,
-                  offset: Offset(0, 3), // 그림자 위치 변경
-                ),
-              ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1.5,
+                              blurRadius: 5,
+                              offset: Offset(0, 3), // 그림자 위치 변경
+                            ),
+                          ],
                         ),
                         child:
                         Column(
@@ -244,8 +258,10 @@ class _RecruitMoreState extends State<RecruitMore> {
                         lineHeight: 3.0,
                         // leading: const Text("left"),
                         // trailing: const Text("right"),
-                        percent: 0.7,
-                        trailing: Text("70.0%", style: TextStyle(fontSize: 15),),
+                        percent: ((powersum)/20 >= 1.0 ? 1.0 : powersum/20),
+                        trailing: Text(
+                          '${(powersum/20)*100}%',
+                          style: TextStyle(fontSize: 15),),
                         progressColor: Color(0xffff9201),
                         barRadius: Radius.circular(10),
                       ),
@@ -285,27 +301,18 @@ class _RecruitMoreState extends State<RecruitMore> {
                 SizedBox(height: 20,),
                 Container(width: double.infinity, height: 1, color: Colors.grey[400],),
                 SizedBox(height: 20,),
-                idxList == {}
-                ?SizedBox(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                    width: 10,
-                    height: 10,
-                  )
-                    : Container(
+                Container(
                   padding: EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '참여 현황',
+                      Text('참여 현황',
                         style: TextStyle(
                             fontSize: 17,fontWeight: FontWeight.bold
                         ),
                       ),
                       SizedBox(height: 8,),
-                      for(index in idxList) SizedBox(
+                      for(index in idxList2) SizedBox(
                           child: _userContainer(
                               _recruitcomment[0].PLACE[index]!,
                               _recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안',

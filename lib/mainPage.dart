@@ -29,7 +29,7 @@ class _SolarEnvState extends State<SolarEnv> {
   }
 
   Future<void> _sendQuery() async {
-    final String _url = 'http://10.0.2.2:3000:3000/smprecsql/smprecselect'; // 서버 URL
+    final String _url = 'http://10.0.2.2:3000/smprecsql/smprecselect'; // 서버 URL
         // 'http://192.168.219.217:3000/smprecsql/smprecselect'; // 맥북 서버 URL
     String _error = '';
 
@@ -52,7 +52,6 @@ class _SolarEnvState extends State<SolarEnv> {
           max_rec = jsonResponse[0][5];
           min_rec = jsonResponse[0][6];
           avg_rec = jsonResponse[0][7];
-          print('코난' + max_smp.toString());
         });
       } else {
         setState(() {

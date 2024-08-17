@@ -393,7 +393,7 @@ class _SolarplantAddrState extends State<SolarplantAddr> {
                             },
                           ),
                         ),
-                        Text('Wh', style: TextStyle(
+                        Text('MWh', style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold))
                       ],
                     ),

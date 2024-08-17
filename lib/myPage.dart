@@ -4,10 +4,12 @@ import 'package:solquiz_2/db/member.dart';
 import 'package:solquiz_2/db/tb_member.dart';
 import 'package:solquiz_2/profileEdit.dart';
 import 'package:http/http.dart' as http;
+import 'package:solquiz_2/recruit_more.dart';
 import 'package:solquiz_2/solarplant_name.dart';
 import 'dart:convert';
 
 import 'appbar.dart';
+import 'db/tb_solar_comment.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -20,6 +22,7 @@ class _MyPageState extends State<MyPage> {
 
   final storage = FlutterSecureStorage();
   dynamic userInfo = ''; // storage에 있는 유저 정보를 저장
+  double powersum = 0;
 
   checkUserState() async {
     userInfo = await storage.read(key: 'login');
@@ -45,6 +48,7 @@ class _MyPageState extends State<MyPage> {
   List<Member> _member = []; // Boards 객체 리스트
   String _error = '';
   var index = 0;
+  var idxList = [];
 
 
   @override
@@ -112,10 +116,68 @@ class _MyPageState extends State<MyPage> {
         _error = 'Error: $e';
       });
     }
+    _recruit_more();
   }
 
 
   var recruitList = ['전남 / 해안 / 5MWh', '충청 / 내륙 / 10MWh', '대전 / 내륙 / 15MWh',];
+
+  // 참여현황 리스트 띄우기 + percent를 띄워보자
+  final String _url2 = 'http://10.0.2.2:3000/recruit/myrecruit';
+  List<RecruitComment> _recruitcomment = [];
+  List<RecruitMore> RecruitmoreList = <RecruitMore>[];
+
+  Future<void> _recruit_more() async {
+    // print('꼬부기 ' + '${idx}');
+    try {
+      final response2 = await http.post(Uri.parse(_url2),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'userInfo' : userInfo})
+      );
+
+      if (response2.statusCode == 200) {
+        final dynamic jsonResponse = json.decode(response2.body);
+        print("브케인");
+
+        if (jsonResponse is Map<String, dynamic>) {
+          // 단일 객체인 경우
+          final recruitcomment = RecruitComment.fromJson(jsonResponse);
+          setState(() {
+            _recruitcomment = [recruitcomment];
+            print('단일 객체인 경우 ${_recruitcomment[0].PLACE}');
+
+            print('리자몽 ' + _recruitcomment[0].PLANT_POWER.runtimeType.toString());
+
+            List<int> powerList = _recruitcomment[0].PLANT_POWER.map((e) => int.parse(e!)).toList();
+            powerList.forEach((e) => powersum += e);
+            print('피카츄 ' + ' $powerList');
+            print('가디' + powersum.toString());
+
+            idxList = List<int>.generate(_recruitcomment[0].PLANT_POWER.length, (i) => i++);
+            print('잠만보 ${idxList}');
+            print('메타몽 ${idxList[0].runtimeType}');
+          });
+        } else if (jsonResponse is List) {
+          // 배열인 경우
+          final recruitcomment = jsonResponse.map((data) {
+            if (data is Map<String, dynamic>) {
+              return RecruitComment.fromJson(data);
+            } else {
+              return null; // 데이터가 올바른 형식이 아닌 경우
+            }
+          }).whereType<RecruitComment>().toList();
+
+          setState(() {
+            _recruitcomment = recruitcomment;
+            print('_recruitcomment을 뽑아보자 ${_recruitcomment}');
+            print('_recruitcomment[0]을 뽑아보자 ${_recruitcomment[0]}');
+          });
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -290,45 +352,6 @@ class _MyPageState extends State<MyPage> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: double.infinity,
-                  //   margin: EdgeInsets.all(10),
-                  //   padding: EdgeInsets.all(15),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(12),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //         color: Colors.grey.withOpacity(0.5),
-                  //         spreadRadius: 1.5,
-                  //         blurRadius: 5,
-                  //         offset: Offset(0, 3), // 그림자 위치 변경
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: [
-                  //       Text('모집 게시판 관리', style: TextStyle(fontSize: 18, color: Colors.black54,),),
-                  //       SizedBox(height: 8,),
-                  //       Row(
-                  //         children: [
-                  //           SizedBox(width: 8,),
-                  //           TextButton(
-                  //             style: TextButton.styleFrom(
-                  //               shape: RoundedRectangleBorder(
-                  //                   borderRadius: BorderRadius.circular(20)
-                  //               ),
-                  //             ),
-                  //             onPressed: (){} ,
-                  //             child: Text('모집 게시판 찜 목록',
-                  //               style: TextStyle(fontSize: 18, color: Colors.black),),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
@@ -390,8 +413,8 @@ class _MyPageState extends State<MyPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('목표 : 20㎿h', style: TextStyle(fontSize: 19,),),
-                                SizedBox(width: 180,),
-                                Text('70%', style: TextStyle(fontSize: 19,),),
+                                SizedBox(width: 160,),
+                                Text('${(powersum/20)*100}%', style: TextStyle(fontSize: 19,),),
                               ],
                             ),
                           ],
@@ -399,22 +422,14 @@ class _MyPageState extends State<MyPage> {
                         SizedBox(height: 10,),
                         Container(width: double.infinity, height: 1, color: Colors.grey[300],),
                         SizedBox(height: 10,),
-                        Scrollbar(
-                          thickness: 1.0,
-                          radius: Radius.circular(8.0),
-                          child: ListView.builder(
-                              primary: false,
-                              shrinkWrap: true, // 내부 콘텐츠에 맞춰서 높이 결정
-                              itemCount: recruitList.length,
-                              itemBuilder: (context, index) =>
-                                  GestureDetector(
-                                    child: Container(
+                        for (index in idxList) Container(
                                       margin: EdgeInsets.all(3),
                                       height: 30,
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('${index +1}. ${recruitList[index]}', style: TextStyle(fontSize: 16),),
+                                          Text('${index +1}. ${_recruitcomment[0].PLACE[index]} · ${_recruitcomment[0].SB_TYPE[index]! == 'Inland'? '내륙' : '해안'} · ${_recruitcomment[0].PLANT_POWER[index]}MWh'
+                                            , style: TextStyle(fontSize: 16),),
                                           ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.grey[400],
@@ -435,10 +450,7 @@ class _MyPageState extends State<MyPage> {
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  )
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -450,3 +462,48 @@ class _MyPageState extends State<MyPage> {
     );
   }
 }
+Widget _userContainer2(String? region1, String? region2, String? env){
+  return Container(
+    alignment: Alignment.center,
+    padding: EdgeInsets.all(10),
+    child: Row(
+      children: [
+        Icon(Icons.person),
+        SizedBox(width: 10,),
+        Container(
+          alignment: Alignment.center,
+          width: 130,
+          padding: EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.grey[300],
+          ),
+          child: Text('${region1}'),
+        ),
+        SizedBox(width: 8,),
+        Container(
+          alignment: Alignment.center,
+          width: 60,
+          padding: EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.grey[300],
+          ),
+          child: Text('${region2}'),
+        ),
+        SizedBox(width: 8,),
+        Container(
+          alignment: Alignment.center,
+          width: 60,
+          padding: EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: Colors.grey[300],
+          ),
+          child: Text('${env} MWh'),
+        ),
+      ],
+    ),
+  );
+}
+
