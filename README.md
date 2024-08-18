@@ -20,26 +20,26 @@
 
 ## 💡 프로젝트 개발 내용
 #### · 버전관리 및 협업툴
-&nbsp;&nbsp;&nbsp;&nbsp; - Git을 활용해 소스 코드 백업, 협업 등 효율적인 시간 분배
-&nbsp;&nbsp;&nbsp;&nbsp; - 로컬과 서버 사이 Git을 두고 버전관리
-&nbsp;&nbsp;&nbsp;&nbsp; - FileZilla를 통한 파일 공유
+&nbsp;&nbsp;&nbsp;&nbsp; - Git을 활용해 소스 코드 백업, 협업 등 효율적인 시간 분배<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 로컬과 서버 사이 Git을 두고 버전관리<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - FileZilla를 통한 파일 공유<br/>
 
 #### · 프론트엔드
-&nbsp;&nbsp;&nbsp;&nbsp; - Figma를 활용한 UI/UX 설계
-&nbsp;&nbsp;&nbsp;&nbsp; - 사용자를 고려하여 깔끔하고 직관적인 App 화면 구성
-&nbsp;&nbsp;&nbsp;&nbsp; - DB에 저장된 정보를 Flutter를 통하여 UI 제공
-&nbsp;&nbsp;&nbsp;&nbsp; - 사용자들에게 공지 사항이나 업데이트 내용을 전달 할 수 있는 관리자용 웹페이지 (PHP, HTML) 제작
+&nbsp;&nbsp;&nbsp;&nbsp; - Figma를 활용한 UI/UX 설계<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 사용자를 고려하여 깔끔하고 직관적인 App 화면 구성<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - DB에 저장된 정보를 Flutter를 통하여 UI 제공<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 사용자들에게 공지 사항이나 업데이트 내용을 전달 할 수 있는 관리자용 웹페이지 (PHP, HTML) 제작<br/>
 
 #### · 백엔드
-&nbsp;&nbsp;&nbsp;&nbsp; - Oracle을 통한 데이터베이스 설계
-&nbsp;&nbsp;&nbsp;&nbsp; - 도메인을 통해 설정된 IP주소의 관리페이지 접근
-&nbsp;&nbsp;&nbsp;&nbsp; - Node.js와 Oracle를 연동하여 사용자에게 DB에 저장된 태양광 관련 정보 조회
+&nbsp;&nbsp;&nbsp;&nbsp; - Oracle을 통한 데이터베이스 설계<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 도메인을 통해 설정된 IP주소의 관리페이지 접근<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - Node.js와 Oracle를 연동하여 사용자에게 DB에 저장된 태양광 관련 정보 조회<br/>
 
 #### · 딥러닝
-&nbsp;&nbsp;&nbsp;&nbsp; - 태양광 발전 예측 모델을 통한 내일의 발전량 예측 기능
+&nbsp;&nbsp;&nbsp;&nbsp; - 태양광 발전 예측 모델을 통한 내일의 발전량 예측 기능<br/>
 
 #### · IoT
-&nbsp;&nbsp;&nbsp;&nbsp; - Arduino 센서를 통하여 대기 상태 물질(6종)을 수집하고 상관관계를 분석
+&nbsp;&nbsp;&nbsp;&nbsp; - Arduino 센서를 통하여 대기 상태 물질(6종)을 수집하고 상관관계를 분석<br/>
 <br/>
 
 ## 💡 프로젝트 주요 기술
