@@ -18,6 +18,30 @@
 #### 2024.07.11 ~ 2024.08.22 (7주)
 <br/>
 
+## 📌프로젝트 개발 내용
+#### · 버전관리 및 협업툴
+#### &nbsp;&nbsp;&nbsp;&nbsp; - Git을 활용해 소스 코드 백업, 협업 등 효율적인 시간 분배
+#### &nbsp;&nbsp;&nbsp;&nbsp; - 로컬과 서버 사이 Git을 두고 버전관리
+#### &nbsp;&nbsp;&nbsp;&nbsp; - FileZilla를 통한 파일 공유
+
+#### · 프론트엔드
+#### &nbsp;&nbsp;&nbsp;&nbsp; - Figma를 활용한 UI/UX 설계
+#### &nbsp;&nbsp;&nbsp;&nbsp; - 사용자를 고려하여 깔끔하고 직관적인 App 화면 구성
+#### &nbsp;&nbsp;&nbsp;&nbsp; - DB에 저장된 정보를 Flutter를 통하여 UI 제공
+#### &nbsp;&nbsp;&nbsp;&nbsp; - 사용자들에게 공지 사항이나 업데이트 내용을 전달 할 수 있는 관리자용 웹페이지 (PHP, HTML) 제작
+
+#### · 백엔드
+#### &nbsp;&nbsp;&nbsp;&nbsp; - Oracle을 통한 데이터베이스 설계
+#### &nbsp;&nbsp;&nbsp;&nbsp; - 도메인을 통해 설정된 IP주소의 관리페이지 접근
+#### &nbsp;&nbsp;&nbsp;&nbsp; - Node.js와 Oracle를 연동하여 사용자에게 DB에 저장된 태양광 관련 정보 조회
+
+#### · 딥러닝
+#### &nbsp;&nbsp;&nbsp;&nbsp; - 태양광 발전 예측 모델을 통한 내일의 발전량 예측 기능
+
+#### · IoT
+#### &nbsp;&nbsp;&nbsp;&nbsp; - Arduino 센서를 통하여 대기 상태 물질(6종)을 수집하고 상관관계를 분석
+<br/>
+
 ## 📌프로젝트 주요 기술
 #### · 버전관리 및 협업툴 (git, github, Figma)<br/>
 #### · App 제작 (Android Studio)<br/>
@@ -37,33 +61,47 @@
         <td>사용언어</td>
         <td>
           <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
-          <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=C++&logoColor=white"/> 
-          <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
-          <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
-          <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
+          <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+          <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+          <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E">
+          <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"/>
+          <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white"/>
         </td>
     </tr>
     <tr>
-        <td>라이브러리</td>
+        <td>모델링</td>
         <td>
-          <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" > 
-            <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/>
-          <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
-<img src="https://img.shields.io/badge/Axios-007CE2?style=for-the-badge&logo=axios&logoColor=white" >
+          <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white">
+          <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white" >
+         <img src="https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white">
+         <img src="https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white">
+         <img src="https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black">
+         <img src="https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white">
+         <img src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white">
         </td>
     </tr>
     <tr>
         <td>개발도구</td>
         <td>
-            <img src="https://img.shields.io/badge/RaspberryPi-A22846?style=for-the-badge&logo=RaskpberryPi&logoColor=white"/>
+            <img src="https://img.shields.io/badge/android%20studio-346ac1?style=for-the-badge&logo=android%20studio&logoColor=white"/>
             <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white"/>
             <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=Jupyter&logoColor=white"/>
         </td>
     </tr>
     <tr>
         <td>데이터베이스</td>
         <td>
-            <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/>
+        </td>
+    </tr>
+    <tr>
+        <td>서버환경</td>
+        <td>
+             <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
+             <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/>
+             <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white"/> 
+             <img src="https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white"/> 
         </td>
     </tr>
     <tr>
@@ -71,6 +109,9 @@
         <td>
             <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/>
             <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"/>
+            <img src="https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white"/>
+            <img src="https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=for-the-badge&logo=kakaotalk&logoColor=000000"/>
         </td>
     </tr>
 </table>
