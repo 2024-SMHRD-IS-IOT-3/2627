@@ -133,11 +133,11 @@
 ## 💡 화면구성
 #### [APP]
 ##### 1. 로그인/회원가입 화면<br/>
-![조명페이지](https://github.com/2024-SMHRD-IS-IOT-3/NPSS/assets/165890322/8c5ee8c7-2fbf-4eb6-96e0-8ede15e9655e)
+
 ##### 2. 공지사항 화면<br/>
-![태양광페이지](https://github.com/2024-SMHRD-IS-IOT-3/NPSS/assets/165890322/bcfebaa1-cb49-4e49-97cf-7698ff9e169e)
+
 ##### 3. 발전량 예측 화면<br/>
-![냉난방페이지](https://github.com/2024-SMHRD-IS-IOT-3/NPSS/assets/165890322/b87e962f-d80e-4181-9590-86238e6e2d31)
+
 ##### 4. 메인 화면<br/>
 ##### 5. 모집 게시판 화면<br/>
 ##### 6. 마이페이지 화면<br/>
@@ -183,20 +183,5 @@
 <br/>
 
 ## 💡 참고문헌
-- (기사) 국내 최초 전통조명 대비 스마트조명 정확한 에너지절감률 측정<br/>
-https://www.electimes.com/news/articleView.html?idxno=317527<br/>
-- SK쉴더스 공식 홈페이지<br/>
- https://www.skshieldus.com/kor/index.do 
-gcl_keyword=kt%20%ED%85%94%EB%A0%88%EC%BA%85&gcl_network=g&gad_source=1&gclid=Cj0KCQjw0ruyBhDuARIsANSZ3wogZyIgr2LeOAeo34gzFrobsFe8mFpbTMeKw2cDfdrj0NUz2HlaKEoaAhIiEALw_wcB<br/>
-- (기사) 전기료 인상에…24시 무인 점포 패닉 “폐업 해야 되나”<br/>
- https://biz.chosun.com/topics/topics_social/2023/05/18/B3X3I67IWVBYVH5HFGYEKKHOKI/<br/>
-- (기사) [그래픽] 전기요금 인상폭 추이<br/>
- https://www.yna.co.kr/view/GYH20230621000800044<br/>
-- (기사) 최저임금 인상에 편의점 '무인점포' 각광받는데···아직은 시기상조?<br/>
- https://www.sisajournal-e.com/news/articleView.html?idxno=301739<br/>
-- (기사) 서울시, 무인 점포 아이스크림 판매점 쓰레기, 악취 , 위생 불량 심각<br/>
-https://www.journal25.com/news/articleView.html?idxno=291181<br/>
-- (기사) [무인점포 가보니] '쓰레기 폭탄·소비자 불만 폭발' … 왜 증가할까 ?<br/>
-https://www.safetimes.co.kr/news/articleView.html?idxno=111166<br/>
 
 
