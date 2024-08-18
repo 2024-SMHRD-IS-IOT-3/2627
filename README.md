@@ -5,7 +5,7 @@
 <br/>
  
 
-## 📌프로젝트 소개
+## 💡 프로젝트 소개
 #### · LSTM 모델을 활용해서 미세먼지 농도 시계열 데이터와 발전량 데이터를 분석, 예측하는 모델 제작<br/>
 #### · 기상인자와 대기 상태 물질(6종)을 기반으로 미세먼지 농도를 예측하여 상관관계를 분석하고 발전소 환경에 따른 발전량의 인과관계를 도출<br/>
 #### · Flutter를 사용한 태양광 발전량 예측 App 제작<br/>
@@ -14,11 +14,11 @@
 #### · IoT 센서로 데이터를 수집하고, 모델에 데이터를 적용하여 정확도 향상<br/>
 <br/>
 
-## 📌프로젝트 기간
+## 💡 프로젝트 기간
 #### 2024.07.11 ~ 2024.08.22 (7주)
 <br/>
 
-## 📌프로젝트 개발 내용
+## 💡 프로젝트 개발 내용
 #### · 버전관리 및 협업툴
 #### &nbsp;&nbsp;&nbsp;&nbsp; - Git을 활용해 소스 코드 백업, 협업 등 효율적인 시간 분배
 #### &nbsp;&nbsp;&nbsp;&nbsp; - 로컬과 서버 사이 Git을 두고 버전관리
@@ -42,7 +42,7 @@
 #### &nbsp;&nbsp;&nbsp;&nbsp; - Arduino 센서를 통하여 대기 상태 물질(6종)을 수집하고 상관관계를 분석
 <br/>
 
-## 📌프로젝트 주요 기술
+## 💡 프로젝트 주요 기술
 #### · 버전관리 및 협업툴 (git, github, Figma)<br/>
 #### · App 제작 (Android Studio)<br/>
 #### · Web 제작 (HTML, CSS, JS, PHP)<br/>
@@ -51,7 +51,7 @@
 #### · 딥러닝 알고리즘 (Python keras)<br/>
 <br/>
 
-## 📌기술스택
+## 💡 기술스택
 <table>
     <tr>
         <th>구분</th>
@@ -118,19 +118,19 @@
 <br/>
 
 
-## 📌시스템 아키텍처
+## 💡 시스템 아키텍처
 <img width="630" alt="시스템아키텍처2" src="https://github.com/user-attachments/assets/d271ff70-8371-4ab1-903d-19fb21492bdb">
 <br/>
 
-## 📌유스케이스
+## 💡 유스케이스
 ![유스케이스](https://github.com/user-attachments/assets/db7289bd-a8a0-48dd-909c-b60b5d3b2aed)
 <br/>
 
-## 📌ER 다이어그램
+## 💡 ER 다이어그램
 ![erd](https://github.com/user-attachments/assets/d3196960-95ed-47de-9c45-4b0258bf7177)
 <br/>
 
-## 📌화면구성
+## 💡 화면구성
 #### [APP]
 ##### 1. 로그인/회원가입 화면<br/>
 ![조명페이지](https://github.com/2024-SMHRD-IS-IOT-3/NPSS/assets/165890322/8c5ee8c7-2fbf-4eb6-96e0-8ede15e9655e)
@@ -149,7 +149,7 @@
 ##### 3. 모집 게시판 관리 페이지<br/>
 <br/>
 
-## 📌팀원역할
+## 💡 팀원역할
 <table>
   <tr>
     <td align="center"><strong>김희원</strong></td>
@@ -182,7 +182,7 @@
 </table>
 <br/>
 
-## 📌참고문헌
+## 💡 참고문헌
 - (기사) 국내 최초 전통조명 대비 스마트조명 정확한 에너지절감률 측정<br/>
 https://www.electimes.com/news/articleView.html?idxno=317527<br/>
 - SK쉴더스 공식 홈페이지<br/>
