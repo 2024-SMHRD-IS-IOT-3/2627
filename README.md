@@ -180,7 +180,7 @@
           <br/>· APP 카카오 로그인 구현</td>
     <td>· APP 로고 디자인<br/>· APP - 로그인/회원가입/발전소등록 페이지<br/>· 프로토타입(시제품) 제작<br/>· PPT 제작<br/>· 시연 영상 제작</td>
     <td>· APP 디자인<br/>· APP - 공지사항/발전량 예측/메인/모집게시판/마이페이지 제작<br/>· APP-Server-DB 연동</td>
-    <td>· DB 통신<br/>· IoT 하드웨어<br/>· 프로토타입(시제품) 제작<br/>· DB 연계</td>
+    <td>· DB 통신<br/>· IoT 하드웨어<br/>· 프로토타입(시제품) 제작<br/>· DB 연계<br/>· PHP-ESP wifi 통신<br/>· PHP-DB 통신</td>
     <td>· WEB(관리자용) 로그인 페이지 제작</td>
   </tr>
   <tr>
