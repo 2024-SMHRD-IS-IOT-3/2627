@@ -61,10 +61,8 @@
         <td>사용언어</td>
         <td>
           <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
-          <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-          <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white">
           <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E">
-          <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"/>
+          <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white"/>
           <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white"/>
         </td>
     </tr>
@@ -94,10 +92,17 @@
         </td>
     </tr>
     <tr>
+        <td>Web</td>
+        <td>
+            <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+            <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+            <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"/>
+        </td>
+    </tr>
+    <tr>
         <td>서버환경</td>
         <td>
              <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/>
-             <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black"/>
              <img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white"/> 
              <img src="https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white"/> 
         </td>
@@ -165,7 +170,8 @@
     <td align="center">Front-End</td>
   </tr>
  <tr>
-    <td>· 리스크관리(기술적 문제, 팀워크 문제)<br/>· 프로젝트 일정/개인별 진행사항 파악, 회의 진행 및 회의록 작성<br/>· 모델 제작, 모델 학습<br/>· DB 설계 및 구축<br/>· APP-Server-DB 연동<br/>· WEB(관리자용) 제작</td>
+    <td>· 리스크관리(기술적 문제, 팀워크 문제)<br/>· 프로젝트 일정/개인별 진행사항 파악, 회의 진행 및 회의록 작성<br/>· 모델 제작, 모델 학습<br/>· DB 설계 및 구축<br/>· APP-Server-DB 연동<br/>· WEB(관리자용) 제작  
+          <br/>· APP 카카오 로그인 구현</td>
     <td>· APP 로고 디자인<br/>· APP - 로그인/회원가입/발전소등록 페이지<br/>· 프로토타입(시제품) 제작<br/>· PPT 제작<br/>· 시연 영상 제작</td>
     <td>· APP 디자인<br/>· APP - 공지사항/발전량 예측/메인/모집게시판/마이페이지 제작<br/>· APP-Server-DB 연동</td>
     <td>· DB 통신<br/>· IoT 하드웨어<br/>· 프로토타입(시제품) 제작<br/>· DB 연계</td>
