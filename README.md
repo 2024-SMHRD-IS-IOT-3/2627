@@ -137,20 +137,26 @@
 ## 💡 화면구성
 #### [APP]
 ##### 1. 로그인/회원가입 화면<br/>
-
+<img src=""><br/>
 ##### 2. 공지사항 화면<br/>
-
+<img src=""><br/>
 ##### 3. 발전량 예측 화면<br/>
-
+<img src=""><br/>
 ##### 4. 메인 화면<br/>
+<img src=""><br/>
 ##### 5. 모집 게시판 화면<br/>
+<img src=""><br/>
 ##### 6. 마이페이지 화면<br/>
+<img src=""><br/>
 <br/>
 
 #### [WEB (관리자 페이지)]
 ##### 1. 공지사항 등록 페이지<br/>
+<img src="https://github.com/user-attachments/assets/7f6553ee-9cde-4bb2-9164-b47800f130e8"><br/>
 ##### 2. 회원 관리 페이지<br/>
+<img src="https://github.com/user-attachments/assets/c6cb7334-b9b1-4dc9-aa49-3605ba875da5"><br/>
 ##### 3. 모집 게시판 관리 페이지<br/>
+<img src="https://github.com/user-attachments/assets/8bf18fec-0964-4114-a3e7-8e0b67815314"><br/>
 <br/>
 
 ## 💡 팀원역할
