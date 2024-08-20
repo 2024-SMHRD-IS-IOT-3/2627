@@ -127,11 +127,11 @@
 <br/>
 
 ## 💡 유스케이스
-![유스케이스](https://github.com/user-attachments/assets/db7289bd-a8a0-48dd-909c-b60b5d3b2aed)
+<img width="400px" src="https://github.com/user-attachments/assets/db7289bd-a8a0-48dd-909c-b60b5d3b2aed">
 <br/>
 
 ## 💡 ER 다이어그램
-![erd](https://github.com/user-attachments/assets/d3196960-95ed-47de-9c45-4b0258bf7177)
+<img width="750px" src="https://github.com/user-attachments/assets/d3196960-95ed-47de-9c45-4b0258bf7177">
 <br/>
 
 ## 💡 화면구성
