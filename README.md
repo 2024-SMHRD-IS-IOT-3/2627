@@ -137,17 +137,37 @@
 ## 💡 화면구성
 #### [APP]
 ##### 1. 로그인/회원가입 화면<br/>
-<img src=""><br/>
-##### 2. 공지사항 화면<br/>
-<img src=""><br/>
-##### 3. 발전량 예측 화면<br/>
-<img src=""><br/>
-##### 4. 메인 화면<br/>
-<img src=""><br/>
-##### 5. 모집 게시판 화면<br/>
-<img src=""><br/>
-##### 6. 마이페이지 화면<br/>
-<img src=""><br/>
+<img width="200px" src="https://github.com/user-attachments/assets/c65e7d78-c063-4789-9a65-af5f2f9b54dc">
+<img width="200px" src="https://github.com/user-attachments/assets/85b8a39a-e19a-42b1-a1e4-1fcbc4fb0499">
+<br/>
+
+##### 2. 마이페이지 / 정보 수정 화면<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/083fa70e-f705-4153-b506-37df1da1f508">
+<img width="200px" src="https://github.com/user-attachments/assets/29df1b70-4e7d-49b9-aafd-c0b376f7e092">
+<br/>
+
+##### 3. 발전소 등록 화면<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/c9b9471c-9f72-4b52-8fda-a084843cfd88">
+<img width="200px" src="https://github.com/user-attachments/assets/0878ae98-835e-4c6e-aee0-3facfe374680">
+<br/>
+
+##### 4. 공지사항 / 메인페이지 / 발전소 수익 화면<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/ead2eeb4-11cc-413a-b202-7276058f23ce">
+<img width="200px" src="https://github.com/user-attachments/assets/8585c951-49b2-484b-b42a-d2aa16adce1b">
+<img width="200px" src="https://github.com/user-attachments/assets/c25f7ae5-4769-4223-850a-6406c4744881">
+<br/>
+
+##### 5. 발전량 예측 화면<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/719c41e0-1cb2-4243-9fee-5869000356fb">
+<img width="200px" src="https://github.com/user-attachments/assets/0dc23c7e-c722-4332-9966-2bacb7825cfa">
+<br/>
+
+##### 6. 모집 게시판 화면<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/08537a6f-5bc8-4fe5-b156-d86674bcc65d">
+<img width="200px" src="https://github.com/user-attachments/assets/420914d2-0cff-4e41-8c5c-5453b6573b0c">
+<br/>
+<img width="200px" src="https://github.com/user-attachments/assets/bb5a6987-b193-437a-9f76-4c9c3bf764e5">
+<img width="200px" src="https://github.com/user-attachments/assets/f344eda6-0690-4abd-bb19-0f4f5c50c91f">
 <br/>
 
 #### [WEB (관리자 페이지)]
