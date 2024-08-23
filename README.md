@@ -186,6 +186,18 @@
 <img src="https://github.com/user-attachments/assets/8bf18fec-0964-4114-a3e7-8e0b67815314"><br/>
 <br/>
 
+### [Prototype]
+<img width="750px" src="https://github.com/user-attachments/assets/1226ba5b-3d31-4f98-a723-bd4e668adfce">
+<br/>
+
+## 💡 IoT 회로구성도
+##### 1. 태양광 발전 전력 생성/ 태양광 발전 측정기/ 온습도 측정/ 미세먼지 측정<br/>
+<img width="750px" src="https://github.com/user-attachments/assets/39ee2fb1-7162-4c15-ae89-fd315b81a48c">
+
+##### 2. 일사량 측정<br/>
+<img width="400px" src="https://github.com/user-attachments/assets/75889175-0844-4ecb-98ca-03f0d0c0e1ad">
+<br/>
+
 ## 💡 팀원역할
 <table>
   <tr>
