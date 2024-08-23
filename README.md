@@ -160,7 +160,7 @@
 
 ##### 4. 공지사항 / 메인페이지 / 발전소 수익 화면<br/>
 <img width="200px" src="https://github.com/user-attachments/assets/ead2eeb4-11cc-413a-b202-7276058f23ce">
-<img width="200px" src="https://github.com/user-attachments/assets/8585c951-49b2-484b-b42a-d2aa16adce1b">
+<img width="200px" src="https://github.com/user-attachments/assets/2854321c-f20e-4ad8-89b0-34a0c01219ba">
 <img width="200px" src="https://github.com/user-attachments/assets/c25f7ae5-4769-4223-850a-6406c4744881">
 <br/>
 
