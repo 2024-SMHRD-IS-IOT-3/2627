@@ -1,4 +1,4 @@
-# LSTM 모델 기반 태양광 발전량 예측 솔루션 (팀명 : 스물여섯,스물일곱) 
+# LSTM 모델 기반 태양광 발전량 예측 솔루션 (팀명 : 스물여섯, 스물일곱) 
 <br/>
  <img width="750px" src="https://github.com/user-attachments/assets/d928a387-46f8-4d1a-be36-a94bfdc11ad4"/>
 <br/>
