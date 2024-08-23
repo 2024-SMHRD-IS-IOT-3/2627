@@ -1,6 +1,6 @@
 # LSTM 모델 기반 태양광 발전량 예측 솔루션 (팀명 : 스물여섯,스물일곱) 
 <br/>
- <img width="700px "src="https://github.com/user-attachments/assets/d928a387-46f8-4d1a-be36-a94bfdc11ad4"/>
+ <img width="750px" src="https://github.com/user-attachments/assets/d928a387-46f8-4d1a-be36-a94bfdc11ad4"/>
 <br/>
 <br/>
  
@@ -129,20 +129,20 @@
 
 
 ## 💡 시스템 아키텍처
-<img width="630" alt="시스템아키텍처2" src="https://github.com/user-attachments/assets/d271ff70-8371-4ab1-903d-19fb21492bdb">
+<img width="630" alt="시스템아키텍처" src="https://github.com/user-attachments/assets/4abaebd8-8543-4eee-819e-da4f14a82504">
 <br/>
 
 ## 💡 유스케이스
-![유스케이스](https://github.com/user-attachments/assets/db7289bd-a8a0-48dd-909c-b60b5d3b2aed)
+<img src="https://github.com/user-attachments/assets/db7289bd-a8a0-48dd-909c-b60b5d3b2aed"/>
 <br/>
 
 ## 💡 ER 다이어그램
-![erd](https://github.com/user-attachments/assets/d3196960-95ed-47de-9c45-4b0258bf7177)
+<img width="750px" src="https://github.com/user-attachments/assets/d3196960-95ed-47de-9c45-4b0258bf7177"/>
 <br/>
 
 ## 💡 화면구성
-#### [APP]
-<img width="200" src="https://github.com/user-attachments/assets/8b42d8ca-b67c-4335-9205-ed21efcf037a"/><br/>
+### [APP]
+<img width="180" src="https://github.com/user-attachments/assets/8b42d8ca-b67c-4335-9205-ed21efcf037a"/><br/>
 ##### 1. 로그인/회원가입 화면<br/>
 <img width="200px" src="https://github.com/user-attachments/assets/c65e7d78-c063-4789-9a65-af5f2f9b54dc">
 <img width="200px" src="https://github.com/user-attachments/assets/85b8a39a-e19a-42b1-a1e4-1fcbc4fb0499">
@@ -177,7 +177,7 @@
 <img width="200px" src="https://github.com/user-attachments/assets/f344eda6-0690-4abd-bb19-0f4f5c50c91f">
 <br/>
 
-#### [WEB (관리자 페이지)]
+### [WEB (관리자 페이지)]
 ##### 1. 공지사항 등록 페이지<br/>
 <img src="https://github.com/user-attachments/assets/7f6553ee-9cde-4bb2-9164-b47800f130e8"><br/>
 ##### 2. 회원 관리 페이지<br/>
@@ -189,11 +189,11 @@
 ## 💡 팀원역할
 <table>
   <tr>
-    <td align="center"><strong>김희원</strong></td>
-    <td align="center"><strong>홍지연</strong></td>
-    <td align="center"><strong>최수빈</strong></td>
-    <td align="center"><strong>김준</strong></td>
-    <td align="center"><strong>박태하</strong></td>
+    <th width="220" align="center"><strong>김희원</strong></td>
+    <th width="210" align="center"><strong>홍지연</strong></td>
+    <th width="200" align="center"><strong>최수빈</strong></td>
+    <th width="210" align="center"><strong>김준</strong></td>
+    <th width="170" align="center"><strong>박태하</strong></td>
   </tr>
  <tr>
     <td align="center">팀장, PM, Modeling, Back-End</td>
@@ -203,10 +203,10 @@
     <td align="center">Front-End</td>
   </tr>
  <tr>
-    <td>· 리스크관리(기술적 문제, 팀워크 문제)<br/>· 프로젝트 일정/개인별 진행사항 파악, 회의 진행 및 회의록 작성<br/>· 모델 제작, 모델 학습<br/>· DB 설계 및 구축<br/>· APP-Server-DB 연동<br/>· WEB(관리자용) 제작  
+    <td>· 프로젝트 일정/개인별 진행사항 파악, 회의 진행<br/>· 산출문서 작성<br/>· 모델 제작, 모델 학습<br/>· DB 설계 및 구축<br/>· APP-Server-DB 연동<br/>· WEB(관리자용) 제작  
           <br/>· APP 카카오 로그인 구현</td>
     <td>· APP 로고 디자인<br/>· APP - 로그인/회원가입/발전소등록 페이지<br/>· 프로토타입(시제품) 제작<br/>· PPT 제작<br/>· 시연 영상 제작</td>
-    <td>· APP 디자인<br/>· APP - 공지사항/발전량 예측/메인/모집게시판/마이페이지 제작<br/>· APP-Server-DB 연동</td>
+    <td>· APP 디자인<br/>· APP - 공지사항/발전량 예측/메인/모집게시판/마이페이지 제작<br/>· APP-Server-DB 연동<br/>· 산출문서 수정·보완<br/>· 회의록 작성</td>
     <td>· 센서, 웹, DB 통신 구축<br/>· 센서 회로 설계, 데이터 측정 및 DB저장<br/>· 프로토타입(시제품) 제작<br/>· 웹(PHP) 개발</td>
     <td>· WEB(관리자용) 로그인 페이지 제작<br/>· 기상 데이터 수집</td>
   </tr>
