@@ -1,6 +1,6 @@
 # LSTM 모델 기반 태양광 발전량 예측 솔루션 (팀명 : 스물여섯,스물일곱) 
 <br/>
- <img width="350" alt="NPSS_logo3" src="https://github.com/user-attachments/assets/8b42d8ca-b67c-4335-9205-ed21efcf037a"/>
+ <img width="700px "src="https://github.com/user-attachments/assets/d928a387-46f8-4d1a-be36-a94bfdc11ad4"/>
 <br/>
 <br/>
  
@@ -142,6 +142,7 @@
 
 ## 💡 화면구성
 #### [APP]
+<img width="200" src="https://github.com/user-attachments/assets/8b42d8ca-b67c-4335-9205-ed21efcf037a"/><br/>
 ##### 1. 로그인/회원가입 화면<br/>
 <img width="200px" src="https://github.com/user-attachments/assets/c65e7d78-c063-4789-9a65-af5f2f9b54dc">
 <img width="200px" src="https://github.com/user-attachments/assets/85b8a39a-e19a-42b1-a1e4-1fcbc4fb0499">
